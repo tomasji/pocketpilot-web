@@ -1,0 +1,20 @@
+parameters:
+
+
+application:
+	errorPresenter: Error
+	mapping:
+		*: PP\*Module\Presenters\*Presenter
+
+
+session:
+	expiration: 14 days
+
+
+services:
+	router: PP\RouterFactory::createRouter
+	userModel: PP\User\UserModel
+	userRead: PP\User\UserRead
+	userUpdate: PP\User\UserUpdate
+	userRegister: PP\User\UserRegister
+	passwordAuthenticator: PP\User\PasswordAuthenticator
