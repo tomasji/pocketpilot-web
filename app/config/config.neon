@@ -1,4 +1,6 @@
 parameters:
+	facebook:
+		dgv: 'v2.10'
 
 
 application:
@@ -17,5 +19,7 @@ services:
 	userRead: PP\User\UserRead
 	userUpdate: PP\User\UserUpdate
 	userRegister: PP\User\UserRegister
-	userAuthenticator: PP\User\UserAuthenticator
-	passwordAuthenticator: PP\User\PasswordAuthenticator
+	userAuthenticator: PP\User\UserPasswordAuthenticator
+	userFacebookAuthenticator: PP\User\UserFacebookAuthenticator
+	authenticator: PP\Authenticator
+	facebook: Facebook\Facebook( {app_id: %facebook.app_id%, app_secret: %facebook.app_secret%, default_graph_version: %facebook.dgv%} )

@@ -2,11 +2,33 @@
 
 namespace PP\Presenters;
 
+use Facebook\Exceptions\FacebookSDKException;
+use Facebook\Facebook;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
 use Nette\Security\AuthenticationException;
 
 class HomepagePresenter extends Presenter {
+
+	/**
+	 * @var Facebook
+	 */
+	private $fb;
+
+	public function __construct(Facebook $fb) {
+		parent::__construct();
+		$this->fb = $fb;
+	}
+
+	public function actionFbLogin() {
+		try {
+			$response = $this->fb->get('/me?fields=email,first_name,id', $this->fb->getRedirectLoginHelper()->getAccessToken());
+			$this->getUser()->login($response->getGraphUser());
+		} catch (FacebookSDKException $e) {
+		} catch (AuthenticationException $e) {
+		}
+		$this->redirect('Homepage:');
+	}
 
 	/**
 	 * @throws \Nette\Application\AbortException
@@ -18,6 +40,7 @@ class HomepagePresenter extends Presenter {
 
 	public function renderDefault() {
 		$this->template->currentUserName = $this->getUser()->getIdentity() ? $this->getUser()->getIdentity()->username : null;
+		$this->template->fbLoginUrl = $this->fb->getRedirectLoginHelper()->getLoginUrl($this->link('//fbLogin'), ['email']);
 	}
 
 	protected function createComponentForm() : Form {

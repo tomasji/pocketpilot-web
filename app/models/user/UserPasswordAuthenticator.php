@@ -6,7 +6,7 @@ use Nette\Database\Context;
 use Nette\Security\Passwords;
 use Nette\Utils\Validators;
 
-class UserAuthenticator {
+class UserPasswordAuthenticator {
 
 	/**
 	 * @var Context
