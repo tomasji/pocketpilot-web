@@ -18,6 +18,7 @@ class SignUpPresenter extends Presenter {
 	private $userModel;
 
 	public function __construct(UserModel $userModel) {
+		parent::__construct();
 		$this->userModel = $userModel;
 	}
 
