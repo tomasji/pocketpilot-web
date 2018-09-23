@@ -3,13 +3,10 @@
 namespace PP\User;
 
 use Nette\Database\Context;
-use Nette\SmartObject;
 use Nette\Security\Passwords;
 use Nette\Utils\Validators;
 
 class UserAuthenticator {
-
-	use SmartObject;
 
 	/**
 	 * @var Context

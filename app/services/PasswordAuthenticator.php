@@ -2,15 +2,11 @@
 
 namespace PP\User;
 
-use Nette\SmartObject;
 use Nette\Security\AuthenticationException;
 use Nette\Security\IAuthenticator;
 use Nette\Security\Identity;
 
 class PasswordAuthenticator implements IAuthenticator {
-
-	use SmartObject;
-
 	/**
 	 * @var UserAuthenticator
 	 */

@@ -2,8 +2,6 @@
 
 namespace PP\User;
 
-use Nette\Security\Identity;
-
 /**
  * @author Andrej Souček
  */
@@ -52,7 +50,6 @@ class UserModel {
 
 	/**
 	 * @param UserChanges $changes
-	 * @throws \Nette\Utils\AssertionException
 	 */
 	public function updateUser(UserChanges $changes) {
 		$this->update->process($changes);

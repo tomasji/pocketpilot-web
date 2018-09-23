@@ -30,6 +30,7 @@ class UserChanges {
 	private $role;
 
 	/**
+	 * @param int $id
 	 * @throws \Nette\Utils\AssertionException
 	 */
 	public function __construct(int $id) {
