@@ -6,19 +6,18 @@ use Nette\SmartObject;
 use Nette\Security\AuthenticationException;
 use Nette\Security\IAuthenticator;
 use Nette\Security\Identity;
-use Nette\Security\Passwords;
 
 class PasswordAuthenticator implements IAuthenticator {
 
 	use SmartObject;
 
 	/**
-	 * @var UserModel
+	 * @var UserAuthenticator
 	 */
-	public $userModel;
+	private $authenticator;
 
-	public function __construct(UserModel $userModel) {
-		$this->userModel = $userModel;
+	public function __construct(UserAuthenticator $authenticator) {
+		$this->authenticator = $authenticator;
 	}
 
 	/**
@@ -31,17 +30,20 @@ class PasswordAuthenticator implements IAuthenticator {
 	public function authenticate(array $credentials) : Identity {
 		list($email, $password) = $credentials;
 		try {
-			$user = $this->userModel->getUserBy($email);
+			$user = $this->authenticator->authenticate($email, $password);
 		} catch (EmailNotFoundException $e) {
 			throw new AuthenticationException($e->getMessage(), self::IDENTITY_NOT_FOUND, $e);
+		} catch (IncorrectPasswordException $e) {
+			throw new AuthenticationException($e->getMessage(), self::INVALID_CREDENTIAL, $e);
 		}
+		return $this->createIdentity($user);
+	}
 
-		if (!Passwords::verify($password, $user->getHash())) {
-			throw new AuthenticationException('The password is incorrect.', self::INVALID_CREDENTIAL);
-		} elseif (Passwords::needsRehash($user->getHash())) {
-			$entry = new UserEntry($user->getId(), $user->getName(), $user->getEmail(), $user->getRole(), Passwords::hash($password), $user->getFbUid());
-			$this->userModel->updateUser($user->getId(), $entry);
-		}
-		return $this->userModel->createIdentity($user);
+	/**
+	 * @param UserEntry $user
+	 * @return Identity
+	 */
+	private function createIdentity(UserEntry $user) : Identity{
+		return new Identity($user->getId(), [$user->getRole()], ["username" => $user->getName()]);
 	}
 }

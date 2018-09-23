@@ -23,7 +23,7 @@ class UserRead {
 	 * @throws EmailNotFoundException
 	 * @throws \Nette\Utils\AssertionException
 	 */
-	public function getUserBy(string $email) : UserEntry {
+	public function fetchBy(string $email) : UserEntry {
 		Validators::assert($email, 'email');
 		$row = $this->database->table(UserDatabaseDef::TABLE_NAME)->where(UserDatabaseDef::COLUMN_EMAIL, $email)->fetch();
 		if ($row) {
@@ -42,9 +42,7 @@ class UserRead {
 			$data[UserDatabaseDef::COLUMN_ID],
 			$data[UserDatabaseDef::COLUMN_NAME],
 			$data[UserDatabaseDef::COLUMN_EMAIL],
-			$data[UserDatabaseDef::COLUMN_ROLE],
-			$data[UserDatabaseDef::COLUMN_PASSWORD_HASH],
-			$data[UserDatabaseDef::COLUMN_FB_UID]
+			$data[UserDatabaseDef::COLUMN_ROLE]
 		);
 	}
 }

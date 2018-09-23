@@ -17,4 +17,5 @@ services:
 	userRead: PP\User\UserRead
 	userUpdate: PP\User\UserUpdate
 	userRegister: PP\User\UserRegister
+	userAuthenticator: PP\User\UserAuthenticator
 	passwordAuthenticator: PP\User\PasswordAuthenticator

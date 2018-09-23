@@ -45,6 +45,7 @@ class SignUpPresenter extends Presenter {
 	 * @internal
 	 * @param Form $form
 	 * @throws \Nette\Application\AbortException
+	 * @throws \Nette\Utils\AssertionException
 	 */
 	public function processForm(Form $form): void {
 		$values = $form->getValues();

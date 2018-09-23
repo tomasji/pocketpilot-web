@@ -35,7 +35,7 @@ class UserModel {
 	 * @throws \Nette\Utils\AssertionException
 	 */
 	public function getUserBy(string $email) {
-		return $this->read->getUserBy($email);
+		return $this->read->fetchBy($email);
 	}
 
 	/**
@@ -44,24 +44,17 @@ class UserModel {
 	 * @param string|null $fb_uid
 	 * @param string|null $password
 	 * @throws DuplicateNameException
+	 * @throws \Nette\Utils\AssertionException
 	 */
 	public function registerUser(string $username, string $email, string $fb_uid = null, string $password = null) {
-		$this->register->registerUser($username, $email, $fb_uid, $password);
+		$this->register->process($username, $email, $fb_uid, $password);
 	}
 
 	/**
-	 * @param int $id
-	 * @param UserEntry $user
+	 * @param UserChanges $changes
+	 * @throws \Nette\Utils\AssertionException
 	 */
-	public function updateUser(int $id, UserEntry $user) {
-		$this->update->updateUser($id, $user);
-	}
-
-	/**
-	 * @param UserEntry $user
-	 * @return Identity
-	 */
-	public function createIdentity(UserEntry $user) : Identity{
-		return new Identity($user->getId(), [$user->getRole()], ["username" => $user->getName()]);
+	public function updateUser(UserChanges $changes) {
+		$this->update->process($changes);
 	}
 }

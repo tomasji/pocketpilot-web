@@ -17,27 +17,24 @@ class UserUpdate {
 	}
 
 	/**
-	 * @param int $id
-	 * @param UserEntry $user
+	 * @param UserChanges $changes
 	 */
-	public function updateUser(int $id, UserEntry $user) : void {
+	public function process(UserChanges $changes) : void {
 		$this->database->table(UserDatabaseDef::TABLE_NAME)
-			->where(UserDatabaseDef::COLUMN_ID, $id)
-			->update($this->toArray($user));
+			->where(UserDatabaseDef::COLUMN_ID, $changes->getId())
+			->update($this->toArray($changes));
 	}
 
 	/**
-	 * @param UserEntry $user
+	 * @param UserChanges $changes
 	 * @return array
 	 */
-	private function toArray(UserEntry $user) : array {
-		return [
-			UserDatabaseDef::COLUMN_ID => $user->getId(),
-			UserDatabaseDef::COLUMN_NAME => $user->getName(),
-			UserDatabaseDef::COLUMN_EMAIL => $user->getEmail(),
-			UserDatabaseDef::COLUMN_ROLE => $user->getRole(),
-			UserDatabaseDef::COLUMN_PASSWORD_HASH => $user->getHash(),
-			UserDatabaseDef::COLUMN_FB_UID => $user->getFbUid()
+	private function toArray(UserChanges $changes) : array {
+		$xs = [
+			UserDatabaseDef::COLUMN_NAME => $changes->getName(),
+			UserDatabaseDef::COLUMN_EMAIL => $changes->getEmail(),
+			UserDatabaseDef::COLUMN_ROLE => $changes->getRole()
 		];
+		return array_filter($xs);
 	}
 }
