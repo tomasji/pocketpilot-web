@@ -43,7 +43,7 @@ class UserAuthenticator {
 		} elseif (Passwords::needsRehash($hash)) {
 			$this->database->table(UserDatabaseDef::TABLE_NAME)
 				->where(UserDatabaseDef::COLUMN_ID, $entry->getId())
-				->update([UserDatabaseDef::COLUMN_PASSWORD_HASH, Passwords::hash($password)]);
+				->update([UserDatabaseDef::COLUMN_PASSWORD_HASH => Passwords::hash($password)]);
 		}
 		return $entry;
 	}
