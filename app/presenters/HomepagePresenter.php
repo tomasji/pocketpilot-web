@@ -6,7 +6,9 @@ use Facebook\Exceptions\FacebookSDKException;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
 use Nette\Security\AuthenticationException;
+use PP\Facebook\FacebookCredentials;
 use PP\Facebook\FacebookModel;
+use PP\User\PasswordCredentials;
 
 class HomepagePresenter extends Presenter {
 
@@ -25,7 +27,8 @@ class HomepagePresenter extends Presenter {
 	 */
 	public function actionFbLogin() {
 		try {
-			$this->getUser()->login($this->fb->getFbUser());
+			$fbUser = $this->fb->getFbUser();
+			$this->getUser()->login(new FacebookCredentials($fbUser->getEmail(), $fbUser->getId()));
 		} catch (FacebookSDKException $e) {
 			$this->flashMessage("Error while connecting to Facebook");
 		} catch (AuthenticationException $e) {
@@ -72,7 +75,7 @@ class HomepagePresenter extends Presenter {
 	public function processForm(Form $form) : void {
 		$values = $form->getValues();
 		try {
-			$this->getUser()->login($values->email, $values->password);
+			$this->getUser()->login(new PasswordCredentials($values->email, $values->password));
 //			$this->redirect('Map:');
 			$this->flashMessage("SUCCESS");
 			$this->redirect('Homepage:');

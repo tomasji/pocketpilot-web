@@ -2,29 +2,31 @@
 
 namespace PP;
 
-use Facebook\GraphNodes\GraphUser;
 use Nette\Security\AuthenticationException;
 use Nette\Security\IAuthenticator;
 use Nette\Security\Identity;
+use PP\Facebook\FacebookAuthenticator;
+use PP\Facebook\FacebookCredentials;
+use PP\Facebook\IncorrectUidException;
 use PP\User\EmailNotFoundException;
 use PP\User\IncorrectPasswordException;
-use PP\User\UserFacebookAuthenticator;
-use PP\User\UserPasswordAuthenticator;
+use PP\User\PasswordCredentials;
+use PP\User\PasswordAuthenticator;
 use PP\User\UserEntry;
 
 class Authenticator implements IAuthenticator {
 	/**
-	 * @var UserPasswordAuthenticator
+	 * @var PasswordAuthenticator
 	 */
-	private $authenticator;
+	private $pwAuthenticator;
 
 	/**
-	 * @var UserFacebookAuthenticator
+	 * @var FacebookAuthenticator
 	 */
 	private $fbAuthenticator;
 
-	public function __construct(UserPasswordAuthenticator $authenticator, UserFacebookAuthenticator $fbAuthenticator) {
-		$this->authenticator = $authenticator;
+	public function __construct(PasswordAuthenticator $pwAuthenticator, FacebookAuthenticator $fbAuthenticator) {
+		$this->pwAuthenticator = $pwAuthenticator;
 		$this->fbAuthenticator = $fbAuthenticator;
 	}
 
@@ -36,17 +38,28 @@ class Authenticator implements IAuthenticator {
 	 * @throws \Nette\Utils\AssertionException
 	 */
 	public function authenticate(array $credentials) : Identity {
+		if (count($credentials)) {
+			$credentials = $credentials[0];
+		} else {
+			throw new \InvalidArgumentException('$credentials array must contain exactly one value.');
+		}
 		try {
-			if (isset($credentials[0]) && $credentials[0] instanceof GraphUser) {
-				$user = $this->fbAuthenticator->authenticate($credentials[0]);
-			} else {
-				list($email, $password) = $credentials;
-				$user = $this->authenticator->authenticate($email, $password);
+			switch (true) {
+				case $credentials instanceof PasswordCredentials:
+					$user = $this->pwAuthenticator->authenticate($credentials);
+					break;
+				case $credentials instanceof FacebookCredentials:
+					$user = $this->fbAuthenticator->authenticate($credentials);
+					break;
+				default:
+					throw new \UnexpectedValueException('Only PasswordCredentials and FacebookCredentials allowed.');
 			}
 			return $this->createIdentity($user);
 		} catch (EmailNotFoundException $e) {
 			throw new AuthenticationException($e->getMessage(), self::IDENTITY_NOT_FOUND, $e);
 		} catch (IncorrectPasswordException $e) {
+			throw new AuthenticationException($e->getMessage(), self::INVALID_CREDENTIAL, $e);
+		} catch (IncorrectUidException $e) {
 			throw new AuthenticationException($e->getMessage(), self::INVALID_CREDENTIAL, $e);
 		}
 	}

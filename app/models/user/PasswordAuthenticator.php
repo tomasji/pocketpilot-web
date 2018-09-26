@@ -4,9 +4,8 @@ namespace PP\User;
 
 use Nette\Database\Context;
 use Nette\Security\Passwords;
-use Nette\Utils\Validators;
 
-class UserPasswordAuthenticator {
+class PasswordAuthenticator {
 
 	/**
 	 * @var Context
@@ -25,25 +24,22 @@ class UserPasswordAuthenticator {
 
 	/**
 	 * Performs an authentication.
-	 * @param string $email
-	 * @param string $password
+	 * @param Credentials $credentials
 	 * @return UserEntry
-	 * @throws \Nette\Utils\AssertionException
 	 * @throws EmailNotFoundException
 	 * @throws IncorrectPasswordException
+	 * @throws \Nette\Utils\AssertionException
 	 */
-	public function authenticate(string $email, string $password) : UserEntry {
-		Validators::assert($email, 'email');
-		Validators::assert($password, 'string:1..');
-		$entry = $this->read->fetchBy($email);
+	public function authenticate(Credentials $credentials) : UserEntry {
+		$entry = $this->read->fetchBy($credentials->getEmail());
 		$hash = $this->database->table(UserDatabaseDef::TABLE_NAME)
 			->where(UserDatabaseDef::COLUMN_ID, $entry->getId())->fetchField(UserDatabaseDef::COLUMN_PASSWORD_HASH);
-		if (!Passwords::verify($password, $hash)) {
+		if (!Passwords::verify($credentials->getAuthString(), $hash)) {
 			throw new IncorrectPasswordException('Entered password is incorrect.');
 		} elseif (Passwords::needsRehash($hash)) {
 			$this->database->table(UserDatabaseDef::TABLE_NAME)
 				->where(UserDatabaseDef::COLUMN_ID, $entry->getId())
-				->update([UserDatabaseDef::COLUMN_PASSWORD_HASH => Passwords::hash($password)]);
+				->update([UserDatabaseDef::COLUMN_PASSWORD_HASH => Passwords::hash($credentials->getAuthString())]);
 		}
 		return $entry;
 	}
