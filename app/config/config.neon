@@ -23,3 +23,6 @@ services:
 	userFacebookAuthenticator: PP\User\UserFacebookAuthenticator
 	authenticator: PP\Authenticator
 	facebook: Facebook\Facebook( {app_id: %facebook.app_id%, app_secret: %facebook.app_secret%, default_graph_version: %facebook.dgv%} )
+	facebookModel: PP\Facebook\FacebookModel
+	facebookUserRead: PP\Facebook\FacebookUserRead
+	facebookLinkBuilder: PP\Facebook\FacebookLinkBuilder

@@ -2,10 +2,11 @@
 
 namespace PP\User;
 
-
 use Facebook\GraphNodes\GraphUser;
 use Nette\Database\Context;
+use Nette\Security\AuthenticationException;
 use Nette\Security\Identity;
+use Nette\Utils\AssertionException;
 
 /**
  * @author Andrej Souček
@@ -37,11 +38,13 @@ class UserFacebookAuthenticator {
 	 * @param GraphUser $graphUser
 	 * @return UserEntry
 	 * @throws \Nette\Utils\AssertionException
+	 * @throws EmailNotFoundException
 	 */
 	public function authenticate(GraphUser $graphUser) : UserEntry {
 		try {
 			$this->register->process($graphUser->getFirstName(), $graphUser->getEmail(), $graphUser->getId());
 		} catch(DuplicateNameException $e) {
+			//pass
 		}
 		$entry = $this->read->fetchBy($graphUser->getEmail());
 		$uid = $this->database->table(UserDatabaseDef::TABLE_NAME)

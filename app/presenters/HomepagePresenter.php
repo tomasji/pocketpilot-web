@@ -3,28 +3,31 @@
 namespace PP\Presenters;
 
 use Facebook\Exceptions\FacebookSDKException;
-use Facebook\Facebook;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
 use Nette\Security\AuthenticationException;
+use PP\Facebook\FacebookModel;
 
 class HomepagePresenter extends Presenter {
 
 	/**
-	 * @var Facebook
+	 * @var FacebookModel
 	 */
 	private $fb;
 
-	public function __construct(Facebook $fb) {
+	public function __construct(FacebookModel $fb) {
 		parent::__construct();
 		$this->fb = $fb;
 	}
 
+	/**
+	 * @throws \Nette\Application\AbortException
+	 */
 	public function actionFbLogin() {
 		try {
-			$response = $this->fb->get('/me?fields=email,first_name,id', $this->fb->getRedirectLoginHelper()->getAccessToken());
-			$this->getUser()->login($response->getGraphUser());
+			$this->getUser()->login($this->fb->getFbUser());
 		} catch (FacebookSDKException $e) {
+			$this->flashMessage("Error while connecting to Facebook");
 		} catch (AuthenticationException $e) {
 		}
 		$this->redirect('Homepage:');
@@ -38,9 +41,13 @@ class HomepagePresenter extends Presenter {
 		$this->redirect('Homepage:');
 	}
 
+	/**
+	 * @throws \Nette\Application\UI\InvalidLinkException
+	 * @throws \Nette\Utils\AssertionException
+	 */
 	public function renderDefault() {
 		$this->template->currentUserName = $this->getUser()->getIdentity() ? $this->getUser()->getIdentity()->username : null;
-		$this->template->fbLoginUrl = $this->fb->getRedirectLoginHelper()->getLoginUrl($this->link('//fbLogin'), ['email']);
+		$this->template->fbLoginUrl = $this->fb->generateLoginUrl($this->link('//fbLogin'));
 	}
 
 	protected function createComponentForm() : Form {

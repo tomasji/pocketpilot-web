@@ -36,19 +36,19 @@ class Authenticator implements IAuthenticator {
 	 * @throws \Nette\Utils\AssertionException
 	 */
 	public function authenticate(array $credentials) : Identity {
-		if (isset($credentials[0]) && $credentials[0] instanceof GraphUser) {
-			$user = $this->fbAuthenticator->authenticate($credentials[0]);
-		} else {
-			list($email, $password) = $credentials;
-			try {
+		try {
+			if (isset($credentials[0]) && $credentials[0] instanceof GraphUser) {
+				$user = $this->fbAuthenticator->authenticate($credentials[0]);
+			} else {
+				list($email, $password) = $credentials;
 				$user = $this->authenticator->authenticate($email, $password);
-			} catch (EmailNotFoundException $e) {
-				throw new AuthenticationException($e->getMessage(), self::IDENTITY_NOT_FOUND, $e);
-			} catch (IncorrectPasswordException $e) {
-				throw new AuthenticationException($e->getMessage(), self::INVALID_CREDENTIAL, $e);
 			}
+			return $this->createIdentity($user);
+		} catch (EmailNotFoundException $e) {
+			throw new AuthenticationException($e->getMessage(), self::IDENTITY_NOT_FOUND, $e);
+		} catch (IncorrectPasswordException $e) {
+			throw new AuthenticationException($e->getMessage(), self::INVALID_CREDENTIAL, $e);
 		}
-		return $this->createIdentity($user);
 	}
 
 	/**
