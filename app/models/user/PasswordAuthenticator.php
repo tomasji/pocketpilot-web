@@ -24,13 +24,13 @@ class PasswordAuthenticator {
 
 	/**
 	 * Performs an authentication.
-	 * @param Credentials $credentials
+	 * @param PasswordCredentials $credentials
 	 * @return UserEntry
 	 * @throws EmailNotFoundException
 	 * @throws IncorrectPasswordException
 	 * @throws \Nette\Utils\AssertionException
 	 */
-	public function authenticate(Credentials $credentials) : UserEntry {
+	public function authenticate(PasswordCredentials $credentials) : UserEntry {
 		$entry = $this->read->fetchBy($credentials->getEmail());
 		$hash = $this->database->table(UserDatabaseDef::TABLE_NAME)
 			->where(UserDatabaseDef::COLUMN_ID, $entry->getId())->fetchField(UserDatabaseDef::COLUMN_PASSWORD_HASH);

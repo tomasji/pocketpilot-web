@@ -25,8 +25,8 @@ class FacebookModel {
 	}
 
 	/**
-	 * @return \Facebook\GraphNodes\GraphUser
-	 * @throws \Facebook\Exceptions\FacebookSDKException
+	 * @return GraphUser
+	 * @throws \Nette\Security\AuthenticationException
 	 */
 	public function getFbUser() : GraphUser {
 		return $this->read->fetch();

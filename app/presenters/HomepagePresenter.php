@@ -2,7 +2,6 @@
 
 namespace PP\Presenters;
 
-use Facebook\Exceptions\FacebookSDKException;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
 use Nette\Security\AuthenticationException;
@@ -28,10 +27,9 @@ class HomepagePresenter extends Presenter {
 	public function actionFbLogin() {
 		try {
 			$fbUser = $this->fb->getFbUser();
-			$this->getUser()->login(new FacebookCredentials($fbUser->getEmail(), $fbUser->getId()));
-		} catch (FacebookSDKException $e) {
-			$this->flashMessage("Error while connecting to Facebook");
+			$this->getUser()->login(new FacebookCredentials($fbUser->getEmail(), $fbUser->getId(), $fbUser->getFirstName()));
 		} catch (AuthenticationException $e) {
+			$this->flashMessage("Error while connecting to Facebook");
 		}
 		$this->redirect('Homepage:');
 	}

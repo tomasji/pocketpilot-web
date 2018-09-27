@@ -3,6 +3,7 @@
 namespace PP\User;
 
 use Nette\Database\Context;
+use Nette\Database\Table\ActiveRow;
 use Nette\Database\UniqueConstraintViolationException;
 use Nette\Security\Passwords;
 use Nette\Utils\Validators;
@@ -24,16 +25,17 @@ class UserRegister {
 	 * @param string $email
 	 * @param string|null $fbUid
 	 * @param string $password
+	 * @return ActiveRow
 	 * @throws DuplicateNameException
 	 * @throws \Nette\Utils\AssertionException
 	 */
-	public function process(string $username, string $email, string $fbUid = null, string $password = null) : void {
+	public function process(string $username, string $email, string $fbUid = null, string $password = null) : ActiveRow {
 		Validators::assert($username, 'string:1..');
 		Validators::assert($email, 'email');
 		Validators::assert($password, 'string:1..|null');
 		Validators::assert($fbUid, 'string:1..|null');
 		try {
-			$this->database->table(UserDatabaseDef::TABLE_NAME)->insert(array(
+			return $this->database->table(UserDatabaseDef::TABLE_NAME)->insert(array(
 				UserDatabaseDef::COLUMN_NAME => $username,
 				UserDatabaseDef::COLUMN_EMAIL => $email,
 				UserDatabaseDef::COLUMN_FB_UID => $fbUid,

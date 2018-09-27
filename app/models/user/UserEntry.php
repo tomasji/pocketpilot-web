@@ -20,6 +20,7 @@ class UserEntry {
 	 * @var string
 	 */
 	private $email;
+
 	/**
 	 * @var string
 	 */

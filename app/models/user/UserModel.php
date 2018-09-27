@@ -32,7 +32,7 @@ class UserModel {
 	 * @throws EmailNotFoundException
 	 * @throws \Nette\Utils\AssertionException
 	 */
-	public function getUserBy(string $email) {
+	public function getUserBy(string $email) : UserEntry {
 		return $this->read->fetchBy($email);
 	}
 
@@ -44,14 +44,14 @@ class UserModel {
 	 * @throws DuplicateNameException
 	 * @throws \Nette\Utils\AssertionException
 	 */
-	public function registerUser(string $username, string $email, string $fb_uid = null, string $password = null) {
+	public function registerUser(string $username, string $email, string $fb_uid = null, string $password = null) : void {
 		$this->register->process($username, $email, $fb_uid, $password);
 	}
 
 	/**
 	 * @param UserChanges $changes
 	 */
-	public function updateUser(UserChanges $changes) {
+	public function updateUser(UserChanges $changes) : void {
 		$this->update->process($changes);
 	}
 }
