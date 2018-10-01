@@ -7,6 +7,7 @@ use Nette\Database\Table\ActiveRow;
 use Nette\Database\UniqueConstraintViolationException;
 use Nette\Security\Passwords;
 use Nette\Utils\Validators;
+use PP\IncorrectCredentialsException;
 
 /**
  * @author Andrej Souček
@@ -26,7 +27,7 @@ class UserRegister {
 	 * @param string|null $fbUid
 	 * @param string $password
 	 * @return ActiveRow
-	 * @throws DuplicateNameException
+	 * @throws IncorrectCredentialsException
 	 * @throws \Nette\Utils\AssertionException
 	 */
 	public function process(string $username, string $email, string $fbUid = null, string $password = null) : ActiveRow {
@@ -42,7 +43,7 @@ class UserRegister {
 				UserDatabaseDef::COLUMN_PASSWORD_HASH => $password ? Passwords::hash($password) : null,
 			));
 		} catch (UniqueConstraintViolationException $e) {
-			throw new DuplicateNameException("Username already exists.");
+			throw new IncorrectCredentialsException("Username already exists.");
 		}
 	}
 }

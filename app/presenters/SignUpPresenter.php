@@ -4,7 +4,7 @@ namespace PP\Presenters;
 
 use Nette\Application\UI\Presenter;
 use Nette\Application\UI\Form;
-use PP\User\DuplicateNameException;
+use PP\IncorrectCredentialsException;
 use PP\User\UserModel;
 
 /**
@@ -47,6 +47,7 @@ class SignUpPresenter extends Presenter {
 	 * @param Form $form
 	 * @throws \Nette\Application\AbortException
 	 * @throws \Nette\Utils\AssertionException
+	 * @throws IncorrectCredentialsException
 	 */
 	public function processForm(Form $form): void {
 		$values = $form->getValues();
@@ -58,7 +59,7 @@ class SignUpPresenter extends Presenter {
 			} else {
 				$form->addError('The passwords do not match.');
 			}
-		} catch (DuplicateNameException $e) {
+		} catch (IncorrectCredentialsException $e) {
 			$form->addError('This account already exists.');
 		}
 	}

@@ -5,13 +5,7 @@ namespace PP\Facebook;
 use Facebook\Exceptions\FacebookSDKException;
 use Facebook\Facebook;
 use Facebook\GraphNodes\GraphUser;
-use Nette\Database\Context;
 use Nette\Security\AuthenticationException;
-use Nette\Utils\AssertionException;
-use PP\User\EmailNotFoundException;
-use PP\User\UserDatabaseDef;
-use PP\User\UserEntry;
-use PP\User\UserRead;
 
 /**
  * @author Andrej Souček

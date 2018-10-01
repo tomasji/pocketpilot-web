@@ -4,6 +4,7 @@ namespace PP\User;
 
 use Nette\Database\Context;
 use Nette\Utils\Validators;
+use PP\IncorrectCredentialsException;
 
 /**
  * @author Andrej Souček
@@ -20,7 +21,7 @@ class UserRead {
 	/**
 	 * @param string $email
 	 * @return UserEntry
-	 * @throws EmailNotFoundException
+	 * @throws IncorrectCredentialsException
 	 * @throws \Nette\Utils\AssertionException
 	 */
 	public function fetchBy(string $email) : UserEntry {
@@ -29,7 +30,7 @@ class UserRead {
 		if ($row) {
 			return $this->toEntity($row);
 		} else {
-			throw new EmailNotFoundException("User with email $email does not exists.");
+			throw new IncorrectCredentialsException("User with email $email does not exists.");
 		}
 	}
 

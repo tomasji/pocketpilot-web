@@ -2,12 +2,9 @@
 
 namespace PP\Facebook;
 
-use Facebook\GraphNodes\GraphUser;
 use Nette\Database\Context;
 use Nette\Utils\AssertionException;
-use PP\User\Credentials;
-use PP\User\DuplicateNameException;
-use PP\User\EmailNotFoundException;
+use PP\IncorrectCredentialsException;
 use PP\User\UserDatabaseDef;
 use PP\User\UserEntry;
 use PP\User\UserRead;
@@ -43,6 +40,7 @@ class FacebookAuthenticator {
 	 * @param FacebookCredentials $credentials
 	 * @return UserEntry
 	 * @throws AssertionException
+	 * @throws IncorrectCredentialsException
 	 */
 	public function authenticate(FacebookCredentials $credentials) : UserEntry {
 		$row = $this->database->table(UserDatabaseDef::TABLE_NAME)->where(UserDatabaseDef::COLUMN_EMAIL, $credentials->getEmail())->fetch();
@@ -55,7 +53,7 @@ class FacebookAuthenticator {
 		if ($row && isset($row[UserDatabaseDef::COLUMN_FB_UID]) && $row[UserDatabaseDef::COLUMN_FB_UID] === $credentials->getAuthString()) {
 			return $this->read->fetchBy($credentials->getEmail());
 		} else {
-			throw new IncorrectUidException("FB user ID does not match with local FB uID.");
+			throw new IncorrectCredentialsException("FB user ID does not match with local FB uID.");
 		}
 	}
 

@@ -2,6 +2,8 @@
 
 namespace PP\User;
 
+use PP\IncorrectCredentialsException;
+
 /**
  * @author Andrej Souček
  */
@@ -29,7 +31,6 @@ class UserModel {
 	/**
 	 * @param string $email
 	 * @return UserEntry
-	 * @throws EmailNotFoundException
 	 * @throws \Nette\Utils\AssertionException
 	 */
 	public function getUserBy(string $email) : UserEntry {
@@ -41,7 +42,7 @@ class UserModel {
 	 * @param string $email
 	 * @param string|null $fb_uid
 	 * @param string|null $password
-	 * @throws DuplicateNameException
+	 * @throws IncorrectCredentialsException
 	 * @throws \Nette\Utils\AssertionException
 	 */
 	public function registerUser(string $username, string $email, string $fb_uid = null, string $password = null) : void {

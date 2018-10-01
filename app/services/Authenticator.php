@@ -7,9 +7,6 @@ use Nette\Security\IAuthenticator;
 use Nette\Security\Identity;
 use PP\Facebook\FacebookAuthenticator;
 use PP\Facebook\FacebookCredentials;
-use PP\Facebook\IncorrectUidException;
-use PP\User\EmailNotFoundException;
-use PP\User\IncorrectPasswordException;
 use PP\User\PasswordCredentials;
 use PP\User\PasswordAuthenticator;
 use PP\User\UserEntry;
@@ -55,12 +52,8 @@ class Authenticator implements IAuthenticator {
 					throw new \UnexpectedValueException('Only PasswordCredentials and FacebookCredentials allowed.');
 			}
 			return $this->createIdentity($user);
-		} catch (EmailNotFoundException $e) {
-			throw new AuthenticationException($e->getMessage(), self::IDENTITY_NOT_FOUND, $e);
-		} catch (IncorrectPasswordException $e) {
-			throw new AuthenticationException($e->getMessage(), self::INVALID_CREDENTIAL, $e);
-		} catch (IncorrectUidException $e) {
-			throw new AuthenticationException($e->getMessage(), self::INVALID_CREDENTIAL, $e);
+		} catch (IncorrectCredentialsException $e) {
+			throw new AuthenticationException($e->getMessage(), self::FAILURE, $e);
 		}
 	}
 
