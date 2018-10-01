@@ -5,20 +5,19 @@ namespace PP\Presenters;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
 use Nette\Security\AuthenticationException;
-use PP\Facebook\FacebookCredentials;
-use PP\Facebook\FacebookModel;
+use PP\HomepageModel;
 use PP\User\PasswordCredentials;
 
 class HomepagePresenter extends Presenter {
 
 	/**
-	 * @var FacebookModel
+	 * @var HomepageModel
 	 */
-	private $fb;
+	private $model;
 
-	public function __construct(FacebookModel $fb) {
+	public function __construct(HomepageModel $model) {
 		parent::__construct();
-		$this->fb = $fb;
+		$this->model = $model;
 	}
 
 	/**
@@ -26,8 +25,7 @@ class HomepagePresenter extends Presenter {
 	 */
 	public function actionFbLogin() {
 		try {
-			$fbUser = $this->fb->getFbUser();
-			$this->getUser()->login(new FacebookCredentials($fbUser->getEmail(), $fbUser->getId(), $fbUser->getFirstName()));
+			$this->getUser()->login($this->model->getFacebookCredentials());
 		} catch (AuthenticationException $e) {
 			$this->flashMessage("Error while connecting to Facebook");
 		}
@@ -48,7 +46,7 @@ class HomepagePresenter extends Presenter {
 	 */
 	public function renderDefault() {
 		$this->template->currentUserName = $this->getUser()->getIdentity() ? $this->getUser()->getIdentity()->username : null;
-		$this->template->fbLoginUrl = $this->fb->generateLoginUrl($this->link('//fbLogin'));
+		$this->template->fbLoginUrl = $this->model->generateLoginUrl($this->link('//fbLogin'));
 	}
 
 	protected function createComponentForm() : Form {

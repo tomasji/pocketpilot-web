@@ -1,13 +1,15 @@
 <?php
 
-namespace PP\Facebook;
+namespace PP;
 
-use Facebook\GraphNodes\GraphUser;
+use PP\Facebook\FacebookCredentials;
+use PP\Facebook\FacebookLinkBuilder;
+use PP\Facebook\FacebookUserRead;
 
 /**
  * @author Andrej Souček
  */
-class FacebookModel {
+class HomepageModel {
 
 	/**
 	 * @var FacebookUserRead
@@ -25,11 +27,12 @@ class FacebookModel {
 	}
 
 	/**
-	 * @return GraphUser
+	 * @return FacebookCredentials
 	 * @throws \Nette\Security\AuthenticationException
 	 */
-	public function getFbUser() : GraphUser {
-		return $this->read->fetch();
+	public function getFacebookCredentials() : FacebookCredentials {
+		$graphUser = $this->read->fetch();
+		return new FacebookCredentials($graphUser->getEmail(), $graphUser->getId(), $graphUser->getFirstName());
 	}
 
 	/**
