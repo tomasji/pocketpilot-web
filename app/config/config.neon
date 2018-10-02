@@ -16,9 +16,9 @@ session:
 services:
 	authenticator: PP\Authenticator
 	facebook: Facebook\Facebook( {app_id: %facebook.app_id%, app_secret: %facebook.app_secret%, default_graph_version: %facebook.dgv%} )
-	facebookUserRead: PP\Facebook\FacebookUserRead
-	facebookLinkBuilder: PP\Facebook\FacebookLinkBuilder
-	facebookAuthenticator: PP\Facebook\FacebookAuthenticator
+	facebookUserRead: PP\User\FacebookUserRead
+	facebookLinkBuilder: PP\User\FacebookLinkBuilder
+	facebookAuthenticator: PP\User\FacebookAuthenticator
 	homepageModel: PP\HomepageModel
 	passwordAuthenticator: PP\User\PasswordAuthenticator
 	router: PP\RouterFactory::createRouter

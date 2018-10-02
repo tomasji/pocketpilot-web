@@ -1,6 +1,6 @@
 <?php
 
-namespace PP\Facebook;
+namespace PP\User;
 
 use Facebook\Exceptions\FacebookSDKException;
 use Facebook\Facebook;

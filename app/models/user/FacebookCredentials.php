@@ -1,6 +1,6 @@
 <?php
 
-namespace PP\Facebook;
+namespace PP\User;
 
 use Nette\Utils\Validators;
 use PP\User\Credentials;

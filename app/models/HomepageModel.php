@@ -2,9 +2,9 @@
 
 namespace PP;
 
-use PP\Facebook\FacebookCredentials;
-use PP\Facebook\FacebookLinkBuilder;
-use PP\Facebook\FacebookUserRead;
+use PP\User\FacebookCredentials;
+use PP\User\FacebookLinkBuilder;
+use PP\User\FacebookUserRead;
 
 /**
  * @author Andrej Souček
