@@ -1,0 +1,15 @@
+{block content}
+{if $user->isLoggedIn()}
+	<div>
+		<a href="{*plink Map:*}">Continue as {$currentUserName}...</a>
+		<a href="{plink Sign:logOut}">Log out</a>
+	</div>
+{else}
+	{control loginForm}
+	<div>
+		<a href="{*plink PasswordRecovery:*}">Forgotten password</a>
+		<a href="{plink Sign:register}">Sign up</a>
+		<a href="{$fbLoginUrl}">Facebook login</a>
+	</div>
+{/if}
+

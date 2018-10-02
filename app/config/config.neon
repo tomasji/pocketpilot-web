@@ -19,9 +19,8 @@ services:
 	facebookUserRead: PP\User\FacebookUserRead
 	facebookLinkBuilder: PP\User\FacebookLinkBuilder
 	facebookAuthenticator: PP\User\FacebookAuthenticator
-	homepageModel: PP\HomepageModel
 	passwordAuthenticator: PP\User\PasswordAuthenticator
 	router: PP\RouterFactory::createRouter
-	signUpModel: PP\SignUpModel
+	signModel: PP\SignModel
 	userRead: PP\User\UserRead
 	userRegister: PP\User\UserRegister
