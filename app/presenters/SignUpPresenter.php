@@ -31,12 +31,14 @@ class SignUpPresenter extends Presenter {
 			->setRequired('Please fill in an e-mail.')
 			->addRule($form::EMAIL, 'The e-mail must be in correct format.')
 			->setAttribute('placeholder', 'E-mail');
-		$form->addPassword('password1', 'Password')
+		$form->addPassword('password', 'Password')
 			->setRequired('Please fill in both of the password fields.')
 			->setAttribute('placeholder', 'Password');
-		$form->addPassword('password2', 'Password again:')
+		$form->addPassword('password_confirm', 'Password again:')
+			->addRule(Form::EQUAL, 'Passwords do not match', $form['password'])
 			->setRequired('Please fill in both of the password fields.')
-			->setAttribute('placeholder', 'Password again');
+			->setAttribute('placeholder', 'Password again')
+			->setOmitted(true);
 		$form->addSubmit('send', 'Sign up');
 		$form->onSuccess[] = [$this, 'processForm'];
 		return $form;
@@ -52,13 +54,9 @@ class SignUpPresenter extends Presenter {
 	public function processForm(Form $form): void {
 		$values = $form->getValues();
 		try {
-			if ($values->password1 === $values->password2) {
-				$this->model->registerUser($values->username, $values->email, null, $values->password1);
-				$this->flashMessage('Sign up successful, now you can log in.');
-				$this->redirect('Homepage:');
-			} else {
-				$form->addError('The passwords do not match.');
-			}
+			$this->model->registerUser($values->username, $values->email, null, $values->password);
+			$this->flashMessage('Sign up successful, now you can log in.');
+			$this->redirect('Homepage:');
 		} catch (IncorrectCredentialsException $e) {
 			$form->addError('This account already exists.');
 		}
