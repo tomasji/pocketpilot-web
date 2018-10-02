@@ -40,13 +40,9 @@ class HomepagePresenter extends Presenter {
 		$this->redirect('Homepage:');
 	}
 
-	/**
-	 * @throws \Nette\Application\UI\InvalidLinkException
-	 * @throws \Nette\Utils\AssertionException
-	 */
 	public function renderDefault() {
-		$this->template->currentUserName = $this->getUser()->getIdentity() ? $this->getUser()->getIdentity()->username : null;
-		$this->template->fbLoginUrl = $this->model->generateLoginUrl($this->link('//fbLogin'));
+		$this->template->currentUserName = $this->getCurrentUserName();
+		$this->template->fbLoginUrl = $this->getFbLoginUrl();
 	}
 
 	protected function createComponentForm() : Form {
@@ -78,5 +74,18 @@ class HomepagePresenter extends Presenter {
 		} catch (AuthenticationException $e) {
 			$form->addError("Incorrect e-mail or password.");
 		}
+	}
+
+	public function getCurrentUserName() : string {
+		return $this->getUser()->getIdentity() ? $this->getUser()->getIdentity()->username : "unknown";
+	}
+
+	/**
+	 * @return string
+	 * @throws \Nette\Application\UI\InvalidLinkException
+	 * @throws \Nette\Utils\AssertionException
+	 */
+	public function getFbLoginUrl() : string {
+		return $this->model->generateLoginUrl($this->link('//fbLogin'));
 	}
 }
