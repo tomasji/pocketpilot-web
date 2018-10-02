@@ -5,7 +5,7 @@ namespace PP\Presenters;
 use Nette\Application\UI\Presenter;
 use Nette\Application\UI\Form;
 use PP\IncorrectCredentialsException;
-use PP\User\UserModel;
+use PP\SignUpModel;
 
 /**
  * @author Andrej Souček
@@ -13,13 +13,13 @@ use PP\User\UserModel;
 class SignUpPresenter extends Presenter {
 
 	/**
-	 * @var UserModel
+	 * @var SignUpModel
 	 */
-	private $userModel;
+	private $model;
 
-	public function __construct(UserModel $userModel) {
+	public function __construct(SignUpModel $model) {
 		parent::__construct();
-		$this->userModel = $userModel;
+		$this->model = $model;
 	}
 
 	protected function createComponentForm(): Form {
@@ -53,7 +53,7 @@ class SignUpPresenter extends Presenter {
 		$values = $form->getValues();
 		try {
 			if ($values->password1 === $values->password2) {
-				$this->userModel->registerUser($values->username, $values->email, null, $values->password1);
+				$this->model->registerUser($values->username, $values->email, null, $values->password1);
 				$this->flashMessage('Sign up successful, now you can log in.');
 				$this->redirect('Homepage:');
 			} else {
