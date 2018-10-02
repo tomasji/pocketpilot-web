@@ -14,14 +14,14 @@ session:
 
 
 services:
-	router: PP\RouterFactory::createRouter
-	userRead: PP\User\UserRead
-	userRegister: PP\User\UserRegister
-	passwordAuthenticator: PP\User\PasswordAuthenticator
 	authenticator: PP\Authenticator
 	facebook: Facebook\Facebook( {app_id: %facebook.app_id%, app_secret: %facebook.app_secret%, default_graph_version: %facebook.dgv%} )
 	facebookUserRead: PP\Facebook\FacebookUserRead
 	facebookLinkBuilder: PP\Facebook\FacebookLinkBuilder
 	facebookAuthenticator: PP\Facebook\FacebookAuthenticator
 	homepageModel: PP\HomepageModel
+	passwordAuthenticator: PP\User\PasswordAuthenticator
+	router: PP\RouterFactory::createRouter
 	signUpModel: PP\SignUpModel
+	userRead: PP\User\UserRead
+	userRegister: PP\User\UserRegister
