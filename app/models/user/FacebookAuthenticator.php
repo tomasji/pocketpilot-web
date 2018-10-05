@@ -3,17 +3,16 @@
 namespace PP\User;
 
 use Nette\Database\Context;
+use Nette\SmartObject;
 use Nette\Utils\AssertionException;
 use PP\IncorrectCredentialsException;
-use PP\User\UserDatabaseDef;
-use PP\User\UserEntry;
-use PP\User\UserRead;
-use PP\User\UserRegister;
 
 /**
  * @author Andrej Souček
  */
 class FacebookAuthenticator {
+
+	use SmartObject;
 
 	/**
 	 * @var Context

@@ -3,6 +3,7 @@
 namespace PP\User;
 
 use Nette\Database\Context;
+use Nette\SmartObject;
 use Nette\Utils\Validators;
 use PP\IncorrectCredentialsException;
 
@@ -10,6 +11,8 @@ use PP\IncorrectCredentialsException;
  * @author Andrej Souček
  */
 class UserRead {
+
+	use SmartObject;
 
 	/** @var Context */
 	private $database;

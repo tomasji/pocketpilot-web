@@ -2,12 +2,15 @@
 
 namespace PP\User;
 
+use Nette\SmartObject;
 use Nette\Utils\Validators;
 
 /**
  * @author Andrej Souček
  */
 class UserChanges {
+
+	use SmartObject;
 
 	/**
 	 * @var int

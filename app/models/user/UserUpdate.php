@@ -3,11 +3,14 @@
 namespace PP\User;
 
 use Nette\Database\Context;
+use Nette\SmartObject;
 
 /**
  * @author Andrej Souček
  */
 class UserUpdate {
+
+	use SmartObject;
 
 	/** @var Context */
 	private $database;

@@ -4,9 +4,12 @@ namespace PP\User;
 
 use Nette\Database\Context;
 use Nette\Security\Passwords;
+use Nette\SmartObject;
 use PP\IncorrectCredentialsException;
 
 class PasswordAuthenticator {
+
+	use SmartObject;
 
 	/**
 	 * @var Context

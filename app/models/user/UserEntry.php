@@ -2,9 +2,12 @@
 
 namespace PP\User;
 
+use Nette\SmartObject;
 use Nette\Utils\Validators;
 
 class UserEntry {
+
+	use SmartObject;
 
 	/**
 	 * @var int

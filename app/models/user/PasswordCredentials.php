@@ -2,12 +2,15 @@
 
 namespace PP\User;
 
+use Nette\SmartObject;
 use Nette\Utils\Validators;
 
 /**
  * @author Andrej Souček
  */
 class PasswordCredentials implements Credentials {
+
+	use SmartObject;
 
 	/**
 	 * @var string

@@ -6,6 +6,7 @@ use Nette\Database\Context;
 use Nette\Database\Table\ActiveRow;
 use Nette\Database\UniqueConstraintViolationException;
 use Nette\Security\Passwords;
+use Nette\SmartObject;
 use Nette\Utils\Validators;
 use PP\IncorrectCredentialsException;
 
@@ -13,6 +14,8 @@ use PP\IncorrectCredentialsException;
  * @author Andrej Souček
  */
 class UserRegister {
+
+	use SmartObject;
 
 	/** @var Context */
 	private $database;

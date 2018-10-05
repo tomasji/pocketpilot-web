@@ -5,13 +5,20 @@ namespace PP;
 use Nette\Security\AuthenticationException;
 use Nette\Security\IAuthenticator;
 use Nette\Security\Identity;
+use Nette\SmartObject;
 use PP\User\FacebookAuthenticator;
 use PP\User\FacebookCredentials;
 use PP\User\PasswordCredentials;
 use PP\User\PasswordAuthenticator;
 use PP\User\UserEntry;
 
+/**
+ * @author Andrej Souček
+ */
 class Authenticator implements IAuthenticator {
+
+	use SmartObject;
+
 	/**
 	 * @var PasswordAuthenticator
 	 */

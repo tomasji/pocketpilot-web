@@ -2,6 +2,7 @@
 
 namespace PP;
 
+use Nette\SmartObject;
 use PP\User\FacebookCredentials;
 use PP\User\UserRegister;
 
@@ -9,6 +10,8 @@ use PP\User\UserRegister;
  * @author Andrej Souček
  */
 class SignModel {
+
+	use SmartObject;
 
 	/**
 	 * @var UserRegister

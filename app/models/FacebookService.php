@@ -6,12 +6,15 @@ use Facebook\Exceptions\FacebookSDKException;
 use Facebook\Facebook;
 use Facebook\GraphNodes\GraphUser;
 use Nette\Security\AuthenticationException;
+use Nette\SmartObject;
 use Nette\Utils\Validators;
 
 /**
  * @author Andrej Souček
  */
 class FacebookService {
+
+	use SmartObject;
 
 	/**
 	 * @var Facebook

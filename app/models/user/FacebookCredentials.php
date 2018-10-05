@@ -2,13 +2,15 @@
 
 namespace PP\User;
 
+use Nette\SmartObject;
 use Nette\Utils\Validators;
-use PP\User\Credentials;
 
 /**
  * @author Andrej Souček
  */
 class FacebookCredentials implements Credentials {
+
+	use SmartObject;
 
 	/**
 	 * @var string
