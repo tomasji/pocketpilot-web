@@ -3,8 +3,6 @@
 namespace PP;
 
 use PP\User\FacebookCredentials;
-use PP\User\FacebookLinkBuilder;
-use PP\User\FacebookUserRead;
 use PP\User\UserRegister;
 
 /**
@@ -18,19 +16,13 @@ class SignModel {
 	private $register;
 
 	/**
-	 * @var FacebookUserRead
+	 * @var FacebookService
 	 */
-	private $read;
+	private $fb;
 
-	/**
-	 * @var FacebookLinkBuilder
-	 */
-	private $builder;
-
-	public function __construct(UserRegister $register, FacebookUserRead $read, FacebookLinkBuilder $builder) {
+	public function __construct(UserRegister $register, FacebookService $fb) {
 		$this->register = $register;
-		$this->read = $read;
-		$this->builder = $builder;
+		$this->fb = $fb;
 	}
 
 	/**
@@ -50,7 +42,7 @@ class SignModel {
 	 * @throws \Nette\Security\AuthenticationException
 	 */
 	public function getFacebookCredentials() : FacebookCredentials {
-		$graphUser = $this->read->fetch();
+		$graphUser = $this->fb->fetchUser();
 		return new FacebookCredentials($graphUser->getEmail(), $graphUser->getId(), $graphUser->getFirstName());
 	}
 
@@ -60,6 +52,6 @@ class SignModel {
 	 * @throws \Nette\Utils\AssertionException
 	 */
 	public function generateLoginUrl(string $redirectUrl) {
-		return $this->builder->generate($redirectUrl);
+		return $this->fb->generateLoginUrl($redirectUrl);
 	}
 }

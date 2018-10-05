@@ -1,16 +1,17 @@
 <?php
 
-namespace PP\User;
+namespace PP;
 
 use Facebook\Exceptions\FacebookSDKException;
 use Facebook\Facebook;
 use Facebook\GraphNodes\GraphUser;
 use Nette\Security\AuthenticationException;
+use Nette\Utils\Validators;
 
 /**
  * @author Andrej Souček
  */
-class FacebookUserRead {
+class FacebookService {
 
 	/**
 	 * @var Facebook
@@ -22,10 +23,21 @@ class FacebookUserRead {
 	}
 
 	/**
+	 * @param string $redirectUrl
+	 * @return string
+	 * @throws \Nette\Utils\AssertionException
+	 */
+	public function generateLoginUrl(string $redirectUrl) {
+		Validators::assert($redirectUrl, 'url');
+		return $this->fb->getRedirectLoginHelper()->getLoginUrl($redirectUrl, ['email']);
+	}
+
+
+	/**
 	 * @return GraphUser
 	 * @throws AuthenticationException
 	 */
-	public function fetch() : GraphUser {
+	public function fetchUser() : GraphUser {
 		try {
 			$response = $this->fb->get('/me?fields=email,first_name,id', $this->fb->getRedirectLoginHelper()->getAccessToken());
 			return $response->getGraphUser();
