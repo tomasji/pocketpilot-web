@@ -19,6 +19,7 @@ services:
 	facebookAuthenticator: PP\User\FacebookAuthenticator
 	facebookService: PP\FacebookService
 	passwordAuthenticator: PP\User\PasswordAuthenticator
+	passwordReset: PP\User\PasswordReset
 	router: PP\RouterFactory::createRouter
 	signModel: PP\SignModel
 	userRead: PP\User\UserRead
