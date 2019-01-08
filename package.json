@@ -18,6 +18,7 @@
   "homepage": "https://github.com/andrejsoucek/pocketpilot-web#readme",
   "dependencies": {
     "leaflet": "^1.4.0",
+    "leaflet-control-geocoder": "^1.6.0",
     "materialize-css": "^1.0.0-rc.2",
     "naja": "^1.5.1"
   },

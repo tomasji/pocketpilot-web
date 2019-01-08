@@ -1,16 +1,40 @@
 {block content}
-{if $user->isLoggedIn()}
-	<div>
-		<a href="{*plink Map:*}">Continue as {$currentUserName}...</a>
-		<a href="{plink Sign:logOut}">Log out</a>
+<div class="container section valign-wrapper center-align" style="height: 100%">
+	<div class="centered-form-wrapper z-depth-1 row">
+		{if $user->isLoggedIn()}
+			<div class="container">
+				<div class="section">
+					<a href="{plink Tracks:}">Continue as {$currentUserName}...</a>
+				</div>
+				<div class="divider"></div>
+				<div class="section">
+					<a href="{plink Sign:logOut}" class="section waves-effect blue lighten-1 btn">Log out</a>
+				</div>
+			</div>
+		{else}
+			<h5>Sign in</h5>
+			{form loginForm class => 'col s12'}
+				<blockquote>
+					<ul class="errors" n:if="$form->hasErrors()">
+						<li n:foreach="$form->errors as $error">{$error}</li>
+					</ul>
+				</blockquote>
+				<div class="row">
+					<div class="input-field col s12">
+						{input email}
+					</div>
+					<div class="input-field col s12">
+						{input password}
+						<a class="pink-text" href="{plink PasswordRecovery:}"><b>Forgot Password?</b></a>
+					</div>
+					{input send class => 'waves-effect blue lighten-1 btn', style => 'width: 90%'}
+				</div>
+				<div class="row">
+					<p>Not a member? <a href="{plink Sign:register}">Sign up</a></p>
+					<p>Or login with <a href="{$fbLoginUrl}"><i class="fab fa-facebook-f"></i></a></p>
+				</div>
+			{/form}
+		{/if}
 	</div>
-{else}
-	{control loginForm}
-	<div>
-		<a href="{*plink PasswordRecovery:*}">Forgotten password</a>
-		<a href="{plink Sign:register}">Sign up</a>
-		<a href="{$fbLoginUrl}">Facebook login</a>
-		<a href="{plink PasswordRecovery:}">Forgotten password</a>
-	</div>
-{/if}
+</div>
 

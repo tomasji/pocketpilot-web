@@ -1,0 +1,32 @@
+{block content}
+<div id="app">
+	<ul id="slide-out" class="sidenav sidenav-fixed">
+		<li>
+			<div class="user-view">
+				<div class="background blue lighten-1">
+				</div>
+				<img class="circle" src="">
+				<span class="white-text name">{$user->identity->name}</span>
+				<span class="white-text email">{$user->identity->email}</span>
+			</div>
+		</li>
+		<li><a class="subheader">Planned tracks</a></li>
+		{if $tracks}
+			{foreach $tracks as $track}
+				<li>
+					<span>{$track->getName()}</span>
+					<span>({$track->getLength()/1000} km)<br>
+						Created: {$track->getCreated()|date:'d.m.Y G:i'}</span>
+					<a href="#" class="secondary-content">DEL</a>
+				</li>
+			{/foreach}
+		{else}
+			<li class="black-text"><a class="btn-small waves-effect blue lighten-1" href="#">Start planning</a></li>
+		{/if}
+		<li><div class="divider"></div></li>
+		<li><a class="waves-effect" href="{plink Sign:logOut}">Log out</a></li>
+	</ul>
+	<a href="#" data-target="slide-out" class="sidenav-trigger btn-floating btn-large pulse waves-effect blue lighten-1"><i class="fas fa-bars"></i></a>
+	<div id="map"></div>
+</div>
+<script src="{$basePath}/js/app.js"></script>
