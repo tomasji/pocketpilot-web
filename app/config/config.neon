@@ -22,5 +22,6 @@ services:
 	passwordReset: PP\User\PasswordReset
 	router: PP\RouterFactory::createRouter
 	signModel: PP\SignModel
+	trackRead: PP\Track\TrackRead
 	userRead: PP\User\UserRead
 	userRegister: PP\User\UserRegister
