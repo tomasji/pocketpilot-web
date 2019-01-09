@@ -69,6 +69,10 @@ class Authenticator implements IAuthenticator {
 	 * @return Identity
 	 */
 	private function createIdentity(UserEntry $user) : Identity {
-		return new Identity($user->getId(), [$user->getRole()], ["username" => $user->getName()]);
+		return new Identity(
+			$user->getId(),
+			[$user->getRole()],
+			["name" => $user->getName(), "username" => $user->getName(), "email" => $user->getEmail()]
+		);
 	}
 }
