@@ -39,7 +39,7 @@ class PasswordRecoveryPresenter extends Presenter {
 		$form->addText('email', 'E-mail')
 			->setRequired('Please enter your e-mail.')
 			->addRule($form::EMAIL, 'The e-mail must be in correct format.')
-			->setAttribute('placeholder', 'E-mail');
+			->setHtmlAttribute('placeholder', 'E-mail');
 		$form->addSubmit('send', 'Reset password');
 
 		$form->onSuccess[] = array($this, 'processRecoveryForm');
@@ -50,11 +50,11 @@ class PasswordRecoveryPresenter extends Presenter {
 		$form = new Form();
 		$form->addPassword('password', 'Password')
 			->setRequired('Please fill in both of the password fields.')
-			->setAttribute('placeholder', 'Password');
+			->setHtmlAttribute('placeholder', 'Password');
 		$form->addPassword('password_confirm', 'Password again:')
 			->addRule(Form::EQUAL, 'Passwords do not match', $form['password'])
 			->setRequired('Please fill in both of the password fields.')
-			->setAttribute('placeholder', 'Password again')
+			->setHtmlAttribute('placeholder', 'Password again')
 			->setOmitted(true);
 		$form->addSubmit('send', 'Save');
 

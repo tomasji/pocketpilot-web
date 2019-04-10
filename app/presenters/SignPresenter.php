@@ -67,10 +67,10 @@ class SignPresenter extends Presenter {
 		$form->addText('email', 'E-mail')
 			->setRequired('Please enter your e-mail.')
 			->addRule($form::EMAIL, 'The e-mail must be in correct format.')
-			->setAttribute('placeholder', 'E-mail');
+			->setHtmlAttribute('placeholder', 'E-mail');
 		$form->addPassword('password', 'Password')
 			->setRequired('Please enter your password.')
-			->setAttribute('placeholder', 'Password');
+			->setHtmlAttribute('placeholder', 'Password');
 		$form->addSubmit('send', 'Log in');
 		$form->onSuccess[] = [$this, 'processLoginForm'];
 		return $form;
@@ -96,18 +96,18 @@ class SignPresenter extends Presenter {
 		$form = new Form();
 		$form->addText('username', 'Username:')
 			->setRequired('Please fill in your username.')
-			->setAttribute('placeholder', 'Username');
+			->setHtmlAttribute('placeholder', 'Username');
 		$form->addText('email', 'E-mail:')
 			->setRequired('Please fill in an e-mail.')
 			->addRule($form::EMAIL, 'The e-mail must be in correct format.')
-			->setAttribute('placeholder', 'E-mail');
+			->setHtmlAttribute('placeholder', 'E-mail');
 		$form->addPassword('password', 'Password')
 			->setRequired('Please fill in both of the password fields.')
-			->setAttribute('placeholder', 'Password');
+			->setHtmlAttribute('placeholder', 'Password');
 		$form->addPassword('password_confirm', 'Password again:')
 			->addRule(Form::EQUAL, 'Passwords do not match', $form['password'])
 			->setRequired('Please fill in both of the password fields.')
-			->setAttribute('placeholder', 'Password again')
+			->setHtmlAttribute('placeholder', 'Password again')
 			->setOmitted(true);
 		$form->addSubmit('send', 'Sign up');
 		$form->onSuccess[] = [$this, 'processRegisterForm'];
