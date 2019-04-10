@@ -45,13 +45,8 @@ class SignPresenter extends Presenter {
 	}
 
 	public function renderDefault() {
-		$this->template->hideNavbar = true;
 		$this->template->currentUserName = $this->getCurrentUserName();
 		$this->template->fbLoginUrl = $this->getFbLoginUrl();
-	}
-
-	public function renderRegister() {
-		$this->template->hideNavbar = true;
 	}
 
 	public function getCurrentUserName() : string {

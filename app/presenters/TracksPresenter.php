@@ -3,9 +3,10 @@
 namespace PP\Presenters;
 
 use Nette\Application\UI\Presenter;
+use PP\Navbar;
 use PP\Track\TrackEntry;
 use PP\Track\TrackRead;
-use PP\UserLoggedIn;
+use PP\Authentication;
 
 /**
  * @author Andrej Souček
@@ -13,7 +14,8 @@ use PP\UserLoggedIn;
  */
 class TracksPresenter extends Presenter {
 
-	use UserLoggedIn;
+	use Authentication;
+	use Navbar;
 
 	/**
 	 * @var TrackRead
@@ -36,7 +38,6 @@ class TracksPresenter extends Presenter {
 
 	public function renderMap($id) {
 		bdump($this->getTracks()[$id]);
-		$this->template->hideNavbar = true;
 	}
 
 	private function getTracks() {

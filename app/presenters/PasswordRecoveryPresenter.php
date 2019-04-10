@@ -34,14 +34,6 @@ class PasswordRecoveryPresenter extends Presenter {
 		}
 	}
 
-	public function renderDefault() {
-		$this->template->hideNavbar = true;
-	}
-
-	public function renderReset() {
-		$this->template->hideNavbar = true;
-	}
-
 	protected function createComponentRecoveryForm() : Form {
 		$form = new Form();
 		$form->addText('email', 'E-mail')

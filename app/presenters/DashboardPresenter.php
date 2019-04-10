@@ -1,17 +1,16 @@
 <?php
-/*
- * Copyright © 2000-2019 ANTEE s.r.o., All rights reserved. Confidential.
- */
 
 namespace PP\Presenters;
 
 use Nette\Application\UI\Presenter;
-use PP\UserLoggedIn;
+use PP\Authentication;
+use PP\Navbar;
 
 /**
  * @author Andrej Souček
  */
 class DashboardPresenter extends Presenter {
 
-	use UserLoggedIn;
+	use Authentication;
+	use Navbar;
 }
