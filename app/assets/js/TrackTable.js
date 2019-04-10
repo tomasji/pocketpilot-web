@@ -13,11 +13,10 @@ class TrackTable {
 	}
 
 	renderEmpty() {
-		const wrapper = DomUtil.create('div', 'info', this.mapContainer)
-		wrapper.innerText = 'Waypoints'
+		const wrapper = DomUtil.create('div', 'info card-panel hoverable', this.mapContainer)
 		const table = DomUtil.create('table', 'info-table', wrapper)
 		const header = DomUtil.create('tr', 'info-table-header', table)
-		DomUtil.create('th', '', header).innerText = '-'
+		DomUtil.create('th', '', header).innerText = 'WPT'
 		DomUtil.create('th', '', header).innerText = 'HDG'
 		DomUtil.create('th', '', header).innerText = 'DIST'
 		DomUtil.create('th', '', header).innerText = 'TIME'
