@@ -25,3 +25,5 @@ services:
 	trackRead: PP\Track\TrackRead
 	userRead: PP\User\UserRead
 	userRegister: PP\User\UserRegister
+	trackCreate: PP\Track\TrackCreate
+	trackUpdate: PP\Track\TrackUpdate

@@ -13,6 +13,13 @@
   height: 100%;
 }
 
+div#controls {
+  z-index: 500;
+  position: absolute;
+  top: 0;
+  background-color: white;
+}
+
 div.info {
   position: absolute;
   bottom: 0;

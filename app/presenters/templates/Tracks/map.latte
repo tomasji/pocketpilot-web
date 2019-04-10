@@ -1,8 +1,6 @@
 {block content}
 <div id="app">
 	<div id="map"{if $trackJson} data-track="{$trackJson}"{/if}></div>
+	<div id="controls">{control form}</div>
 </div>
-{/block}
-{block scripts}
 <script src="{$basePath}/js/map.js"></script>
-{/block}

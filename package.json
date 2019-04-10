@@ -20,7 +20,7 @@
     "leaflet": "^1.4.0",
     "leaflet-control-geocoder": "^1.6.0",
     "materialize-css": "^1.0.0-rc.2",
-    "naja": "^1.5.1"
+    "naja": "^1.6.0"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
