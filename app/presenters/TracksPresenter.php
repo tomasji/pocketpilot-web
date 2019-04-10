@@ -5,11 +5,15 @@ namespace PP\Presenters;
 use Nette\Application\UI\Presenter;
 use PP\Track\TrackEntry;
 use PP\Track\TrackRead;
+use PP\UserLoggedIn;
 
 /**
  * @author Andrej Souček
+ * @User
  */
 class TracksPresenter extends Presenter {
+
+	use UserLoggedIn;
 
 	/**
 	 * @var TrackRead
@@ -24,23 +28,6 @@ class TracksPresenter extends Presenter {
 	public function __construct(TrackRead $read) {
 		parent::__construct();
 		$this->read = $read;
-	}
-
-	/**
-	 * @throws \Nette\Application\AbortException
-	 */
-	public function actionDefault() {
-		if (!$this->user->isLoggedIn()) {
-			$this->redirect('Sign:');
-		}
-	}
-
-	/**
-	 * @throws \Nette\Application\AbortException
-	 */
-	public function actionLogOut() {
-		$this->getUser()->logout();
-		$this->redirect('Sign:');
 	}
 
 	public function renderDefault() {

@@ -21,9 +21,15 @@ class PasswordAuthenticator {
 	 */
 	private $read;
 
-	public function __construct(Context $database, UserRead $read) {
+	/**
+	 * @var Passwords
+	 */
+	private $passwords;
+
+	public function __construct(Context $database, UserRead $read, Passwords $passwords) {
 		$this->database = $database;
 		$this->read = $read;
+		$this->passwords = $passwords;
 	}
 
 	/**
@@ -37,12 +43,12 @@ class PasswordAuthenticator {
 		$entry = $this->read->fetchBy($credentials->getEmail());
 		$hash = $this->database->table(UserDatabaseDef::TABLE_NAME)
 			->where(UserDatabaseDef::COLUMN_ID, $entry->getId())->fetchField(UserDatabaseDef::COLUMN_PASSWORD_HASH);
-		if (!Passwords::verify($credentials->getAuthString(), $hash)) {
+		if (!$this->passwords->verify($credentials->getAuthString(), $hash)) {
 			throw new IncorrectCredentialsException('Entered password is incorrect.');
-		} elseif (Passwords::needsRehash($hash)) {
+		} elseif ($this->passwords->needsRehash($hash)) {
 			$this->database->table(UserDatabaseDef::TABLE_NAME)
 				->where(UserDatabaseDef::COLUMN_ID, $entry->getId())
-				->update([UserDatabaseDef::COLUMN_PASSWORD_HASH => Passwords::hash($credentials->getAuthString())]);
+				->update([UserDatabaseDef::COLUMN_PASSWORD_HASH => $this->passwords->hash($credentials->getAuthString())]);
 		}
 		return $entry;
 	}
