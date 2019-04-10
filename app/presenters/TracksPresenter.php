@@ -6,6 +6,7 @@ use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
 use PP\Navbar;
 use PP\Track\TrackCreate;
+use PP\Track\TrackDelete;
 use PP\Track\TrackEntry;
 use PP\Track\TrackRead;
 use PP\Authentication;
@@ -40,11 +41,17 @@ class TracksPresenter extends Presenter {
 	 */
 	private $update;
 
-	public function __construct(TrackRead $read, TrackCreate $create, TrackUpdate $update) {
+	/**
+	 * @var TrackDelete
+	 */
+	private $delete;
+
+	public function __construct(TrackRead $read, TrackCreate $create, TrackUpdate $update, TrackDelete $delete) {
 		parent::__construct();
 		$this->read = $read;
 		$this->create = $create;
 		$this->update = $update;
+		$this->delete = $delete;
 	}
 
 	public function renderDefault() {
@@ -63,28 +70,43 @@ class TracksPresenter extends Presenter {
 		}
 	}
 
-	public function processForm(Form $form) {
-		if ($form->isSubmitted()->name === 'close') {
-			return;
+	public function handleDelete($id, $name) {
+		try {
+			$this->delete->process($id);
+			$this->flashMessage("Track '$name' has been deleted.");
+		} catch (\PDOException $t) {
+			$this->flashMessage("An error occurred while deleting the track.");
 		}
+		$this->redrawControl();
+	}
+
+	/**
+	 * @internal
+	 * @param Form $form
+	 * @throws \Nette\Application\AbortException
+	 */
+	public function processForm(Form $form) : void {
 		$values = $form->getValues();
 		$wpts = json_decode($values->waypoints, true);
 		if (count($wpts) <= 1) {
 			$this->flashMessage('Track must have more than 1 point');
 			$this->redrawControl();
 			return;
-		}
-		try {
-			if ($values->trackId) {
-				$this->update->process($values->trackId, $values->name, $wpts);
-			} else {
-				$this->create->process($values->name, $this->getUser()->getId(), $wpts);
+		} else {
+			try {
+				if ($values->trackId) {
+					$this->update->process($values->trackId, $values->name, $wpts);
+				} else {
+					$this->create->process($values->name, $this->getUser()->getId(), $wpts);
+				}
+				$this->payload->forceRedirect = true;
+				$this->flashMessage("Track '$values->name' has been saved.");
+				$this->redirect('Tracks:');
+			} catch (\PDOException $e) {
+				$this->flashMessage('An error occurred while saving the track.');
+				$this->redrawControl();
 			}
-			$this->flashMessage("Track '$values->name' has been saved.");
-		} catch (\Throwable $e) {
-			$this->flashMessage('Error while saving the track.');
 		}
-		$this->redrawControl();
 	}
 
 	protected function createComponentForm() : Form {

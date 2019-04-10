@@ -1,23 +1,25 @@
 {block content}
 {control navbar}
 <div class="container">
-	{foreach $tracks as $track}
-		<div class="row card-panel hoverable">
-			<div class="col s12 center-align flow-text">{$track->getName()}</div>
-			<div class="col s4 center-align">
-				<div class="col s12 center-align"><i class="far fa-calendar-minus"></i></div>
-				<div class="col s12 center-align">{$track->getCreated()|date:'d.m.Y G:i'}</div>
+	{snippet}
+		{foreach $tracks as $track}
+			<div class="row card-panel hoverable">
+				<div class="col s12 center-align flow-text">{$track->getName()}</div>
+				<div class="col s4 center-align">
+					<div class="col s12 center-align"><i class="far fa-calendar-minus"></i></div>
+					<div class="col s12 center-align">{$track->getCreated()|date:'d.m.Y G:i'}</div>
+				</div>
+				<div class="col s4 center-align">
+					<div class="col s12 center-align"><i class="fas fa-arrows-alt-h"></i></div>
+					<div class="col s12 center-align">{floor($track->getLength()/1000)} km</div>
+				</div>
+				<div class="col s4 right-align">
+					<a href="{link map, $track->getId()}" class="waves-effect blue lighten-1 btn btn-action"><i class="far fa-edit"></i><span class="hide-on-small-only">Edit</span></a>
+					<a href="{link delete!, $track->getId(), $track->getName()}" class="waves-effect blue lighten-1 btn btn-action ajax"><i class="fas fa-times"></i><span class="hide-on-small-only">Delete</span></a>
+				</div>
 			</div>
-			<div class="col s4 center-align">
-				<div class="col s12 center-align"><i class="fas fa-arrows-alt-h"></i></div>
-				<div class="col s12 center-align">{floor($track->getLength()/1000)} km</div>
-			</div>
-			<div class="col s4 right-align">
-				<a href="{link map, $track->getId()}" class="waves-effect blue lighten-1 btn btn-action"><i class="far fa-edit"></i><span class="hide-on-small-only">Edit</span></a>
-				<a href="#" class="waves-effect blue lighten-1 btn btn-action"><i class="fas fa-times"></i><span class="hide-on-small-only">Delete</span></a>
-			</div>
-		</div>
-	{/foreach}
+		{/foreach}
+	{/snippet}
 </div>
 <div class="center-align">
 	<a href="{link map}" class="btn-floating btn-large waves-effect blue lighten-1 center{if count($tracks) < 1} pulse{/if}"><i class="fas fa-plus"></i></a>
