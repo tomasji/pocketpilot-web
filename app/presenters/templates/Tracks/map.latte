@@ -1,7 +1,8 @@
 {block content}
 <div id="app">
-	<div id="map"></div>
+	<div id="map"{if $trackJson} data-track="{$trackJson}"{/if}></div>
 </div>
+{/block}
 {block scripts}
 <script src="{$basePath}/js/map.js"></script>
 {/block}

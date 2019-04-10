@@ -1,4 +1,4 @@
-import { Map, TileLayer, DomUtil } from 'leaflet'
+import { GeoJSON, Map, TileLayer, DomUtil } from 'leaflet'
 import { Track } from './Track'
 
 const map = new Map(
@@ -22,6 +22,11 @@ map.on('zoomend', function() {
 	zoom = map.getZoom()
 	DomUtil.addClass(map.getContainer(), 'zoom-' + zoom)
 })
-const track = new Track(map)
 
-track.addWaypoint([50.075, 14.437])
+if (map.getContainer().dataset.track) {
+	const geoJSON = new GeoJSON(JSON.parse(map.getContainer().dataset.track))
+	new Track(map, geoJSON.getLayers()[0].feature.geometry.coordinates)
+} else {
+	const track = new Track(map)
+	track.addWaypoint([50.075, 14.437])
+}

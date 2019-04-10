@@ -37,7 +37,15 @@ class TracksPresenter extends Presenter {
 	}
 
 	public function renderMap($id) {
-		bdump($this->getTracks()[$id]);
+		if ($id) {
+			if (isset($this->getTracks()[$id]) && $this->getTracks()[$id]->getUserId() === $this->getUser()->getId()) {
+				$this->template->trackJson = $this->getTracks()[$id]->getTrack();
+			} else {
+				$this->redirect('Tracks:');
+			}
+		} else {
+			$this->template->trackJson = null;
+		}
 	}
 
 	private function getTracks() {

@@ -58,6 +58,9 @@ class TrackTable {
 				.then((results) => {
 					place.innerText = results[0].properties.address.city || results[0].properties.address.town
 				})
+				.catch(() => {
+					place.innerText = 'Waypoint'
+				})
 		}
 		if (wp1 && wp2) {
 			const km = Math.floor(wp1.getLatLng().distanceTo(wp2.getLatLng()) / 1000)

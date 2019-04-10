@@ -4,11 +4,12 @@ import { calculateDestination, getHeading, middle } from './Utils'
 import { TrackTable } from './TrackTable'
 
 class Track {
-	constructor(map, waypoints = []) {
+	constructor(map, latlngs) {
 		this.map = map
-		this.waypoints = waypoints
+		this.waypoints = []
 		this.line = null
 		this.table = new TrackTable(map.getContainer())
+		latlngs.forEach(latlng => { this.addWaypoint(latlng) })
 	}
 	addWaypoint(latlng, index) {
 		const wp = this._createWaypoint(latlng, index)
@@ -81,6 +82,7 @@ class Track {
 		}
 		const index = this.waypoints.indexOf(wp)
 		this.table.addWaypoint(index, this.waypoints[index - 1], wp)
+		this.map.setView(wp.getLatLng())
 	}
 
 	_onWaypointDrag() {
