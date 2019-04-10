@@ -86,8 +86,7 @@ class SignPresenter extends Presenter {
 		$values = $form->getValues();
 		try {
 			$this->getUser()->login(new PasswordCredentials($values->email, $values->password));
-//			$this->redirect('Map:');
-			$this->flashMessage("SUCCESS");
+			$this->redirect('Dashboard:');
 		} catch (AuthenticationException $e) {
 			$form->addError("Incorrect e-mail or password.");
 		}

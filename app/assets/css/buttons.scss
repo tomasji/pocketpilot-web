@@ -1,0 +1,11 @@
+.btn-action {
+  @media only screen and (max-width: 600px) {
+    width: 4rem;
+  }
+  & > i {
+    padding-right: 0.5rem;
+    @media only screen and (max-width: 600px) {
+      padding-right: 0;
+    }
+  }
+}

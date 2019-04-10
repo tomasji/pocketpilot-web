@@ -8,7 +8,8 @@ module.exports = (grunt) ->
 		browserify:
 			dist:
 				files:
-					"www/js/app.js": "app/assets/js/Main.js"
+					"www/js/app.js": "app/assets/js/Main.js",
+					"www/js/map.js": "app/assets/js/Map.js"
 				options:
 					transform: [
 						[

@@ -1,32 +1,23 @@
 {block content}
-<div id="app">
-	<ul id="slide-out" class="sidenav sidenav-fixed">
-		<li>
-			<div class="user-view">
-				<div class="background blue lighten-1">
-				</div>
-				<img class="circle" src="">
-				<span class="white-text name">{$user->identity->name}</span>
-				<span class="white-text email">{$user->identity->email}</span>
+<div class="container">
+	{foreach $tracks as $track}
+		<div class="row card-panel hoverable">
+			<div class="col s12 center-align flow-text">{$track->getName()}</div>
+			<div class="col s4 center-align">
+				<div class="col s12 center-align"><i class="far fa-calendar-minus"></i></div>
+				<div class="col s12 center-align">{$track->getCreated()|date:'d.m.Y G:i'}</div>
 			</div>
-		</li>
-		<li><a class="subheader">Planned tracks</a></li>
-		{if $tracks}
-			{foreach $tracks as $track}
-				<li>
-					<span>{$track->getName()}</span>
-					<span>({$track->getLength()/1000} km)<br>
-						Created: {$track->getCreated()|date:'d.m.Y G:i'}</span>
-					<a href="#" class="secondary-content">DEL</a>
-				</li>
-			{/foreach}
-		{else}
-			<li class="black-text"><a class="btn-small waves-effect blue lighten-1" href="#">Start planning</a></li>
-		{/if}
-		<li><div class="divider"></div></li>
-		<li><a class="waves-effect" href="{plink Sign:logOut}">Log out</a></li>
-	</ul>
-	<a href="#" data-target="slide-out" class="sidenav-trigger btn-floating btn-large pulse waves-effect blue lighten-1"><i class="fas fa-bars"></i></a>
-	<div id="map"></div>
+			<div class="col s4 center-align">
+				<div class="col s12 center-align"><i class="fas fa-arrows-alt-h"></i></div>
+				<div class="col s12 center-align">{floor($track->getLength()/1000)} km</div>
+			</div>
+			<div class="col s4 right-align">
+				<a href="{plink Tracks:map, $track->getId()}" class="waves-effect blue lighten-1 btn btn-action"><i class="far fa-edit"></i><span class="hide-on-small-only">Edit</span></a>
+				<a href="#" class="waves-effect blue lighten-1 btn btn-action"><i class="fas fa-times"></i><span class="hide-on-small-only">Delete</span></a>
+			</div>
+		</div>
+	{/foreach}
 </div>
-<script src="{$basePath}/js/app.js"></script>
+<div class="center-align">
+	<a class="btn-floating btn-large waves-effect blue lighten-1 center{if count($tracks) < 1} pulse{/if}"><i class="fas fa-plus"></i></a>
+</div>

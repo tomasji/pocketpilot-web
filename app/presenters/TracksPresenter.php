@@ -47,6 +47,11 @@ class TracksPresenter extends Presenter {
 		$this->template->tracks = $this->getTracks();
 	}
 
+	public function renderMap($id) {
+		bdump($this->getTracks()[$id]);
+		$this->template->hideNavbar = true;
+	}
+
 	private function getTracks() {
 		if (empty($tracks)) {
 			$this->tracks = $this->read->fetchBy($this->user->getId());
