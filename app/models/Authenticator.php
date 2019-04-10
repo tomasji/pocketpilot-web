@@ -4,6 +4,7 @@ namespace PP;
 
 use Nette\Security\AuthenticationException;
 use Nette\Security\IAuthenticator;
+use Nette\Security\IIdentity;
 use Nette\Security\Identity;
 use Nette\SmartObject;
 use PP\User\FacebookAuthenticator;
@@ -37,11 +38,11 @@ class Authenticator implements IAuthenticator {
 	/**
 	 * Performs an authentication.
 	 * @param array $credentials
-	 * @return Identity
+	 * @return IIdentity
 	 * @throws AuthenticationException
 	 * @throws \Nette\Utils\AssertionException
 	 */
-	public function authenticate(array $credentials) : Identity {
+	public function authenticate(array $credentials) : IIdentity {
 		if (count($credentials)) {
 			$credentials = $credentials[0];
 		} else {
