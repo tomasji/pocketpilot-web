@@ -9,6 +9,11 @@
 </head>
 
 <body>
+	{snippet flashes}
+		{foreach $flashes as $flash}
+			<span data-message="{$flash->message}" style="display: none"></span>
+		{/foreach}
+	{/snippet}
 	{include content}
 
 	{block scripts}

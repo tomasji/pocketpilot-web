@@ -64,17 +64,32 @@ class TracksPresenter extends Presenter {
 	}
 
 	public function processForm(Form $form) {
-		$values = $form->getValues();
-		if ($values->trackId) {
-			$this->update->process($values->trackId, $values->name, json_decode($values->waypoints, true));
-		} else {
-			$this->create->process($values->name, $this->getUser()->getId(), json_decode($values->waypoints, true));
+		if ($form->isSubmitted()->name === 'close') {
+			return;
 		}
+		$values = $form->getValues();
+		$wpts = json_decode($values->waypoints, true);
+		if (count($wpts) <= 1) {
+			$this->flashMessage('Track must have more than 1 point');
+			$this->redrawControl();
+			return;
+		}
+		try {
+			if ($values->trackId) {
+				$this->update->process($values->trackId, $values->name, $wpts);
+			} else {
+				$this->create->process($values->name, $this->getUser()->getId(), $wpts);
+			}
+			$this->flashMessage("Track '$values->name' has been saved.");
+		} catch (\Throwable $e) {
+			$this->flashMessage('Error while saving the track.');
+		}
+		$this->redrawControl();
 	}
 
 	protected function createComponentForm() : Form {
 		$form = new Form();
-		$form->addText('name')
+		$form->addText('name', 'Track name')
 			->addRule(Form::REQUIRED, 'Please fill in the name.')
 			->addRule(Form::MAX_LENGTH, 'Please fill in the name.', 50);
 		$form->addHidden('waypoints');

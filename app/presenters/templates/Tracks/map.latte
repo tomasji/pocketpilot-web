@@ -1,6 +1,35 @@
 {block content}
 <div id="app">
 	<div id="map"{if $trackJson} data-track="{$trackJson}"{/if}></div>
-	<div id="controls">{control form}</div>
+	<div id="controls" class="info card-panel hoverable">
+		<div class="controls-buttons right">
+			<button data-target="modal" class="waves-effect blue lighten-1 btn btn-action modal-trigger">
+				<i class="fas fa-save"></i>
+				<span class="hide-on-small-only">Save track</span>
+			</button>
+			<a href="{link default}" class="waves-effect blue lighten-1 btn btn-action">
+				<i class="fas fa-sign-out-alt"></i>
+				<span class="hide-on-small-only">Exit</span>
+			</a>
+		</div>
+	</div>
+	<div id="modal" class="modal">
+		<div class="modal-content save-track container center">
+			{if $trackJson}
+				<p class="red-text darken-4-text">Warning: The original track will be overwitten by this action.</p>
+			{else}
+				<p>Please enter a name for the new track.</p>
+			{/if}
+			{form form}
+				{label name}
+				{input name}
+				{inputError name}
+				{input save, class => 'modal-close blue lighten-1 btn btn-action'}
+				<a class="waves-effect blue lighten-1 btn btn-action modal-close">
+					<span>Cancel</span>
+				</a>
+			{/form}
+		</div>
+	</div>
 </div>
 <script src="{$basePath}/js/map.js"></script>

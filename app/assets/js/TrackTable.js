@@ -6,15 +6,10 @@ class TrackTable {
 		this.mapContainer = mapContainer
 		this.table = this.renderEmpty()
 	}
-
-	remove() {
-		DomUtil.remove(this.table.parentElement)
-		this.table = null
-	}
-
 	renderEmpty() {
-		const wrapper = DomUtil.create('div', 'info card-panel hoverable', this.mapContainer)
-		const table = DomUtil.create('table', 'info-table', wrapper)
+		const wrapper = document.getElementById('controls')
+		const table = DomUtil.create('table', 'info-table')
+		wrapper.insertBefore(table, wrapper.children[0])
 		const header = DomUtil.create('tr', 'info-table-header', table)
 		DomUtil.create('th', '', header).innerText = 'WPT'
 		DomUtil.create('th', '', header).innerText = 'HDG'
@@ -22,7 +17,6 @@ class TrackTable {
 		DomUtil.create('th', '', header).innerText = 'TIME'
 		return table
 	}
-
 	addWaypoint(index, current, created) {
 		const row = DomUtil.create('tr', '')
 		const place = DomUtil.create('td', '', row)
@@ -33,7 +27,6 @@ class TrackTable {
 		this.table.insertBefore(row, this.table.children[index + 1])
 		this._setValues(current, created, place, hdg, dist, time)
 	}
-
 	editWaypoint(index, previous, current, next) {
 		const currCells = this.table.children[index + 1].children
 		this._setValues(previous, current, currCells[0], currCells[1], currCells[2], currCells[3])
@@ -42,7 +35,6 @@ class TrackTable {
 			this._setValues(current, next, nextCells[0], nextCells[1], nextCells[2], nextCells[3])
 		}
 	}
-
 	removeWaypoint(index, previous, next) {
 		DomUtil.remove(this.table.children[index + 1])
 		if (this.table.children[index + 1]) {

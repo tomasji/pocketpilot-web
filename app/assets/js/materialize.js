@@ -6,6 +6,12 @@ document.addEventListener('DOMContentLoaded', () => {
 	M.Sidenav.init(elems)
 })
 
+// modals
+document.addEventListener('DOMContentLoaded', function() {
+	const elems = document.querySelectorAll('.modal')
+	M.Modal.init(elems)
+})
+
 // stop pulse on click
 const pulses = document.querySelectorAll('.pulse')
 pulses.forEach(pulse =>
