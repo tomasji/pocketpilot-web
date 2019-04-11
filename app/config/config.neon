@@ -28,3 +28,7 @@ services:
 	trackUpdate: PP\Track\TrackUpdate
 	userRead: PP\User\UserRead
 	userRegister: PP\User\UserRegister
+
+latte:
+	macros:
+		- PP\Macros\WebpackMacro
