@@ -4,6 +4,7 @@ namespace PP\Presenters;
 
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
+use Nette\UnexpectedValueException;
 use PP\Navbar;
 use PP\Track\TrackCreate;
 use PP\Track\TrackDelete;
@@ -56,6 +57,26 @@ class TracksPresenter extends Presenter {
 
 	public function renderDefault() {
 		$this->template->tracks = $this->getTracks();
+		$this->template->maximum = $this->getMaximum();
+	}
+
+	public function getTracks() {
+		if (empty($tracks)) {
+			$this->tracks = $this->read->fetchBy($this->user->getId());
+		}
+		return $this->tracks;
+	}
+
+	public function getMaximum() {
+		switch ($this->user->getRoles()[0]) {
+			case 'admin':
+			case 'premium':
+				return 100;
+			case 'user':
+				return 5;
+			default:
+				throw new UnexpectedValueException('Unknown role.');
+		}
 	}
 
 	public function renderMap($id) {
@@ -132,12 +153,5 @@ class TracksPresenter extends Presenter {
 			];
 		}
 		return [];
-	}
-
-	private function getTracks() {
-		if (empty($tracks)) {
-			$this->tracks = $this->read->fetchBy($this->user->getId());
-		}
-		return $this->tracks;
 	}
 }

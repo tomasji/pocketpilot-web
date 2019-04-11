@@ -10,6 +10,19 @@ html, body {
   margin: 0;
 }
 
+nav {
+  margin-bottom: 15px;
+  a > i {
+    font-size: 1rem;
+    color: #fff;
+    padding: 0 5px;
+    cursor: pointer;
+  }
+  .brand-logo {
+    padding-left: 15px;
+  }
+}
+
 div.flash {
   border-radius: 2px;
   top: 35px;
