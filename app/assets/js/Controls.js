@@ -7,13 +7,14 @@ class Controls {
 
 	_bind() {
 		document.addEventListener('DOMContentLoaded', (e) => {
-			const controls = e.target.querySelector('.save-track > #frm-form')
-			const submit = controls.querySelector('input[type="submit"][name="save"]')
-			const hidden = controls.querySelector('input[name="waypoints"]')
-			submit.addEventListener('click', () => {
+			const form = e.target.querySelector('.save-track > #frm-form')
+			const control = e.target.querySelector('.controls-buttons > .save')
+			const hidden = form.querySelector('input[name="waypoints"]')
+			control.addEventListener('click', () => {
 				hidden.value = JSON.stringify(this.track.getWaypoints().map((wp) => wp.getLatLng()))
 			})
 		})
+
 		document.addEventListener('DOMContentLoaded', (e) => {
 			const speed = e.target.querySelector('.controls-speed input[type="text"][name="speed"]')
 			speed.addEventListener('input', (e) => {
