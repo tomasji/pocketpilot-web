@@ -10,7 +10,7 @@ class Track {
 		this.waypoints = []
 		this.line = null
 		this.table = new TrackTable(map.getContainer())
-		this.controls = new Controls(this)
+		this.controls = new Controls(this, this.table)
 		!latlngs || latlngs.forEach(latlng => {
 			const wp = this.addWaypoint(latlng, this.waypoints.length)
 			DomUtil.removeClass(wp._icon, 'map-marker-pulse')
@@ -90,7 +90,6 @@ class Track {
 		}
 		const index = this.waypoints.indexOf(wp)
 		this.table.addWaypoint(index, this.waypoints[index - 1], wp)
-		this.map.flyTo(wp.getLatLng())
 	}
 
 	_onWaypointDrag() {

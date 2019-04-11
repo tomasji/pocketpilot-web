@@ -42,6 +42,12 @@ class TrackTable {
 			this._setValues(previous, next, cells[0], cells[1], cells[2], cells[3])
 		}
 	}
+	recalculateTimes(speed) {
+		const rows = Array.from(this.table.children).slice(2)
+		rows.forEach((row) => {
+			row.children[3].innerText = Math.floor(parseInt(row.children[2].innerText) / speed * 60)
+		})
+	}
 
 	_setValues(wp1, wp2, place, hdg, dist, time) {
 		if (wp2) {
@@ -54,10 +60,11 @@ class TrackTable {
 				})
 		}
 		if (wp1 && wp2) {
+			const speed = this.table.parentElement.querySelector('.controls-speed input[type="text"][name="speed"]').value
 			const km = Math.floor(wp1.getLatLng().distanceTo(wp2.getLatLng()) / 1000)
 			hdg.innerText = getHeading(wp1.getLatLng(), wp2.getLatLng())
 			dist.innerText = km
-			time.innerText = Math.floor(km / 150 * 60)
+			time.innerText = Math.floor(km / speed * 60)
 		} else {
 			hdg.innerText = '-'
 			dist.innerText = '-'

@@ -1,6 +1,7 @@
 class Controls {
-	constructor(track) {
+	constructor(track, table) {
 		this.track = track
+		this.table = table
 		this._bind()
 	}
 
@@ -11,6 +12,12 @@ class Controls {
 			const hidden = controls.querySelector('input[name="waypoints"]')
 			submit.addEventListener('click', () => {
 				hidden.value = JSON.stringify(this.track.getWaypoints().map((wp) => wp.getLatLng()))
+			})
+		})
+		document.addEventListener('DOMContentLoaded', (e) => {
+			const speed = e.target.querySelector('.controls-speed input[type="text"][name="speed"]')
+			speed.addEventListener('input', (e) => {
+				this.table.recalculateTimes(e.target.value)
 			})
 		})
 	}

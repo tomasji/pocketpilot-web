@@ -2,6 +2,9 @@
 <div id="app">
 	<div id="map"{if $trackJson} data-track="{$trackJson}"{/if}></div>
 	<div id="controls" class="info card-panel hoverable">
+		<div class="controls-speed left">
+			<input title="Speed" name="speed" type="text" value="150"><span>km/h</span>
+		</div>
 		<div class="controls-buttons right">
 			<button data-target="modal" class="waves-effect blue lighten-1 btn btn-action modal-trigger">
 				<i class="fas fa-save"></i>

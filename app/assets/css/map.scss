@@ -44,6 +44,13 @@ div.info {
       }
     }
   }
+  & > .controls-speed {
+    padding-top: 10px;
+    & > input {
+      width: 2.2rem;
+      height: 2rem;
+    }
+  }
   & > .controls-buttons {
     padding-top: 10px;
   }
