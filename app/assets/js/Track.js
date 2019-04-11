@@ -90,7 +90,7 @@ class Track {
 		}
 		const index = this.waypoints.indexOf(wp)
 		this.table.addWaypoint(index, this.waypoints[index - 1], wp)
-		this.map.setView(wp.getLatLng())
+		this.map.flyTo(wp.getLatLng())
 	}
 
 	_onWaypointDrag() {

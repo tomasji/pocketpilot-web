@@ -1,4 +1,4 @@
-import { DivIcon, DomUtil } from 'leaflet'
+import { DivIcon, DomUtil, Popup } from 'leaflet'
 import { Waypoint } from './Waypoint'
 
 const createWaypointIcon = (pulse) => {
@@ -16,12 +16,13 @@ const removePulse = (object, clickEvent) => {
 
 export function createEntryPoint(latlng, onAdd, onDrag, onDragEnd, onAddClick) {
 	const o = new Waypoint(latlng, { icon: createWaypointIcon(true), draggable: true })
-	const div = DomUtil.create('div')
-	const addBtn = DomUtil.create('button')
-	addBtn.innerHTML = '+'
+	const div = DomUtil.create('div', 'center')
+	const addBtn = DomUtil.create('button', 'add blue lighten-1 btn')
+	addBtn.innerHTML = '<i class="fas fa-map-marker-alt"></i>'
 	addBtn.addEventListener('click', () => onAddClick(o))
 	div.appendChild(addBtn)
-	o.bindPopup(div)
+	const popup = new Popup({ minWidth: 80 }).setContent(div)
+	o.bindPopup(popup)
 	o.on('add', () => onAdd(o))
 	o.on('click', (e) => { removePulse(o, e) })
 	o.on('drag', onDrag)
@@ -31,20 +32,21 @@ export function createEntryPoint(latlng, onAdd, onDrag, onDragEnd, onAddClick) {
 
 export function createTurningPoint(latlng, onAdd, onRemove, onDrag, onDragEnd, onPopupOpen, onAddClick, onRemoveClick, onFinishClick) {
 	const o = new Waypoint(latlng, { icon: createWaypointIcon(false), draggable: true })
-	const div = DomUtil.create('div')
-	const addBtn = DomUtil.create('button', 'add')
-	addBtn.innerHTML = '+'
+	const div = DomUtil.create('div', 'center')
+	const addBtn = DomUtil.create('button', 'add blue lighten-1 btn')
+	addBtn.innerHTML = '<i class="fas fa-map-marker-alt"></i>'
 	addBtn.addEventListener('click', () => onAddClick(o))
-	const removeBtn = DomUtil.create('button', 'remove')
-	removeBtn.innerHTML = '-'
+	const removeBtn = DomUtil.create('button', 'remove blue lighten-1 btn')
+	removeBtn.innerHTML = '<i class="fas fa-trash"></i>'
 	removeBtn.addEventListener('click', () => onRemoveClick(o))
-	const finishBtn = DomUtil.create('button', 'finish')
-	finishBtn.innerHTML = 'F'
+	const finishBtn = DomUtil.create('button', 'finish blue lighten-1 btn')
+	finishBtn.innerHTML = '<i class="fas fa-route"></i>'
 	finishBtn.addEventListener('click', () => onFinishClick(o))
 	div.appendChild(addBtn)
 	div.appendChild(removeBtn)
 	div.appendChild(finishBtn)
-	o.bindPopup(div)
+	const popup = new Popup({ minWidth: 155 }).setContent(div)
+	o.bindPopup(popup)
 	o.on('add', () => onAdd(o))
 	o.on('drag', onDrag)
 	o.on('dragend', () => onDragEnd(o))

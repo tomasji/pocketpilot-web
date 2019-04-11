@@ -22,9 +22,17 @@ document.addEventListener('DOMContentLoaded', function() {
 	)
 })
 
+// tooltips
+document.addEventListener('DOMContentLoaded', function() {
+	const elems = document.querySelectorAll('.tooltipped')
+	M.Tooltip.init(elems)
+})
+
 // toast from flash message
 document.addEventListener('DOMContentLoaded', function() {
 	const flashes = document.getElementById('snippet--flashes')
-	const message = flashes.children[0].dataset.message
-	M.toast({ html: message, displayLength: 2500 })
+	if (flashes.children && flashes.children.length) {
+		const message = flashes.children[0].dataset.message
+		M.toast({ html: message, displayLength: 2500 })
+	}
 })

@@ -39,6 +39,9 @@
 }
 
 .leaflet-popup-content {
+  & button.remove {
+    margin: 0 3px;
+  }
   & button.finish {
     display: none;
   }
