@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PP\Track;
 
 use Nette\Database\Context;
@@ -21,7 +23,7 @@ class TrackCreate {
 		$this->database = $database;
 	}
 
-	public function process(string $trackName, int $userId, array $waypoints) : ActiveRow {
+	public function process(string $trackName, int $userId, array $waypoints) : ?ActiveRow {
 		Validators::assert($trackName, 'string:1..50');
 		Validators::assert($userId, 'numericint:1..');
 		return $this->database->table(TrackDatabaseDef::TABLE_NAME)->insert([
@@ -31,7 +33,7 @@ class TrackCreate {
 		]);
 	}
 
-	private function prepareQuery(array $waypoints) {
+	private function prepareQuery(array $waypoints): string {
 		$out = 'ST_GeomFromText(\'LINESTRING(';
 		$points = [];
 		foreach ($waypoints as $waypoint) {

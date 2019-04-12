@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PP;
 
 use Facebook\Exceptions\FacebookSDKException;
@@ -30,7 +32,7 @@ class FacebookService {
 	 * @return string
 	 * @throws \Nette\Utils\AssertionException
 	 */
-	public function generateLoginUrl(string $redirectUrl) {
+	public function generateLoginUrl(string $redirectUrl): string {
 		Validators::assert($redirectUrl, 'url');
 		return $this->fb->getRedirectLoginHelper()->getLoginUrl($redirectUrl, ['email']);
 	}
@@ -40,7 +42,7 @@ class FacebookService {
 	 * @return GraphUser
 	 * @throws AuthenticationException
 	 */
-	public function fetchUser() : GraphUser {
+	public function fetchUser(): GraphUser {
 		try {
 			$response = $this->fb->get('/me?fields=email,first_name,id', $this->fb->getRedirectLoginHelper()->getAccessToken());
 			return $response->getGraphUser();

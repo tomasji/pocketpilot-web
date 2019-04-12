@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PP\User;
 
 use Nette\Database\Context;
@@ -41,7 +43,7 @@ class FacebookAuthenticator {
 	 * @throws AssertionException
 	 * @throws IncorrectCredentialsException
 	 */
-	public function authenticate(FacebookCredentials $credentials) : UserEntry {
+	public function authenticate(FacebookCredentials $credentials): UserEntry {
 		$row = $this->database->table(UserDatabaseDef::TABLE_NAME)->where(UserDatabaseDef::COLUMN_EMAIL, $credentials->getEmail())->fetch();
 		if (!$row) {
 			$row = $this->register->process($credentials->getFirstName(), $credentials->getEmail(), $credentials->getAuthString());
@@ -59,7 +61,7 @@ class FacebookAuthenticator {
 	/**
 	 * @param FacebookCredentials $credentials
 	 */
-	private function updateMissingUid(FacebookCredentials $credentials) : void {
+	private function updateMissingUid(FacebookCredentials $credentials): void {
 		$this->database->table(UserDatabaseDef::TABLE_NAME)
 			->where(UserDatabaseDef::COLUMN_EMAIL, $credentials->getEmail())
 			->update([UserDatabaseDef::COLUMN_FB_UID => $credentials->getAuthString()]);

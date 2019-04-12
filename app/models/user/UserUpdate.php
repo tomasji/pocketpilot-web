@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PP\User;
 
 use Nette\Database\Context;
@@ -22,7 +24,7 @@ class UserUpdate {
 	/**
 	 * @param UserChanges $changes
 	 */
-	public function process(UserChanges $changes) : void {
+	public function process(UserChanges $changes): void {
 		$this->database->table(UserDatabaseDef::TABLE_NAME)
 			->where(UserDatabaseDef::COLUMN_ID, $changes->getId())
 			->update($this->toArray($changes));
@@ -32,7 +34,7 @@ class UserUpdate {
 	 * @param UserChanges $changes
 	 * @return array
 	 */
-	private function toArray(UserChanges $changes) : array {
+	private function toArray(UserChanges $changes): array {
 		$xs = [
 			UserDatabaseDef::COLUMN_NAME => $changes->getName(),
 			UserDatabaseDef::COLUMN_EMAIL => $changes->getEmail(),

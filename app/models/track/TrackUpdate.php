@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PP\Track;
 
 use Nette\Database\Context;
@@ -31,7 +33,7 @@ class TrackUpdate {
 			]);
 	}
 
-	private function prepareQuery(array $waypoints) {
+	private function prepareQuery(array $waypoints): string {
 		$out = 'ST_GeomFromText(\'LINESTRING(';
 		$points = [];
 		foreach ($waypoints as $waypoint) {

@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PP\Presenters;
 
 use Nette;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
+use PP\IncorrectCredentialsException;
 use PP\User\PasswordReset;
 use PP\User\UserRead;
 use PP\Webpack;
@@ -30,14 +33,14 @@ class PasswordRecoveryPresenter extends Presenter {
 		$this->pwReset = $pwReset;
 	}
 
-	public function actionReset($token) : void {
+	public function actionReset($token): void {
 		if (isset($token) && !$this->pwReset->isTokenValid($token)) {
 			$this->flashMessage('Invalid token.');
 			$this->redirect('Homepage:');
 		}
 	}
 
-	protected function createComponentRecoveryForm() : Form {
+	protected function createComponentRecoveryForm(): Form {
 		$form = new Form();
 		$form->addText('email', 'E-mail')
 			->setRequired('Please enter your e-mail.')
@@ -49,7 +52,7 @@ class PasswordRecoveryPresenter extends Presenter {
 		return $form;
 	}
 
-	protected function createComponentNewPasswordForm() : Form {
+	protected function createComponentNewPasswordForm(): Form {
 		$form = new Form();
 		$form->addPassword('password', 'Password')
 			->setRequired('Please fill in both of the password fields.')
@@ -70,14 +73,15 @@ class PasswordRecoveryPresenter extends Presenter {
 	 * @param Form $form
 	 * @throws Nette\Application\AbortException
 	 * @throws Nette\Utils\AssertionException
+	 * @throws Nette\Application\UI\InvalidLinkException
 	 */
-	public function processRecoveryForm(Form $form) : void {
-		$user = $this->userRead->fetchByEmail($form->values->email);
-		if ($user) {
+	public function processRecoveryForm(Form $form): void {
+		try {
+			$user = $this->userRead->fetchByEmail($form->values->email);
 			$this->pwReset->sendLinkTo($user);
 			$this->flashMessage("An e-mail has been sent to {$user->getEmail()}.");
 			$this->redirect('Homepage:');
-		} else {
+		} catch(IncorrectCredentialsException $e) {
 			$form->addError('E-mail not found.');
 		}
 	}
@@ -87,7 +91,7 @@ class PasswordRecoveryPresenter extends Presenter {
 	 * @param Form $form
 	 * @throws Nette\Application\AbortException
 	 */
-	public function processNewPasswordForm(Form $form) : void {
+	public function processNewPasswordForm(Form $form): void {
 		$this->pwReset->changePassword($this->getParameter('token'), $form->values->password);
 		$this->flashMessage('Password change has been successful. Now you can log in.');
 		$this->redirect('Homepage:');

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PP\Controls;
 
 use Nette\Application\UI\Control;
@@ -18,12 +20,12 @@ class WebpackControl extends Control {
 		$this->resolver = $resolver;
 	}
 
-	public function render(string $entry) {
+	public function render(string $entry): void {
 		$this->template->paths = $this->resolvePaths($entry);
 		$this->template->render(__DIR__ . '/webpackControl.latte');
 	}
 
-	private function resolvePaths($entry) {
+	private function resolvePaths(string $entry): array {
 		if (empty($entry)) {
 			throw new \LogicException('Missing $entry string.');
 		}

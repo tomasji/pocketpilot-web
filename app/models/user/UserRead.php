@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PP\User;
 
 use Nette\Database\Context;
+use Nette\Database\Table\ActiveRow;
 use Nette\SmartObject;
 use Nette\Utils\Validators;
 use PP\IncorrectCredentialsException;
@@ -27,7 +30,7 @@ class UserRead {
 	 * @throws IncorrectCredentialsException
 	 * @throws \Nette\Utils\AssertionException
 	 */
-	public function fetchById(int $id) : UserEntry {
+	public function fetchById(int $id): UserEntry {
 		Validators::assert($id, 'numericint:1..');
 		$row = $this->database->table(UserDatabaseDef::TABLE_NAME)->where(UserDatabaseDef::COLUMN_ID, $id)->fetch();
 		if ($row) {
@@ -43,7 +46,7 @@ class UserRead {
 	 * @throws IncorrectCredentialsException
 	 * @throws \Nette\Utils\AssertionException
 	 */
-	public function fetchByEmail(string $email) : UserEntry {
+	public function fetchByEmail(string $email): UserEntry {
 		Validators::assert($email, 'email');
 		$row = $this->database->table(UserDatabaseDef::TABLE_NAME)->where(UserDatabaseDef::COLUMN_EMAIL, $email)->fetch();
 		if ($row) {
@@ -54,16 +57,16 @@ class UserRead {
 	}
 
 	/**
-	 * @param \Traversable $data
+	 * @param ActiveRow $data
 	 * @return UserEntry
 	 */
-	private function toEntity(\Traversable $data) : UserEntry {
+	private function toEntity(ActiveRow $data): UserEntry {
 		return new UserEntry(
-			$data[UserDatabaseDef::COLUMN_ID],
-			$data[UserDatabaseDef::COLUMN_NAME],
-			$data[UserDatabaseDef::COLUMN_EMAIL],
-			$data[UserDatabaseDef::COLUMN_ROLE],
-			$data[UserDatabaseDef::COLUMN_TOKEN]
+			$data->offsetGet(UserDatabaseDef::COLUMN_ID),
+			$data->offsetGet(UserDatabaseDef::COLUMN_NAME),
+			$data->offsetGet(UserDatabaseDef::COLUMN_EMAIL),
+			$data->offsetGet(UserDatabaseDef::COLUMN_ROLE),
+			$data->offsetGet(UserDatabaseDef::COLUMN_TOKEN)
 		);
 	}
 }

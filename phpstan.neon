@@ -1,0 +1,5 @@
+parameters:
+	bootstrap: ./www/index.php
+
+includes:
+	- vendor/phpstan/phpstan-nette/extension.neon

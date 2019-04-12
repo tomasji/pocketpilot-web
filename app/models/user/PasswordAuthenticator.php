@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PP\User;
 
 use Nette\Database\Context;
@@ -39,7 +41,7 @@ class PasswordAuthenticator {
 	 * @throws IncorrectCredentialsException
 	 * @throws \Nette\Utils\AssertionException
 	 */
-	public function authenticate(PasswordCredentials $credentials) : UserEntry {
+	public function authenticate(PasswordCredentials $credentials): UserEntry {
 		$entry = $this->read->fetchByEmail($credentials->getEmail());
 		$hash = $this->database->table(UserDatabaseDef::TABLE_NAME)
 			->where(UserDatabaseDef::COLUMN_ID, $entry->getId())->fetchField(UserDatabaseDef::COLUMN_PASSWORD_HASH);

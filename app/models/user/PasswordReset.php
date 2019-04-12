@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PP\User;
 
 use Nette\Application\LinkGenerator;
 use Nette\Database\Context;
 use Nette\Mail\IMailer;
 use Nette\Mail\Message;
+use Nette\Mail\SendException;
 use Nette\Security\Passwords;
 use Nette\SmartObject;
 use Nette\Utils\DateTime;
@@ -24,6 +27,11 @@ class PasswordReset {
 	private $database;
 
 	/**
+	 * @var Passwords
+	 */
+	private $passwords;
+
+	/**
 	 * @var LinkGenerator
 	 */
 	private $linkGenerator;
@@ -33,17 +41,18 @@ class PasswordReset {
 	 */
 	private $mailer;
 
-	public function __construct(Context $database, LinkGenerator $linkGenerator, IMailer $mailer) {
+	public function __construct(Context $database, Passwords $passwords, LinkGenerator $linkGenerator, IMailer $mailer) {
 		$this->database = $database;
+		$this->passwords = $passwords;
 		$this->linkGenerator = $linkGenerator;
 		$this->mailer = $mailer;
 	}
 
 	/**
-	 * @param $token
+	 * @param string $token
 	 * @return bool true if token is valid
 	 */
-	public function isTokenValid($token) : bool {
+	public function isTokenValid(string $token): bool {
 		if (!TokenProcessor::isTokenValid($token)) {
 			return false;
 		} else {
@@ -63,17 +72,17 @@ class PasswordReset {
 	}
 
 	/**
-	 * @param $token
-	 * @param $pw
+	 * @param string $token
+	 * @param string $pw
 	 * @throws \Exception
 	 */
-	public function changePassword($token, $pw) : void {
+	public function changePassword(string $token, string $pw): void {
 		$tokenHash = TokenProcessor::calculateTokenHash($token);
 		$userId = $this->database->table(PasswordResetDatabaseDef::TABLE_NAME)
 			->where(PasswordResetDatabaseDef::COLUMN_TOKEN, $tokenHash)
 			->fetchField(PasswordResetDatabaseDef::COLUMN_ID_USER);
 		$this->database->table(UserDatabaseDef::TABLE_NAME)
-			->update([UserDatabaseDef::COLUMN_PASSWORD_HASH => Passwords::hash($pw)]);
+			->update([UserDatabaseDef::COLUMN_PASSWORD_HASH => $this->passwords->hash($pw)]);
 		$this->database->table(PasswordResetDatabaseDef::TABLE_NAME)
 			->where(PasswordResetDatabaseDef::COLUMN_ID_USER, $userId)
 			->delete();
@@ -81,20 +90,21 @@ class PasswordReset {
 
 	/**
 	 * @param UserEntry $user
-	 * @throws \Exception
+	 * @throws SendException
+	 * @throws \Nette\Application\UI\InvalidLinkException
 	 */
-	public function sendLinkTo(UserEntry $user) : void {
+	public function sendLinkTo(UserEntry $user): void {
 		$token = $this->createAndSaveToken($user->getId());
 		$link = $this->linkGenerator->link('PasswordRecovery:reset', ['token' => $token]);
 		$this->mailer->send($this->createMail($user->getEmail(), $link));
 	}
 
 	/**
-	 * @param $userId
+	 * @param int $userId
 	 * @return string
 	 * @throws \Exception
 	 */
-	private function createAndSaveToken($userId) : string {
+	private function createAndSaveToken(int $userId): string {
 		TokenProcessor::generateToken($tokenForLink, $tokenHashForDatabase);
 		$this->database->table(PasswordResetDatabaseDef::TABLE_NAME)->insert([
 			'token' => $tokenHashForDatabase,
@@ -104,7 +114,7 @@ class PasswordReset {
 		return $tokenForLink;
 	}
 
-	private function createMail($to, $link) : Message {
+	private function createMail($to, $link): Message {
 		$mail = new Message();
 		$mail
 			->setFrom('Pocket Pilot <recovery@pocketpilot.cz>')

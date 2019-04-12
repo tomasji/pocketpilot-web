@@ -1,23 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PP;
 
 use Nette;
-use Nette\Application\Routers\Route;
 use Nette\Application\Routers\RouteList;
 
+final class RouterFactory {
 
-class RouterFactory
-{
 	use Nette\StaticClass;
 
-	/**
-	 * @return Nette\Application\IRouter
-	 */
-	public static function createRouter()
-	{
+	public static function createRouter(): RouteList {
 		$router = new RouteList;
-		$router[] = new Route('<presenter>/<action>[/<id>]', 'Homepage:default');
+		$router->addRoute('<presenter>/<action>[/<id>]', 'Homepage:default');
 		return $router;
 	}
 }

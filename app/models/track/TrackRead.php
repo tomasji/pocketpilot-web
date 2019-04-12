@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PP\Track;
 
 use Nette\Database\Context;
+use Nette\Database\Table\ActiveRow;
 use Nette\SmartObject;
 
 /**
@@ -23,9 +26,9 @@ class TrackRead {
 	 * @param int $userId
 	 * @return array [trackId => TrackEntry]
 	 */
-	public function fetchBy(int $userId) : array {
+	public function fetchBy(int $userId): array {
 		$ret = [];
-		$row = $this->database->table(TrackDatabaseDef::TABLE_NAME)
+		$rows = $this->database->table(TrackDatabaseDef::TABLE_NAME)
 			->select(
 				TrackDatabaseDef::COLUMN_ID . ',' .
 				TrackDatabaseDef::COLUMN_USER_ID . ',' .
@@ -34,24 +37,24 @@ class TrackRead {
 				'ST_Length('.TrackDatabaseDef::COLUMN_TRACK.') AS length' . ',' .
 				'ST_AsGeoJSON('.TrackDatabaseDef::COLUMN_TRACK.') AS geojson')
 			->where(TrackDatabaseDef::COLUMN_USER_ID, $userId)->fetchAll();
-		foreach ($row as $entry) {
-			$ret[$entry[TrackDatabaseDef::COLUMN_ID]] = $this->toEntity($entry);
+		foreach ($rows as $row) {
+			$ret[$row[TrackDatabaseDef::COLUMN_ID]] = $this->toEntity($row);
 		}
 		return $ret;
 	}
 
 	/**
-	 * @param \Traversable $data
+	 * @param ActiveRow $data
 	 * @return TrackEntry
 	 */
-	private function toEntity(\Traversable $data) : TrackEntry {
+	private function toEntity(ActiveRow $data): TrackEntry {
 		return new TrackEntry(
-			$data[TrackDatabaseDef::COLUMN_ID],
-			$data['geojson'],
-			$data['length'],
-			$data[TrackDatabaseDef::COLUMN_USER_ID],
-			$data[TrackDatabaseDef::COLUMN_NAME],
-			$data[TrackDatabaseDef::COLUMN_CREATION_DATE]
+			$data->offsetGet(TrackDatabaseDef::COLUMN_ID),
+			$data->offsetGet('geojson'),
+			$data->offsetGet('length'),
+			$data->offsetGet(TrackDatabaseDef::COLUMN_USER_ID),
+			$data->offsetGet(TrackDatabaseDef::COLUMN_NAME),
+			$data->offsetGet(TrackDatabaseDef::COLUMN_CREATION_DATE)
 		);
 	}
 }

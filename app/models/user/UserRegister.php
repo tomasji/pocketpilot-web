@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PP\User;
 
 use Nette\Database\Context;
@@ -39,7 +41,7 @@ class UserRegister {
 	 * @throws IncorrectCredentialsException
 	 * @throws \Nette\Utils\AssertionException
 	 */
-	public function process(string $username, string $email, string $fbUid = null, string $password = null) : ActiveRow {
+	public function process(string $username, string $email, string $fbUid = null, string $password = null): ?ActiveRow {
 		Validators::assert($username, 'string:1..');
 		Validators::assert($email, 'email');
 		Validators::assert($password, 'string:1..|null');

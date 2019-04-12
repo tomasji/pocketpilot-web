@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PP;
 
+use Nette\Security\AuthenticationException;
 use Nette\SmartObject;
 use PP\User\FacebookCredentials;
 use PP\User\UserRegister;
@@ -36,7 +39,7 @@ class SignModel {
 	 * @throws IncorrectCredentialsException
 	 * @throws \Nette\Utils\AssertionException
 	 */
-	public function registerUser(string $username, string $email, string $fb_uid = null, string $password = null) : void {
+	public function registerUser(string $username, string $email, string $fb_uid = null, string $password = null): void {
 		$this->register->process($username, $email, $fb_uid, $password);
 	}
 
@@ -44,9 +47,13 @@ class SignModel {
 	 * @return FacebookCredentials
 	 * @throws \Nette\Security\AuthenticationException
 	 */
-	public function getFacebookCredentials() : FacebookCredentials {
+	public function getFacebookCredentials(): FacebookCredentials {
 		$graphUser = $this->fb->fetchUser();
-		return new FacebookCredentials($graphUser->getEmail(), $graphUser->getId(), $graphUser->getFirstName());
+		if ($graphUser->getEmail() && $graphUser->getId() && $graphUser->getFirstName()) {
+			return new FacebookCredentials($graphUser->getEmail(), $graphUser->getId(), $graphUser->getFirstName());
+		} else {
+			throw new AuthenticationException('Missing information in Facebook response.');
+		}
 	}
 
 	/**

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PP\Track;
 
 use Nette\SmartObject;
@@ -23,7 +25,7 @@ class TrackEntry {
 	private $track;
 
 	/**
-	 * @var int
+	 * @var string
 	 */
 	private $length;
 
@@ -42,7 +44,7 @@ class TrackEntry {
 	 */
 	private $created;
 
-	public function __construct(int $id, string $track, int $length, int $userId, string $name, DateTime $created) {
+	public function __construct(int $id, string $track, string $length, int $userId, string $name, DateTime $created) {
 		$this->id = $id;
 		$this->track = $track;
 		$this->length = $length;
@@ -59,9 +61,9 @@ class TrackEntry {
 	}
 
 	/**
-	 * @return int
+	 * @return string
 	 */
-	public function getLength(): int {
+	public function getLength(): string {
 		return $this->length;
 	}
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PP;
 
 use PP\Controls\NavbarControl;
@@ -9,7 +11,7 @@ use PP\Controls\NavbarControl;
  */
 trait Navbar {
 
-	protected function createComponentNavbar() {
+	protected function createComponentNavbar(): NavbarControl {
 		return new NavbarControl();
 	}
 }

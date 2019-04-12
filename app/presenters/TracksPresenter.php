@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PP\Presenters;
 
 use Nette\Application\UI\Form;
@@ -57,19 +59,19 @@ class TracksPresenter extends Presenter {
 		$this->delete = $delete;
 	}
 
-	public function renderDefault() {
+	public function renderDefault(): void {
 		$this->template->tracks = $this->getTracks();
 		$this->template->maximum = $this->getMaximum();
 	}
 
-	public function getTracks() {
+	public function getTracks(): array {
 		if (empty($tracks)) {
 			$this->tracks = $this->read->fetchBy($this->user->getId());
 		}
 		return $this->tracks;
 	}
 
-	public function getMaximum() {
+	public function getMaximum(): int {
 		switch ($this->user->getRoles()[0]) {
 			case 'admin':
 			case 'premium':
@@ -81,7 +83,7 @@ class TracksPresenter extends Presenter {
 		}
 	}
 
-	public function renderMap($id) {
+	public function renderMap($id): void {
 		if ($id) {
 			if (isset($this->getTracks()[$id]) && $this->getTracks()[$id]->getUserId() === $this->getUser()->getId()) {
 				$this->template->trackJson = $this->getTracks()[$id]->getTrack();
@@ -93,7 +95,7 @@ class TracksPresenter extends Presenter {
 		}
 	}
 
-	public function handleDelete($id, $name) {
+	public function handleDelete($id, $name): void {
 		try {
 			$this->delete->process($id);
 			$this->flashMessage("Track '$name' has been deleted.");
@@ -108,7 +110,7 @@ class TracksPresenter extends Presenter {
 	 * @param Form $form
 	 * @throws \Nette\Application\AbortException
 	 */
-	public function processForm(Form $form) : void {
+	public function processForm(Form $form): void {
 		$values = $form->getValues();
 		$wpts = json_decode($values->waypoints, true);
 		if (count($wpts) <= 1) {
@@ -132,7 +134,7 @@ class TracksPresenter extends Presenter {
 		}
 	}
 
-	protected function createComponentForm() : Form {
+	protected function createComponentForm(): Form {
 		$form = new Form();
 		$form->addText('name', 'Track name')
 			->addRule(Form::REQUIRED, 'Please fill in the name.')
@@ -146,7 +148,7 @@ class TracksPresenter extends Presenter {
 		return $form;
 	}
 
-	private function getDefaults() {
+	private function getDefaults(): array {
 		$id = $this->getParameter('id');
 		if ($id) {
 			return [

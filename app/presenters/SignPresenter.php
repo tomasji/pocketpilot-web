@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PP\Presenters;
 
 use Nette\Application\UI\Presenter;
@@ -30,7 +32,7 @@ class SignPresenter extends Presenter {
 	/**
 	 * @throws \Nette\Application\AbortException
 	 */
-	public function actionFbLogin() {
+	public function actionFbLogin(): void {
 		try {
 			$this->getUser()->login($this->model->getFacebookCredentials());
 		} catch (AuthenticationException $e) {
@@ -42,17 +44,17 @@ class SignPresenter extends Presenter {
 	/**
 	 * @throws \Nette\Application\AbortException
 	 */
-	public function actionLogOut() {
+	public function actionLogOut(): void {
 		$this->getUser()->logout();
 		$this->redirect('Sign:');
 	}
 
-	public function renderDefault() {
+	public function renderDefault(): void {
 		$this->template->currentUserName = $this->getCurrentUserName();
 		$this->template->fbLoginUrl = $this->getFbLoginUrl();
 	}
 
-	public function getCurrentUserName() : string {
+	public function getCurrentUserName(): string {
 		return $this->getUser()->getIdentity() ? $this->getUser()->getIdentity()->username : "unknown";
 	}
 
@@ -61,11 +63,11 @@ class SignPresenter extends Presenter {
 	 * @throws \Nette\Application\UI\InvalidLinkException
 	 * @throws \Nette\Utils\AssertionException
 	 */
-	public function getFbLoginUrl() : string {
+	public function getFbLoginUrl(): string {
 		return $this->model->generateLoginUrl($this->link('//fbLogin'));
 	}
 
-	protected function createComponentLoginForm() : Form {
+	protected function createComponentLoginForm(): Form {
 		$form = new Form;
 		$form->addText('email', 'E-mail')
 			->setRequired('Please enter your e-mail.')
@@ -83,9 +85,8 @@ class SignPresenter extends Presenter {
 	 * @internal
 	 * @param Form $form
 	 * @throws \Nette\Application\AbortException
-	 * @throws \Nette\Security\AuthenticationException
 	 */
-	public function processLoginForm(Form $form) : void {
+	public function processLoginForm(Form $form): void {
 		$values = $form->getValues();
 		try {
 			$this->getUser()->login(new PasswordCredentials($values->email, $values->password));

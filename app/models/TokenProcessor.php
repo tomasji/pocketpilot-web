@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PP;
 
 use DateInterval;
@@ -40,7 +42,7 @@ class TokenProcessor {
 	 *   and is always 64 characters in length.
 	 * @throws Exception
 	 */
-	public static function generateToken(&$tokenForLink, &$tokenHashForDatabase) : void {
+	public static function generateToken(&$tokenForLink, &$tokenHashForDatabase): void {
 		$tokenForLink = self::generateRandomBase62String(self::$tokenLength);
 		$tokenHashForDatabase = self::calculateTokenHash($tokenForLink);
 	}
@@ -52,7 +54,7 @@ class TokenProcessor {
 	 * @throws Exception It the token is invalid.
 	 * @return string Returns the searchable hash-value of the token.
 	 */
-	public static function calculateTokenHash($token) : string {
+	public static function calculateTokenHash($token): string {
 		if (strlen($token) < 20) {
 			throw new Exception('The token is too short and therefore too weak');
 		}
@@ -65,10 +67,10 @@ class TokenProcessor {
 	 * @return bool Returns true if the token is formally valid,
 	 *   otherwise false.
 	 */
-	public static function isTokenValid($token) : bool {
+	public static function isTokenValid(string $token): bool {
 		// Valid tokens must be of a certain length and must contain
 		// only following characters 0..9, a..z, A..Z.
-		return !is_null($token) && (self::$tokenLength == strlen($token)) && ctype_alnum($token);
+		return self::$tokenLength == strlen($token) && ctype_alnum($token);
 	}
 
 	/**
@@ -77,7 +79,7 @@ class TokenProcessor {
 	 * @return bool Returns true if the token is expired, otherwise false.
 	 * @throws Exception
 	 */
-	public static function isTokenExpired(DateTime $creationDate) :bool {
+	public static function isTokenExpired(DateTime $creationDate): bool {
 		$now = new DateTime();
 
 		$expiryDate = clone $creationDate;
@@ -95,7 +97,7 @@ class TokenProcessor {
 	 * @return string A random base62 encoded string.
 	 * @throws Exception
 	 */
-	public static function generateRandomBase62String($length) : string {
+	public static function generateRandomBase62String($length): string {
 		$result = '';
 		$remainingLength = $length;
 		do {

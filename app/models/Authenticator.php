@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PP;
 
 use Nette\Security\AuthenticationException;
@@ -42,7 +44,7 @@ class Authenticator implements IAuthenticator {
 	 * @throws AuthenticationException
 	 * @throws \Nette\Utils\AssertionException
 	 */
-	public function authenticate(array $credentials) : IIdentity {
+	public function authenticate(array $credentials): IIdentity {
 		if (count($credentials)) {
 			$credentials = $credentials[0];
 		} else {
@@ -69,7 +71,7 @@ class Authenticator implements IAuthenticator {
 	 * @param UserEntry $user
 	 * @return Identity
 	 */
-	private function createIdentity(UserEntry $user) : Identity {
+	private function createIdentity(UserEntry $user): Identity {
 		return new Identity(
 			$user->getId(),
 			[$user->getRole()],
