@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="{$basePath}/css/main.css">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+	<link rel="stylesheet" n:nonce href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 	<title>{ifset title}{include title|stripHtml} | {/ifset}PocketPilot.cz</title>
+	{ifset scriptsHead}{include scriptsHead}{/ifset}
 </head>
 
 <body>
@@ -15,10 +15,6 @@
 		{/foreach}
 	{/snippet}
 	{include content}
-
-	{block scripts}
-		<script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
-		<script src="{$basePath}/js/app.js"></script>
-	{/block}
+	<script n:nonce src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
 </body>
 </html>

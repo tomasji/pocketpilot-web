@@ -12,6 +12,7 @@ use PP\Track\TrackEntry;
 use PP\Track\TrackRead;
 use PP\Authentication;
 use PP\Track\TrackUpdate;
+use PP\Webpack;
 
 /**
  * @author Andrej Souček
@@ -21,6 +22,7 @@ class TracksPresenter extends Presenter {
 
 	use Authentication;
 	use Navbar;
+	use Webpack;
 
 	/**
 	 * @var TrackRead

@@ -29,15 +29,22 @@ class UserEntry {
 	 */
 	private $role;
 
-	public function __construct(int $id, string $name, string $email, string $role) {
+	/**
+	 * @var string
+	 */
+	private $token;
+
+	public function __construct(int $id, string $name, string $email, string $role, string $token) {
 		Validators::assert($id, 'int:1..');
 		Validators::assert($name, 'string:1..');
 		Validators::assert($email, 'email');
 		Validators::assert($role, 'string:1..');
+		Validators::assert($token, 'string:32');
 		$this->id = $id;
 		$this->name = $name;
 		$this->email = $email;
 		$this->role = $role;
+		$this->token = $token;
 	}
 
 	/**
@@ -66,5 +73,12 @@ class UserEntry {
 	 */
 	public function getRole(): string {
 		return $this->role;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getToken(): string {
+		return $this->token;
 	}
 }

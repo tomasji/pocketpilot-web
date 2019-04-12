@@ -1,6 +1,8 @@
 parameters:
 	facebook:
 		dgv: 'v2.10'
+	scriptsDir: /dist
+	manifestDir: %appDir%/../www/dist
 
 
 application:
@@ -15,6 +17,7 @@ session:
 
 services:
 	authenticator: PP\Authenticator
+	dirResolver: PP\DirResolver(%appDir%, %scriptsDir%, %manifestDir%)
 	facebook: Facebook\Facebook( {app_id: %facebook.app_id%, app_secret: %facebook.app_secret%, default_graph_version: %facebook.dgv%} )
 	facebookAuthenticator: PP\User\FacebookAuthenticator
 	facebookService: PP\FacebookService
@@ -28,3 +31,10 @@ services:
 	trackUpdate: PP\Track\TrackUpdate
 	userRead: PP\User\UserRead
 	userRegister: PP\User\UserRegister
+
+
+http:
+	csp:
+		script-src:
+			- nonce
+			- unsafe-eval

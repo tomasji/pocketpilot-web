@@ -20,8 +20,14 @@ class UserRegister {
 	/** @var Context */
 	private $database;
 
-	public function __construct(Context $database) {
+	/**
+	 * @var Passwords
+	 */
+	private $passwords;
+
+	public function __construct(Context $database, Passwords $passwords) {
 		$this->database = $database;
+		$this->passwords = $passwords;
 	}
 
 	/**
@@ -43,7 +49,7 @@ class UserRegister {
 				UserDatabaseDef::COLUMN_NAME => $username,
 				UserDatabaseDef::COLUMN_EMAIL => $email,
 				UserDatabaseDef::COLUMN_FB_UID => $fbUid,
-				UserDatabaseDef::COLUMN_PASSWORD_HASH => $password ? Passwords::hash($password) : null,
+				UserDatabaseDef::COLUMN_PASSWORD_HASH => $password ? $this->passwords->hash($password) : null,
 			));
 		} catch (UniqueConstraintViolationException $e) {
 			throw new IncorrectCredentialsException("Username already exists.");

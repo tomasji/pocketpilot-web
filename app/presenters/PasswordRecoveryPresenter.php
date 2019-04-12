@@ -7,11 +7,14 @@ use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
 use PP\User\PasswordReset;
 use PP\User\UserRead;
+use PP\Webpack;
 
 /**
  * @author Andrej Souček
  */
 class PasswordRecoveryPresenter extends Presenter {
+
+	use Webpack;
 
 	/**
 	 * @var UserRead
@@ -69,7 +72,7 @@ class PasswordRecoveryPresenter extends Presenter {
 	 * @throws Nette\Utils\AssertionException
 	 */
 	public function processRecoveryForm(Form $form) : void {
-		$user = $this->userRead->fetchBy($form->values->email);
+		$user = $this->userRead->fetchByEmail($form->values->email);
 		if ($user) {
 			$this->pwReset->sendLinkTo($user);
 			$this->flashMessage("An e-mail has been sent to {$user->getEmail()}.");

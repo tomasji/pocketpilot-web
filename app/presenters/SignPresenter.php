@@ -8,11 +8,14 @@ use Nette\Security\AuthenticationException;
 use PP\IncorrectCredentialsException;
 use PP\SignModel;
 use PP\User\PasswordCredentials;
+use PP\Webpack;
 
 /**
  * @author Andrej Souček
  */
 class SignPresenter extends Presenter {
+
+	use Webpack;
 
 	/**
 	 * @var SignModel
