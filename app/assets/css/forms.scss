@@ -1,7 +1,8 @@
 .centered-form-wrapper {
-  display: inline-block;
+  z-index:2;
   padding: 32px 48px 0 48px;
   border: 1px solid #EEE;
-  width: 445px;
-  background: rgba(255, 255, 255, 0.9);
+  margin: 0 auto;
+  max-width: 445px;
+  background: white;
 }

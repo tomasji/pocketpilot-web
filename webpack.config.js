@@ -10,7 +10,8 @@ module.exports = {
 	},
 	output: {
 		path: path.join(path.resolve(), 'www/dist'),
-		filename: '[name].[contenthash:8].js'
+		filename: '[name].[contenthash:8].js',
+		publicPath: '/dist/'
 	},
 	optimization: {
 		runtimeChunk: true,
@@ -62,10 +63,14 @@ module.exports = {
 				}]
 			},
 			{
-				test: /\.(jpe?g|png|gif|svg)$/i,
-				use: [
-					'file-loader?name=images/[name].[ext]'
-				]
+				test: /\.(jpe?g|png|gif|webp|eot|ttf|woff|woff2|svg|)$/i,
+				use: [{
+					loader: 'url-loader',
+					options: {
+						limit: 1000,
+						name: 'images/[name].[hash].[ext]'
+					}
+				}]
 			}
 		]
 	},

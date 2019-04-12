@@ -97,7 +97,7 @@ class TracksPresenter extends Presenter {
 
 	public function handleDelete($id, $name): void {
 		try {
-			$this->delete->process($id);
+			$this->delete->process((int)$id);
 			$this->flashMessage("Track '$name' has been deleted.");
 		} catch (\PDOException $t) {
 			$this->flashMessage("An error occurred while deleting the track.");
