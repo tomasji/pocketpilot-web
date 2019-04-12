@@ -5,7 +5,8 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 module.exports = {
 	entry: {
 		main: './app/assets/js/Main.js',
-		map: './app/assets/js/Map.js'
+		map: './app/assets/js/Map.js',
+		qr: './app/assets/js/QR.js'
 	},
 	output: {
 		path: path.join(path.resolve(), 'www/dist'),

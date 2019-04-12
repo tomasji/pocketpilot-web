@@ -72,7 +72,7 @@ class PasswordRecoveryPresenter extends Presenter {
 	 * @throws Nette\Utils\AssertionException
 	 */
 	public function processRecoveryForm(Form $form) : void {
-		$user = $this->userRead->fetchBy($form->values->email);
+		$user = $this->userRead->fetchByEmail($form->values->email);
 		if ($user) {
 			$this->pwReset->sendLinkTo($user);
 			$this->flashMessage("An e-mail has been sent to {$user->getEmail()}.");

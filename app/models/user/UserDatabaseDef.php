@@ -14,5 +14,6 @@ class UserDatabaseDef {
 		COLUMN_EMAIL = 'email',
 		COLUMN_FB_UID = 'fb_uid',
 		COLUMN_PASSWORD_HASH = 'password',
-		COLUMN_ROLE = 'role';
+		COLUMN_ROLE = 'role',
+		COLUMN_TOKEN = 'token';
 }
