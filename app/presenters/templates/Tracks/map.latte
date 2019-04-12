@@ -1,3 +1,6 @@
+{block scriptsHead}
+	{control webpack 'main'}
+{/block}
 {block content}
 <div id="app">
 	<div id="map"{if $trackJson} data-track="{$trackJson}"{/if}></div>
@@ -35,4 +38,4 @@
 		</div>
 	</div>
 </div>
-{webpack map}
+{control webpack 'map'}

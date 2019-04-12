@@ -7,11 +7,14 @@ use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
 use PP\User\PasswordReset;
 use PP\User\UserRead;
+use PP\Webpack;
 
 /**
  * @author Andrej Souček
  */
 class PasswordRecoveryPresenter extends Presenter {
+
+	use Webpack;
 
 	/**
 	 * @var UserRead
