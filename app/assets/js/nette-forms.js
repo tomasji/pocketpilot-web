@@ -1,3 +1,5 @@
+import M from 'materialize-css'
+
 /**
  * NetteForms - simple form validation.
  *
@@ -268,7 +270,9 @@
 		}
 
 		if (messages.length) {
-			alert(messages.join('\n'))
+			messages.forEach(message => {
+				M.toast({ html: message, displayLength: 2500 })
+			})
 
 			if (focusElem) {
 				focusElem.focus()
