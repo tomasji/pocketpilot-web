@@ -1,6 +1,8 @@
 import naja from 'naja'
 import M from 'materialize-css'
+import netteForms from './nette-forms'
 
+naja.formsHandler.netteForms = netteForms
 document.addEventListener('DOMContentLoaded', naja.initialize.bind(naja))
 
 naja.snippetHandler.addEventListener('afterUpdate', (event) => {
