@@ -25,7 +25,7 @@ class TrackEntry {
 	private $track;
 
 	/**
-	 * @var string
+	 * @var float
 	 */
 	private $length;
 
@@ -44,7 +44,7 @@ class TrackEntry {
 	 */
 	private $created;
 
-	public function __construct(int $id, string $track, string $length, int $userId, string $name, DateTime $created) {
+	public function __construct(int $id, string $track, float $length, int $userId, string $name, DateTime $created) {
 		$this->id = $id;
 		$this->track = $track;
 		$this->length = $length;
@@ -61,9 +61,9 @@ class TrackEntry {
 	}
 
 	/**
-	 * @return string
+	 * @return float
 	 */
-	public function getLength(): string {
+	public function getLength(): float {
 		return $this->length;
 	}
 
