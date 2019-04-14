@@ -35,10 +35,6 @@ class WebpackControl extends Control {
 		}
 		$json = json_decode($manifest, true);
 		if (isset($json['entrypoints'][$entry]) && isset($json['entrypoints'][$entry]['js'])) {
-			$out = '';
-			foreach ($json['entrypoints'][$entry]['js'] as $path) {
-				$out .= "<script src='{$this->resolver->getScriptsDir()}/$path'></script>";
-			}
 			return array_map(function($s) {
 				return "{$this->resolver->getScriptsDir()}/$s";
 			}, $json['entrypoints'][$entry]['js']);
