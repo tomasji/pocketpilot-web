@@ -7,7 +7,7 @@ import M from 'materialize-css'
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
-(function(global, factory) {
+export default (function(global, factory) {
 	if (!global.JSON) {
 		return
 	}
