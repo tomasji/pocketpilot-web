@@ -4,17 +4,14 @@ declare(strict_types=1);
 
 namespace PP\Presenters;
 
-use Nette\Application\UI\Presenter;
 use PP\Authentication;
 use PP\Navbar;
-use PP\Webpack;
 
 /**
  * @author Andrej Souček
  */
-class DashboardPresenter extends Presenter {
+class DashboardPresenter extends AppPresenter {
 
 	use Authentication;
 	use Navbar;
-	use Webpack;
 }

@@ -6,18 +6,15 @@ namespace PP\Presenters;
 
 use Nette;
 use Nette\Application\UI\Form;
-use Nette\Application\UI\Presenter;
+use PP\DirResolver;
 use PP\IncorrectCredentialsException;
 use PP\User\PasswordReset;
 use PP\User\UserRead;
-use PP\Webpack;
 
 /**
  * @author Andrej Souček
  */
-class PasswordRecoveryPresenter extends Presenter {
-
-	use Webpack;
+class PasswordRecoveryPresenter extends AppPresenter {
 
 	/**
 	 * @var UserRead
@@ -27,8 +24,8 @@ class PasswordRecoveryPresenter extends Presenter {
 	/** @var PasswordReset */
 	private $pwReset;
 
-	public function __construct(UserRead $userRead, PasswordReset $pwReset) {
-		parent::__construct();
+	public function __construct(DirResolver $dirResolver, UserRead $userRead, PasswordReset $pwReset) {
+		parent::__construct($dirResolver);
 		$this->userRead = $userRead;
 		$this->pwReset = $pwReset;
 	}

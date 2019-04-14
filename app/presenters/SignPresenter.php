@@ -4,28 +4,25 @@ declare(strict_types=1);
 
 namespace PP\Presenters;
 
-use Nette\Application\UI\Presenter;
 use Nette\Application\UI\Form;
 use Nette\Security\AuthenticationException;
+use PP\DirResolver;
 use PP\IncorrectCredentialsException;
 use PP\SignModel;
 use PP\User\PasswordCredentials;
-use PP\Webpack;
 
 /**
  * @author Andrej Souček
  */
-class SignPresenter extends Presenter {
-
-	use Webpack;
+class SignPresenter extends AppPresenter {
 
 	/**
 	 * @var SignModel
 	 */
 	private $model;
 
-	public function __construct(SignModel $model) {
-		parent::__construct();
+	public function __construct(DirResolver $dirResolver, SignModel $model) {
+		parent::__construct($dirResolver);
 		$this->model = $model;
 	}
 

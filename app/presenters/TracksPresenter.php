@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace PP\Presenters;
 
 use Nette\Application\UI\Form;
-use Nette\Application\UI\Presenter;
 use Nette\UnexpectedValueException;
+use PP\DirResolver;
 use PP\Navbar;
 use PP\Track\TrackCreate;
 use PP\Track\TrackDelete;
@@ -14,17 +14,15 @@ use PP\Track\TrackEntry;
 use PP\Track\TrackRead;
 use PP\Authentication;
 use PP\Track\TrackUpdate;
-use PP\Webpack;
 
 /**
  * @author Andrej Souček
  * @User
  */
-class TracksPresenter extends Presenter {
+class TracksPresenter extends AppPresenter {
 
 	use Authentication;
 	use Navbar;
-	use Webpack;
 
 	/**
 	 * @var TrackRead
@@ -51,8 +49,11 @@ class TracksPresenter extends Presenter {
 	 */
 	private $delete;
 
-	public function __construct(TrackRead $read, TrackCreate $create, TrackUpdate $update, TrackDelete $delete) {
-		parent::__construct();
+	public function __construct(
+		DirResolver $dirResolver,
+		TrackRead $read, TrackCreate $create, TrackUpdate $update, TrackDelete $delete
+	) {
+		parent::__construct($dirResolver);
 		$this->read = $read;
 		$this->create = $create;
 		$this->update = $update;

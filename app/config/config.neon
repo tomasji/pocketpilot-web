@@ -37,4 +37,3 @@ http:
 	csp:
 		script-src:
 			- nonce
-			- unsafe-eval

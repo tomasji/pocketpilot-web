@@ -4,29 +4,27 @@ declare(strict_types=1);
 
 namespace PP\Presenters;
 
-use Nette\Application\UI\Presenter;
 use Nette\Forms\Form;
 use PP\Authentication;
+use PP\DirResolver;
 use PP\Navbar;
 use PP\User\UserRead;
-use PP\Webpack;
 
 /**
  * @author Andrej Souček
  */
-class SyncPresenter extends Presenter {
+class SyncPresenter extends AppPresenter {
 
 	use Authentication;
 	use Navbar;
-	use Webpack;
 
 	/**
 	 * @var UserRead
 	 */
 	private $read;
 
-	public function __construct(UserRead $read) {
-		parent::__construct();
+	public function __construct(DirResolver $dirResolver, UserRead $read) {
+		parent::__construct($dirResolver);
 		$this->read = $read;
 	}
 
