@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PP\Presenters;
 
+use GettextTranslator\Gettext;
 use Nette;
 use Nette\Application\UI\Form;
 use PP\DirResolver;
@@ -24,21 +25,22 @@ class PasswordRecoveryPresenter extends AppPresenter {
 	/** @var PasswordReset */
 	private $pwReset;
 
-	public function __construct(DirResolver $dirResolver, UserRead $userRead, PasswordReset $pwReset) {
-		parent::__construct($dirResolver);
+	public function __construct(DirResolver $dirResolver, Gettext $translator, UserRead $userRead, PasswordReset $pwReset) {
+		parent::__construct($dirResolver, $translator);
 		$this->userRead = $userRead;
 		$this->pwReset = $pwReset;
 	}
 
 	public function actionReset($token): void {
 		if (isset($token) && !$this->pwReset->isTokenValid($token)) {
-			$this->flashMessage('Invalid token.');
+			$this->flashMessage($this->translator->translate('Invalid token.'));
 			$this->redirect('Homepage:');
 		}
 	}
 
 	protected function createComponentRecoveryForm(): Form {
 		$form = new Form();
+		$form->setTranslator($this->translator);
 		$form->addText('email', 'E-mail')
 			->setRequired('Please enter your e-mail.')
 			->addRule($form::EMAIL, 'The e-mail must be in correct format.')
@@ -51,10 +53,11 @@ class PasswordRecoveryPresenter extends AppPresenter {
 
 	protected function createComponentNewPasswordForm(): Form {
 		$form = new Form();
+		$form->setTranslator($this->translator);
 		$form->addPassword('password', 'Password')
 			->setRequired('Please fill in both of the password fields.')
 			->setHtmlAttribute('placeholder', 'Password');
-		$form->addPassword('password_confirm', 'Password again:')
+		$form->addPassword('password_confirm', 'Password again')
 			->addRule(Form::EQUAL, 'Passwords do not match', $form['password'])
 			->setRequired('Please fill in both of the password fields.')
 			->setHtmlAttribute('placeholder', 'Password again')
@@ -76,10 +79,10 @@ class PasswordRecoveryPresenter extends AppPresenter {
 		try {
 			$user = $this->userRead->fetchByEmail($form->values->email);
 			$this->pwReset->sendLinkTo($user);
-			$this->flashMessage("An e-mail has been sent to {$user->getEmail()}.");
-			$this->redirect('Homepage:');
+			$this->flashMessage(sprintf($this->translator->translate("An e-mail has been sent to %s."), $user->getEmail()));
+			$this->redirect('Sign:');
 		} catch(IncorrectCredentialsException $e) {
-			$form->addError('E-mail not found.');
+			$form->addError($this->translator->translate('E-mail not found. Please sign up.'));
 		}
 	}
 
@@ -90,7 +93,7 @@ class PasswordRecoveryPresenter extends AppPresenter {
 	 */
 	public function processNewPasswordForm(Form $form): void {
 		$this->pwReset->changePassword($this->getParameter('token'), $form->values->password);
-		$this->flashMessage('Password change has been successful. Now you can log in.');
+		$this->flashMessage($this->translator->translate('Password change has been successful. Now you can log in.'));
 		$this->redirect('Homepage:');
 	}
 }

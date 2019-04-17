@@ -8,6 +8,7 @@ namespace PP\Presenters;
 use Nette\Application\UI\Presenter;
 use PP\Controls\WebpackControl;
 use PP\DirResolver;
+use GettextTranslator\Gettext;
 
 /**
  * @author Andrej Souček
@@ -15,16 +16,37 @@ use PP\DirResolver;
 class AppPresenter extends Presenter {
 
 	/**
+	 * @var string
+	 * @persistent
+	 */
+	public $lang;
+
+	/**
 	 * @var DirResolver
 	 */
 	private $dirResolver;
 
-	public function __construct(DirResolver $dirResolver) {
+	/**
+	 * @var Gettext
+	 */
+	protected $translator;
+
+	public function __construct(DirResolver $dirResolver, Gettext $translator) {
 		parent::__construct();
 		$this->dirResolver = $dirResolver;
+		$this->translator = $translator;
 	}
 
-	public function createComponentWebpack() {
+	public function startup() {
+		parent::startup();
+		$this->translator->setLang($this->lang); // too late in beforeRender
+	}
+
+	public function beforeRender() {
+		$this->template->setTranslator($this->translator);
+	}
+
+	protected function createComponentWebpack() {
 		return new WebpackControl($this->dirResolver);
 	}
 }

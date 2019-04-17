@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PP\Presenters;
 
+use GettextTranslator\Gettext;
 use Nette\Application\UI\Form;
 use Nette\Security\AuthenticationException;
 use PP\DirResolver;
@@ -21,8 +22,8 @@ class SignPresenter extends AppPresenter {
 	 */
 	private $model;
 
-	public function __construct(DirResolver $dirResolver, SignModel $model) {
-		parent::__construct($dirResolver);
+	public function __construct(DirResolver $dirResolver, Gettext $translator, SignModel $model) {
+		parent::__construct($dirResolver, $translator);
 		$this->model = $model;
 	}
 
@@ -33,7 +34,7 @@ class SignPresenter extends AppPresenter {
 		try {
 			$this->getUser()->login($this->model->getFacebookCredentials());
 		} catch (AuthenticationException $e) {
-			$this->flashMessage("Error while connecting to Facebook");
+			$this->flashMessage($this->translator->translate("Error while connecting to Facebook"));
 		}
 		$this->redirect('Sign:');
 	}
@@ -66,6 +67,7 @@ class SignPresenter extends AppPresenter {
 
 	protected function createComponentLoginForm(): Form {
 		$form = new Form;
+		$form->setTranslator($this->translator);
 		$form->addText('email', 'E-mail')
 			->setRequired('Please enter your e-mail.')
 			->addRule($form::EMAIL, 'The e-mail must be in correct format.')
@@ -89,23 +91,24 @@ class SignPresenter extends AppPresenter {
 			$this->getUser()->login(new PasswordCredentials($values->email, $values->password));
 			$this->redirect('Dashboard:');
 		} catch (AuthenticationException $e) {
-			$form->addError("Incorrect e-mail or password.");
+			$form->addError($this->translator->translate("Incorrect e-mail or password."));
 		}
 	}
 
 	protected function createComponentRegisterForm(): Form {
 		$form = new Form();
-		$form->addText('username', 'Username:')
+		$form->setTranslator($this->translator);
+		$form->addText('username', 'Username')
 			->setRequired('Please fill in your username.')
 			->setHtmlAttribute('placeholder', 'Username');
-		$form->addText('email', 'E-mail:')
+		$form->addText('email', 'E-mail')
 			->setRequired('Please fill in an e-mail.')
 			->addRule($form::EMAIL, 'The e-mail must be in correct format.')
 			->setHtmlAttribute('placeholder', 'E-mail');
 		$form->addPassword('password', 'Password')
 			->setRequired('Please fill in both of the password fields.')
 			->setHtmlAttribute('placeholder', 'Password');
-		$form->addPassword('password_confirm', 'Password again:')
+		$form->addPassword('password_confirm', 'Password again')
 			->addRule(Form::EQUAL, 'Passwords do not match', $form['password'])
 			->setRequired('Please fill in both of the password fields.')
 			->setHtmlAttribute('placeholder', 'Password again')
@@ -126,10 +129,10 @@ class SignPresenter extends AppPresenter {
 		$values = $form->getValues();
 		try {
 			$this->model->registerUser($values->username, $values->email, null, $values->password);
-			$this->flashMessage('Sign up successful, now you can log in.');
+			$this->flashMessage($this->translator->translate('Sign up successful, now you can log in.'));
 			$this->redirect('Homepage:');
 		} catch (IncorrectCredentialsException $e) {
-			$form->addError('This account already exists.');
+			$form->addError($this->translator->translate('This account already exists.'));
 		}
 	}
 }

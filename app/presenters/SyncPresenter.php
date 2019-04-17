@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PP\Presenters;
 
+use GettextTranslator\Gettext;
 use Nette\Forms\Form;
 use PP\Authentication;
 use PP\DirResolver;
@@ -23,16 +24,17 @@ class SyncPresenter extends AppPresenter {
 	 */
 	private $read;
 
-	public function __construct(DirResolver $dirResolver, UserRead $read) {
-		parent::__construct($dirResolver);
+	public function __construct(DirResolver $dirResolver, Gettext $translator, UserRead $read) {
+		parent::__construct($dirResolver, $translator);
 		$this->read = $read;
 	}
 
 	protected function createComponentForm(): Form {
 		$form = new Form();
+		$form->setTranslator($this->translator);
 		$form->addText('id', 'ID')->setHtmlAttribute('readonly', 'readonly');
 		$form->addText('token', 'Secret key')->setHtmlAttribute('readonly', 'readonly');
-		$form->addSubmit('submit', 'Generate new');
+//		$form->addSubmit('submit', 'Generate new');
 		$form->setDefaults($this->getDefaults());
 		return $form;
 	}

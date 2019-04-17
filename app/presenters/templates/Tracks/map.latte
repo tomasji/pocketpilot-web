@@ -3,25 +3,25 @@
 	<div id="map"{if $trackJson} data-track="{$trackJson}"{/if}></div>
 	<div id="controls" class="info card-panel hoverable">
 		<div class="controls-speed left">
-			<input title="Speed" name="speed" type="text" value="150"><span>km/h</span>
+			<input title="{_'Speed'}" name="speed" type="text" value="150"><span>km/h</span>
 		</div>
 		<div class="controls-buttons right">
 			<button data-target="modal" class="save waves-effect blue lighten-1 btn btn-action modal-trigger">
 				<i class="fas fa-save"></i>
-				<span class="hide-on-small-only">Save track</span>
+				<span class="hide-on-small-only">{_'Save track'}</span>
 			</button>
 			<a href="{link default}" class="exit waves-effect blue lighten-1 btn btn-action">
 				<i class="fas fa-sign-out-alt"></i>
-				<span class="hide-on-small-only">Exit</span>
+				<span class="hide-on-small-only">{_'Exit'}</span>
 			</a>
 		</div>
 	</div>
 	<div id="modal" class="modal">
 		<div class="modal-content save-track container center">
 			{if $trackJson}
-				<p class="red-text darken-4-text">Warning: The original track will be overwitten by this action.</p>
+				<p class="red-text darken-4-text">{_'Warning: The original track will be overwitten by this action.'}</p>
 			{else}
-				<p>Please enter a name for the new track.</p>
+				<p>{_'Please enter a name for the new track.'}</p>
 			{/if}
 			{form form}
 				{label name}
@@ -29,7 +29,7 @@
 				{inputError name}
 				{input save, class => 'blue lighten-1 btn btn-action modal-close'}
 				<a class="waves-effect blue lighten-1 btn btn-action modal-close">
-					<span>Cancel</span>
+					<span>{_'Cancel'}</span>
 				</a>
 			{/form}
 		</div>

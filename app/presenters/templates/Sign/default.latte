@@ -14,7 +14,7 @@
 			{if $user->isLoggedIn()}
 				<div class="col s12">
 					<div class="section">
-						<a href="{plink Dashboard:}">Continue as {$currentUserName}...</a>
+						<a href="{plink Dashboard:}">{_'Continue as'} {$currentUserName}...</a>
 					</div>
 					<div class="divider"></div>
 					<div class="section">
@@ -22,7 +22,9 @@
 					</div>
 				</div>
 			{else}
-				<h5>Sign in</h5>
+				<h5>{_'Sign in'}</h5>
+				<a n:href="this, locale => 'cs'">CZ</a>
+				<a n:href="this, locale => 'en'">EN</a>
 				{form loginForm class => 'col s12'}
 					<blockquote>
 						<ul class="errors" n:if="$form->hasErrors()">
@@ -35,13 +37,13 @@
 						</div>
 						<div class="input-field col s12">
 							{input password}
-							<a class="pink-text" href="{plink PasswordRecovery:}"><b>Forgot Password?</b></a>
+							<a class="pink-text" href="{plink PasswordRecovery:}"><b>{_'Forgot Password?'}</b></a>
 						</div>
 						{input send class => 'blue lighten-1 btn', style => 'width: 90%'}
 					</div>
 					<div class="row">
-						<p>Not a member? <a href="{plink Sign:register}">Sign up</a></p>
-						<p>Or login with <a href="{$fbLoginUrl}"><i class="fab fa-facebook-f"></i></a></p>
+						<p>{_'Not a member?'} <a href="{plink Sign:register}">{_'Sign up'}</a></p>
+						<p>{_'Or login with'} <a href="{$fbLoginUrl}"><i class="fab fa-facebook-f"></i></a></p>
 					</div>
 					<a class="badge hide-on-large-only show-on-medium-and-down" href='https://play.google.com/store/apps/details?id=cz.pocketpilot.app&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
 						<img class="badge" alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/>
