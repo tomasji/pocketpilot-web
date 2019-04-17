@@ -12,6 +12,6 @@ use PP\Controls\NavbarControl;
 trait Navbar {
 
 	protected function createComponentNavbar(): NavbarControl {
-		return new NavbarControl();
+		return new NavbarControl($this->translator);
 	}
 }

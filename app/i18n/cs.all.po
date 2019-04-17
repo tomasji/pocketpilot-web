@@ -1,0 +1,214 @@
+#: Added from Tracy bar
+msgid "Please enter your e-mail."
+msgstr "Zadejte prosím e-mail."
+
+#: Added from Tracy bar
+msgid "The e-mail must be in correct format."
+msgstr "E-mail musí být v platném formátu."
+
+#: Added from Tracy bar
+msgid "Please enter your password."
+msgstr "Zadejte prosím heslo"
+
+#: Added from Tracy bar
+msgid "Password"
+msgstr "Heslo"
+
+#: Added from Tracy bar
+msgid "Log in"
+msgstr "Přihlásit"
+
+#: Added from Tracy bar
+msgid "Forgot Password?"
+msgstr "Zapomenuté heslo?"
+
+#: Added from Tracy bar
+msgid "Sign in"
+msgstr "Přihlášení"
+
+#: Added from Tracy bar
+msgid "Not a member?"
+msgstr "Ještě nemáte účet?"
+
+#: Added from Tracy bar
+msgid "Sign up"
+msgstr "Zaregistrujte se"
+
+#: Added from Tracy bar
+msgid "Or login with"
+msgstr "Nebo se přihlašte pomocí"
+
+#: Added from Tracy bar
+msgid "Sign out"
+msgstr "Odhlásit"
+
+#: Added from Tracy bar
+msgid "Contact form"
+msgstr "Kontaktní formulář"
+
+#: Added from Tracy bar
+msgid "Pair device"
+msgstr "Spárovat"
+
+#: Added from Tracy bar
+msgid "Guide"
+msgstr "Návody"
+
+#: Added from Tracy bar
+msgid "Tracks planning"
+msgstr "Plánování tras"
+
+#: Added from Tracy bar
+msgid "Dashboard"
+msgstr "Nástěnka"
+
+#: Added from Tracy bar
+msgid "Reset password"
+msgstr "Obnovit heslo"
+
+#: Added from Tracy bar
+msgid "Please fill in your username."
+msgstr "Vyplňte prosím uživatelské jméno."
+
+#: Added from Tracy bar
+msgid "Username"
+msgstr "Uživatelské jméno"
+
+#: Added from Tracy bar
+msgid "Please fill in an e-mail."
+msgstr "Vyplňte prosím e-mail."
+
+#: Added from Tracy bar
+msgid "Please fill in both of the password fields."
+msgstr "Vyplňte prosím obě pole pro heslo."
+
+#: Added from Tracy bar
+msgid "Password again"
+msgstr "Heslo znovu"
+
+#: Added from Tracy bar
+msgid "Passwords do not match"
+msgstr "Hesla nesouhlasí"
+
+#: Added from Tracy bar
+msgid "Creation date"
+msgstr "Datum vytvoření"
+
+#: Added from Tracy bar
+msgid "Track length"
+msgstr "Délka tratě"
+
+#: Added from Tracy bar
+msgid "Show"
+msgstr "Zobrazit"
+
+#: Added from Tracy bar
+msgid "Delete"
+msgstr "Smazat"
+
+#: Added from Tracy bar
+msgid "New track"
+msgstr "Nová trať"
+
+#: Added from Tracy bar
+msgid "You can pair the device by following"
+msgstr "Zařízení můžete spárovat přes následující"
+
+#: Added from Tracy bar
+msgid "and"
+msgstr "a"
+
+#: Added from Tracy bar
+msgid "secret key"
+msgstr "klíč"
+
+#: Added from Tracy bar
+msgid "QR code"
+msgstr "QR kód"
+
+#: Added from Tracy bar
+msgid "Or scan the"
+msgstr "Nebo naskenujte"
+
+#: Added from Tracy bar
+msgid "Secret key"
+msgstr "API klíč"
+
+#: Added from Tracy bar
+msgid "Save"
+msgstr "Uložit"
+
+#: Added from Tracy bar
+msgid "Please fill in the name."
+msgstr "Vyplňte prosím název tratě."
+
+#: Added from Tracy bar
+msgid "Track name"
+msgstr "Název tratě"
+
+#: Added from Tracy bar
+msgid "The name cannot be longer than %d letters."
+msgstr "Název nemůže být delší než %d znaků."
+
+#: Added from Tracy bar
+msgid "Speed"
+msgstr "Rychlost"
+
+#: Added from Tracy bar
+msgid "Save track"
+msgstr "Uložit"
+
+#: Added from Tracy bar
+msgid "Cancel"
+msgstr "Zrušit"
+
+#: Added from Tracy bar
+msgid "Warning: The original track will be overwitten by this action."
+msgstr "Varování: Původní trasa bude touto akcí přepsána."
+
+#: Added from Tracy bar
+msgid "Exit"
+msgstr "Odejít"
+
+msgid "An e-mail has been sent to %s."
+msgstr "E-mail byl odeslán na adresu %s."
+
+msgid "Password change has been successful. Now you can log in."
+msgstr "Změna hesla byla úspěšná. Nyní se můžete přihlásit."
+
+msgid "Invalid token."
+msgstr "Neplatný token."
+
+msgid "Sign up successful, now you can log in."
+msgstr "Registrace byla úspěšná, nyní se můžete přihlásit."
+
+msgid "Error while connecting to Facebook"
+msgstr "Nastala chyba při komunikaci s Facebookem"
+
+#: Added from Tracy bar
+msgid "Continue as"
+msgstr "Pokračovat jako"
+
+msgid "Track '%s' has been deleted."
+msgstr "Trať '%s' byla smazána."
+
+msgid "An error occurred while deleting the track."
+msgstr "Během mazání tratě nastala chyba."
+
+msgid "Track must have more than 1 point"
+msgstr "Trať musí mít více než 1 otočný bod"
+
+msgid "Track '%s' has been saved."
+msgstr "Trať '%s' byla uložena."
+
+msgid "An error occurred while saving the track."
+msgstr "během ukládání tratě nastala chyba."
+
+msgid "Incorrect e-mail or password."
+msgstr "Nesprávný e-mail nebo heslo."
+
+msgid "This account already exists."
+msgstr "Tento účet již existuje."
+
+msgid "E-mail not found. Please sign up."
+msgstr "E-mail nenalezen. Zaregistrujte se, prosím."

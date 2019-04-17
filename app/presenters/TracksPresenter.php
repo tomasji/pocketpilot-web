@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PP\Presenters;
 
+use GettextTranslator\Gettext;
 use Nette\Application\UI\Form;
 use Nette\UnexpectedValueException;
 use PP\DirResolver;
@@ -50,10 +51,10 @@ class TracksPresenter extends AppPresenter {
 	private $delete;
 
 	public function __construct(
-		DirResolver $dirResolver,
+		DirResolver $dirResolver, Gettext $translator,
 		TrackRead $read, TrackCreate $create, TrackUpdate $update, TrackDelete $delete
 	) {
-		parent::__construct($dirResolver);
+		parent::__construct($dirResolver, $translator);
 		$this->read = $read;
 		$this->create = $create;
 		$this->update = $update;
@@ -99,9 +100,9 @@ class TracksPresenter extends AppPresenter {
 	public function handleDelete($id, $name): void {
 		try {
 			$this->delete->process((int)$id);
-			$this->flashMessage("Track '$name' has been deleted.");
+			$this->flashMessage(sprintf($this->translator->translate("Track '%s' has been deleted."), $name));
 		} catch (\PDOException $t) {
-			$this->flashMessage("An error occurred while deleting the track.");
+			$this->flashMessage($this->translator->translate("An error occurred while deleting the track."));
 		}
 		$this->redrawControl();
 	}
@@ -115,7 +116,7 @@ class TracksPresenter extends AppPresenter {
 		$values = $form->getValues();
 		$wpts = json_decode($values->waypoints, true);
 		if (count($wpts) <= 1) {
-			$this->flashMessage('Track must have more than 1 point');
+			$this->flashMessage($this->translator->translate('Track must have more than 1 point'));
 			$this->redrawControl();
 			return;
 		} else {
@@ -126,10 +127,10 @@ class TracksPresenter extends AppPresenter {
 					$this->create->process($values->name, $this->getUser()->getId(), $wpts);
 				}
 				$this->payload->forceRedirect = true;
-				$this->flashMessage("Track '$values->name' has been saved.");
+				$this->flashMessage(sprintf($this->translator->translate("Track '%s' has been saved."), $values->name));
 				$this->redirect('Tracks:');
 			} catch (\PDOException $e) {
-				$this->flashMessage('An error occurred while saving the track.');
+				$this->flashMessage($this->translator->translate('An error occurred while saving the track.'));
 				$this->redrawControl();
 			}
 		}
@@ -137,9 +138,10 @@ class TracksPresenter extends AppPresenter {
 
 	protected function createComponentForm(): Form {
 		$form = new Form();
+		$form->setTranslator($this->translator);
 		$form->addText('name', 'Track name')
 			->addRule(Form::REQUIRED, 'Please fill in the name.')
-			->addRule(Form::MAX_LENGTH, 'Please fill in the name.', 50);
+			->addRule(Form::MAX_LENGTH, 'The name cannot be longer than %d letters.', 50);
 		$form->addHidden('waypoints');
 		$form->addHidden('trackId');
 		$form->addSubmit('save', 'Save');

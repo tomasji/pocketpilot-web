@@ -37,3 +37,11 @@ http:
 	csp:
 		script-src:
 			- nonce
+
+
+extensions:
+	gettextTranslator: GettextTranslator\Extension
+
+gettextTranslator:
+	files:
+		all: %appDir%/i18n
