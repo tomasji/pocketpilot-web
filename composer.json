@@ -9,6 +9,12 @@
 			"name": "Andrej Souček"
 		}
 	],
+	"repositories": [
+		{
+			"type": "github",
+			"url": "https://github.com/andrejsoucek/gettext-translator.git"
+		}
+	],
 	"require": {
 		"php": ">= 7.2",
 		"nette/application": "^3.0",
@@ -26,7 +32,8 @@
 		"nette/utils": "^3.0",
 		"latte/latte": "^2.5",
 		"tracy/tracy": "^2.6",
-		"facebook/graph-sdk": "^5.6"
+		"facebook/graph-sdk": "^5.6",
+		"andrejsoucek/gettext-translator": "1.0.9"
 	},
 	"require-dev": {
 		"nette/tester": "^2.0",
