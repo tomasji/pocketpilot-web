@@ -23,8 +23,8 @@
 				</div>
 			{else}
 				<h5>{_'Sign in'}</h5>
-				<a n:href="this, locale => 'cs'">CZ</a>
-				<a n:href="this, locale => 'en'">EN</a>
+				<a n:href="this, lang => 'cs'">CZ</a>
+				<a n:href="this, lang => 'en'">EN</a>
 				{form loginForm class => 'col s12'}
 					<blockquote>
 						<ul class="errors" n:if="$form->hasErrors()">

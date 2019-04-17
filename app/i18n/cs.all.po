@@ -212,3 +212,7 @@ msgstr "Tento účet již existuje."
 
 msgid "E-mail not found. Please sign up."
 msgstr "E-mail nenalezen. Zaregistrujte se, prosím."
+
+#: Added from Tracy bar
+msgid "Please enter a name for the new track."
+msgstr "Zadejte prosím název nové tratě."

@@ -16,11 +16,9 @@ body {
 
 nav {
   margin-bottom: 15px;
-  a > i {
-    font-size: 1rem;
+  a > svg {
     color: #fff;
-    padding: 0 5px;
-    cursor: pointer;
+    margin: 0 5px;
   }
   .brand-logo {
     padding-left: 15px;

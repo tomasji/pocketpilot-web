@@ -122,7 +122,7 @@ class TracksPresenter extends AppPresenter {
 		} else {
 			try {
 				if ($values->trackId) {
-					$this->update->process($values->trackId, $values->name, $wpts);
+					$this->update->process((int)$values->trackId, $values->name, $wpts);
 				} else {
 					$this->create->process($values->name, $this->getUser()->getId(), $wpts);
 				}

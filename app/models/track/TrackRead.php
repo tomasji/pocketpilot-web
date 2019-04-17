@@ -51,7 +51,7 @@ class TrackRead {
 		return new TrackEntry(
 			$data->offsetGet(TrackDatabaseDef::COLUMN_ID),
 			$data->offsetGet('geojson'),
-			$data->offsetGet('length'),
+			(float)$data->offsetGet('length'),
 			$data->offsetGet(TrackDatabaseDef::COLUMN_USER_ID),
 			$data->offsetGet(TrackDatabaseDef::COLUMN_NAME),
 			$data->offsetGet(TrackDatabaseDef::COLUMN_CREATION_DATE)
