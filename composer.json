@@ -12,7 +12,11 @@
 	"repositories": [
 		{
 			"type": "github",
-			"url": "https://github.com/andrejsoucek/gettext-translator.git"
+			"url":  "https://github.com/andrejsoucek/api-router/"
+		},
+		{
+		  "type": "github",
+		  "url":  "https://github.com/andrejsoucek/api-router/"
 		}
 	],
 	"require": {
@@ -33,7 +37,8 @@
 		"latte/latte": "^2.5",
 		"tracy/tracy": "^2.6",
 		"facebook/graph-sdk": "^5.6",
-		"andrejsoucek/gettext-translator": "1.0.10"
+		"andrejsoucek/gettext-translator": "1.0.10",
+		"ublaboo/api-router": "dev-nette-3.0"
 	},
 	"require-dev": {
 		"nette/tester": "^2.0",
