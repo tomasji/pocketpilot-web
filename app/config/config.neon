@@ -9,7 +9,7 @@ application:
 	errorPresenter: Error
 	mapping:
 		*: PP\*Module\Presenters\*Presenter
-
+		APIv1: PP\API\*Presenter
 
 session:
 	expiration: 14 days
