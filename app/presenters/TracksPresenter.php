@@ -100,7 +100,7 @@ class TracksPresenter extends AppPresenter {
 	public function handleDelete($id, $name): void {
 		try {
 			$this->delete->process((int)$id);
-			$this->flashMessage(sprintf($this->translator->translate("Track '%s' has been deleted."), $name));
+			$this->flashMessage($this->translator->translate("Track '%s' has been deleted.", $name));
 		} catch (\PDOException $t) {
 			$this->flashMessage($this->translator->translate("An error occurred while deleting the track."));
 		}
@@ -127,7 +127,7 @@ class TracksPresenter extends AppPresenter {
 					$this->create->process($values->name, $this->getUser()->getId(), $wpts);
 				}
 				$this->payload->forceRedirect = true;
-				$this->flashMessage(sprintf($this->translator->translate("Track '%s' has been saved."), $values->name));
+				$this->flashMessage($this->translator->translate("Track '%s' has been saved.", $values->name));
 				$this->redirect('Tracks:');
 			} catch (\PDOException $e) {
 				$this->flashMessage($this->translator->translate('An error occurred while saving the track.'));

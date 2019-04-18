@@ -79,7 +79,7 @@ class PasswordRecoveryPresenter extends AppPresenter {
 		try {
 			$user = $this->userRead->fetchByEmail($form->values->email);
 			$this->pwReset->sendLinkTo($user);
-			$this->flashMessage(sprintf($this->translator->translate("An e-mail has been sent to %s."), $user->getEmail()));
+			$this->flashMessage($this->translator->translate("An e-mail has been sent to %s.", $user->getEmail()));
 			$this->redirect('Sign:');
 		} catch(IncorrectCredentialsException $e) {
 			$form->addError($this->translator->translate('E-mail not found. Please sign up.'));

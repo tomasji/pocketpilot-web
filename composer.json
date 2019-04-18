@@ -33,7 +33,7 @@
 		"latte/latte": "^2.5",
 		"tracy/tracy": "^2.6",
 		"facebook/graph-sdk": "^5.6",
-		"andrejsoucek/gettext-translator": "1.0.9"
+		"andrejsoucek/gettext-translator": "1.0.10"
 	},
 	"require-dev": {
 		"nette/tester": "^2.0",

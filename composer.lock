@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "68dfc94c5d076c8f5eff0dc834ca051c",
+    "content-hash": "d76127101b74b6282387c7a3c0aebc70",
     "packages": [
         {
             "name": "andrejsoucek/gettext-translator",
-            "version": "1.0.9",
+            "version": "1.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/andrejsoucek/gettext-translator.git",
-                "reference": "691c4945335853b8d52f2df1567a94192c018bc7"
+                "reference": "401e9274022989237e745864161fd3e90eeecd0b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/andrejsoucek/gettext-translator/zipball/691c4945335853b8d52f2df1567a94192c018bc7",
-                "reference": "691c4945335853b8d52f2df1567a94192c018bc7",
+                "url": "https://api.github.com/repos/andrejsoucek/gettext-translator/zipball/401e9274022989237e745864161fd3e90eeecd0b",
+                "reference": "401e9274022989237e745864161fd3e90eeecd0b",
                 "shasum": ""
             },
             "require": {
@@ -65,9 +65,9 @@
                 "translator"
             ],
             "support": {
-                "source": "https://github.com/andrejsoucek/gettext-translator/tree/master"
+                "source": "https://github.com/andrejsoucek/gettext-translator/tree/1.0.10"
             },
-            "time": "2019-04-17T12:54:41+00:00"
+            "time": "2019-04-18T14:26:11+00:00"
         },
         {
             "name": "facebook/graph-sdk",
