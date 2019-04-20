@@ -6,9 +6,7 @@ namespace PP\Presenters;
 
 use GettextTranslator\Gettext;
 use Nette\Forms\Form;
-use PP\Authentication;
 use PP\DirResolver;
-use PP\Navbar;
 use PP\User\UserRead;
 
 /**

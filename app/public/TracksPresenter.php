@@ -8,12 +8,10 @@ use GettextTranslator\Gettext;
 use Nette\Application\UI\Form;
 use Nette\UnexpectedValueException;
 use PP\DirResolver;
-use PP\Navbar;
 use PP\Track\TrackCreate;
 use PP\Track\TrackDelete;
 use PP\Track\TrackEntry;
 use PP\Track\TrackRead;
-use PP\Authentication;
 use PP\Track\TrackUpdate;
 
 /**

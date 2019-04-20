@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PP;
+namespace PP\Presenters;
 
 use PP\Controls\NavbarControl;
 

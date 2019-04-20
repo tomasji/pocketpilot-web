@@ -1,6 +1,6 @@
 <?php
 
-namespace PP;
+namespace PP\Presenters;
 
 /**
  * @author Andrej Souček
