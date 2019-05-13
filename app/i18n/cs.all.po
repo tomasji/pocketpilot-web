@@ -216,3 +216,135 @@ msgstr "E-mail nenalezen. Zaregistrujte se, prosím."
 #: Added from Tracy bar
 msgid "Please enter a name for the new track."
 msgstr "Zadejte prosím název nové tratě."
+
+#: Added from Tracy bar
+msgid "New version of web app"
+msgstr "Nová verze webového rozhraní"
+
+#: Added from Tracy bar
+msgid "Reworked tracks planning"
+msgstr "Přepracováno plánování tras"
+
+#: Added from Tracy bar
+msgid "Reworked API"
+msgstr "Přepracované API"
+
+#: Added from Tracy bar
+msgid "Newer and faster backend"
+msgstr "Novější a rychlejší backend"
+
+#: Added from Tracy bar
+msgid "Updated map & frequencies"
+msgstr "Aktualizována mapa a frekvence"
+
+#: Added from Tracy bar
+msgid "New map - OpenFlightMaps"
+msgstr "Nový mapový podklad - OpenFlightMaps"
+
+#: Added from Tracy bar
+msgid "FB login fix"
+msgstr "Oprava FB přihlášení"
+
+#: Added from Tracy bar
+msgid "Added map of Slovakia"
+msgstr "Přidána mapa Slovenska"
+
+#: Added from Tracy bar
+msgid "METAR downloading fix"
+msgstr "Oprava stahování METAR zpráv"
+
+#: Added from Tracy bar
+msgid "Option for map scaling"
+msgstr "Možnost škálování mapy"
+
+#: Added from Tracy bar
+msgid "Reworked map manager"
+msgstr "Přepracován správce mapových podkladů"
+
+#: Added from Tracy bar
+msgid "Livetracking (testing version)"
+msgstr "Livetracking (testovací verze)"
+
+#: Added from Tracy bar
+msgid "Time in KML log fix"
+msgstr "Oprava času v KML logu"
+
+#: Added from Tracy bar
+msgid "Licence manager"
+msgstr "Správce dokladů"
+
+#: Added from Tracy bar
+msgid "Crash fixes"
+msgstr "Opravy pádů aplikace"
+
+#: Added from Tracy bar
+msgid "In-app map downloads"
+msgstr "Stahování map přímo v aplikaci"
+
+#: Added from Tracy bar
+msgid "Added altitude chart"
+msgstr "Přidán graf výšky"
+
+#: Added from Tracy bar
+msgid "Web app sync"
+msgstr "Synchronizace s webovou aplikací"
+
+#: Added from Tracy bar
+msgid "Tracking while using the map"
+msgstr "Logování trasy při použití mapy"
+
+#: Added from Tracy bar
+msgid "Added English and set as a default language"
+msgstr "Přidán anglický jazyk a nastaven jako výchozí"
+
+#: Added from Tracy bar
+msgid "HDG indicator: 0° changed to 360°"
+msgstr "HDG indikátor: 0° změněno na 360°"
+
+#: Added from Tracy bar
+msgid "Logger fix"
+msgstr "Oprava loggeru"
+
+#: Added from Tracy bar
+msgid "Logbook layout fix"
+msgstr "Oprava rozvržení zápisníku letů"
+
+#: Added from Tracy bar
+msgid "Current speed and heading on map view"
+msgstr "Zobrazení aktuální rychlosti a směru letu"
+
+#: Added from Tracy bar
+msgid "Button for toggling auto-centering the map"
+msgstr "Tlačítko pro přepínání automatického centrování mapy"
+
+#: Added from Tracy bar
+msgid "Airfield info in a dialog instead of a bubble"
+msgstr "Informace o letištích v dialogu místo bublině"
+
+#: Added from Tracy bar
+msgid "Otro RADIO renamed to Zlín RADIO"
+msgstr "Otro RADIO přejmenováno na Zlín RADIO"
+
+#: Added from Tracy bar
+msgid "Added GOTO function"
+msgstr "Přidána funkce Navigovat (GOTO)"
+
+#: Added from Tracy bar
+msgid "Map zooming by gestures"
+msgstr "Zoomování mapy pomocí gest"
+
+#: Added from Tracy bar
+msgid "Updated airfields info"
+msgstr "Aktualizovány informace o letištích"
+
+#: Added from Tracy bar
+msgid "VFR points clickable"
+msgstr "Klikací VFR body"
+
+#: Added from Tracy bar
+msgid "Release"
+msgstr "Vydání"
+
+#: Added from Tracy bar
+msgid "Pocket Pilot released on Google Play"
+msgstr "Pocket Pilot vydán na Google Play"

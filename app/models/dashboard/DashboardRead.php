@@ -1,0 +1,49 @@
+<?php
+
+declare(strict_types=1);
+
+namespace PP\Dashboard;
+
+use Nette\Database\Context;
+use Nette\Database\IRow;
+use Nette\SmartObject;
+
+/**
+ * @author Andrej Souček
+ */
+class DashboardRead {
+
+	use SmartObject;
+
+	/** @var Context */
+	private $database;
+
+	public function __construct(Context $database) {
+		$this->database = $database;
+	}
+
+	public function fetchAll(): array {
+		$rows = $this->database->table(DashboardDatabaseDef::TABLE_NAME)->order('id DESC')->fetchAll();
+		$ret = [];
+		foreach ($rows as $row) {
+			$ret[$row[DashboardDatabaseDef::COLUMN_ID]] = $this->toEntity($row);
+		}
+		return $ret;
+	}
+
+	/**
+	 * @param IRow $data
+	 * @return DashboardEntry
+	 */
+	private function toEntity(IRow $data): DashboardEntry {
+		return new DashboardEntry(
+			$data->offsetGet(DashboardDatabaseDef::COLUMN_ID),
+			$data->offsetGet(DashboardDatabaseDef::COLUMN_TITLE),
+			$data->offsetGet(DashboardDatabaseDef::COLUMN_DATE),
+			$data->offsetGet(DashboardDatabaseDef::COLUMN_ITEM_1),
+			$data->offsetGet(DashboardDatabaseDef::COLUMN_ITEM_2),
+			$data->offsetGet(DashboardDatabaseDef::COLUMN_ITEM_3),
+			$data->offsetGet(DashboardDatabaseDef::COLUMN_ITEM_4)
+		);
+	}
+}

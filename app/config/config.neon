@@ -17,6 +17,7 @@ session:
 
 services:
 	authenticator: PP\Authenticator
+	dashboardRead: PP\Dashboard\DashboardRead
 	dirResolver: PP\DirResolver(%appDir%, %scriptsDir%, %manifestDir%)
 	facebook: Facebook\Facebook( {app_id: %facebook.app_id%, app_secret: %facebook.app_secret%, default_graph_version: %facebook.dgv%} )
 	facebookAuthenticator: PP\User\FacebookAuthenticator
