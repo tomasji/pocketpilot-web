@@ -348,3 +348,32 @@ msgstr "Vydání"
 #: Added from Tracy bar
 msgid "Pocket Pilot released on Google Play"
 msgstr "Pocket Pilot vydán na Google Play"
+
+#: Added from Tracy bar
+msgid "Please enter the message."
+msgstr "Vyplňte prosím zprávu."
+
+#: Added from Tracy bar
+msgid "Your message"
+msgstr "Vaše zpráva"
+
+#: Added from Tracy bar
+msgid "Here you can contact the developer."
+msgstr "Zde můžete kontaktovat vývojáře."
+
+#: Added from Tracy bar
+msgid ""
+"If you have any questions, ideas or encountered some bugs, feel free to contact "
+"me."
+msgstr "Pokud máte dotaz, nápad, nebo jste narazili na chybu, kontaktujte mě."
+
+#: Added from Tracy bar
+msgid "Send"
+msgstr "Odeslat"
+
+#: Added from Tracy bar
+msgid "The answer will be sent to your e-mail."
+msgstr "Odpověď bude odeslána na Váš e-mail."
+
+msgid "Message has been sent."
+msgstr "Zpráva byla odeslána."

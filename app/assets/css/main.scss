@@ -93,3 +93,8 @@ nav {
 .dashboard .card-content {
   height: 200px;
 }
+
+textarea.message {
+  min-height: 10rem;
+  resize: vertical;
+}

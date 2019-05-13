@@ -1,0 +1,23 @@
+{block content}
+{control navbar}
+<div class="container">
+	<div class="row card-panel hoverable">
+		<div>
+			{_'Here you can contact the developer.'}
+			{_'If you have any questions, ideas or encountered some bugs, feel free to contact me.'}
+		</div>
+		<div>
+			{_'The answer will be sent to your e-mail.'} ({$user->getIdentity()->email})
+		</div>
+		{form form}
+			<div class="row">
+				<div class="input-field col s12">
+					{input message, class => 'message'}
+				</div>
+				<div class="center-align">
+					{input send class => 'blue lighten-1 btn'}
+				</div>
+			</div>
+		{/form}
+	</div>
+</div>
