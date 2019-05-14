@@ -1,2 +1,47 @@
 {block content}
-{control newPasswordForm}
+<div class="row" style="height: 100%; margin:0">
+	<div class="col l6 valign-wrapper hide-on-med-and-down" style="height: 100%">
+		<div class="center" style="margin: auto;">
+			<div class="logo"></div>
+			<h3>Pocket Pilot</h3>
+			<a class="badge" href='https://play.google.com/store/apps/details?id=cz.pocketpilot.app&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
+				<img class="badge" alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/>
+			</a>
+		</div>
+	</div>
+	<div class="col s12 m12 l6 valign-wrapper center blue lighten-1 relative" style="height: 100%; overflow: hidden;">
+		<div class="centered-form-wrapper hoverable">
+			{if $user->isLoggedIn()}
+				<div class="col s12">
+					<div class="section">
+						<a href="{plink Dashboard:}">{_'Continue as'} {$currentUserName}...</a>
+					</div>
+					<div class="divider"></div>
+					<div class="section">
+						<a href="{plink Sign:logOut}" class="waves-effect blue lighten-1 btn">Log out</a>
+					</div>
+				</div>
+			{else}
+				<h5>{_'Password recovery'}</h5>
+				{form newPasswordForm class => 'col s12'}
+					<blockquote>
+						<ul class="errors" n:if="$form->hasErrors()">
+							<li n:foreach="$form->errors as $error">{$error}</li>
+						</ul>
+					</blockquote>
+					<div class="row">
+						<div class="input-field col s12">
+							{input password}
+						</div>
+						<div class="input-field col s12">
+							{input password_confirm}
+						</div>
+						{input send class => 'blue lighten-1 btn', style => 'width: 90%'}
+						<a href="{plink Sign:}" class="btn btn-action blue lighten-1" style="width: 90%; margin-top:5px">Zpět</a>
+					</div>
+				{/form}
+			{/if}
+		</div>
+		<div class="cross-line blue darken-1"></div>
+	</div>
+</div>

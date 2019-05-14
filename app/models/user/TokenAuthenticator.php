@@ -35,7 +35,7 @@ class TokenAuthenticator {
 	 * @throws \Nette\Utils\AssertionException
 	 */
 	public function authenticate(TokenCredentials $credentials): UserEntry {
-		$entry = $this->read->fetch($credentials->getEmail());
+		$entry = $this->read->fetchBy($credentials->getEmail());
 		$row = $this->database->table(UserDatabaseDef::TABLE_NAME)
 			->where(UserDatabaseDef::COLUMN_ID, $entry->getId())
 			->fetch();

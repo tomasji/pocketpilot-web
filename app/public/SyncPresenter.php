@@ -61,7 +61,7 @@ class SyncPresenter extends AppPresenter {
 	private function getDefaults(): array {
 		return [
 			'email' => $this->getUser()->getIdentity()->email,
-			'token' => $this->read->fetch($this->getUser()->getIdentity()->email)->getToken()
+			'token' => $this->read->fetchBy($this->getUser()->getIdentity()->email)->getToken()
 		];
 	}
 }

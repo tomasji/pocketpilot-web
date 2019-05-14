@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PP\User;
 
+use GettextTranslator\Gettext;
 use Nette\Application\LinkGenerator;
 use Nette\Database\Context;
 use Nette\Mail\IMailer;
@@ -32,6 +33,11 @@ class PasswordReset {
 	private $passwords;
 
 	/**
+	 * @var Gettext
+	 */
+	private $translator;
+
+	/**
 	 * @var LinkGenerator
 	 */
 	private $linkGenerator;
@@ -41,9 +47,10 @@ class PasswordReset {
 	 */
 	private $mailer;
 
-	public function __construct(Context $database, Passwords $passwords, LinkGenerator $linkGenerator, IMailer $mailer) {
+	public function __construct(Context $database, Passwords $passwords, Gettext $translator, LinkGenerator $linkGenerator, IMailer $mailer) {
 		$this->database = $database;
 		$this->passwords = $passwords;
+		$this->translator = $translator;
 		$this->linkGenerator = $linkGenerator;
 		$this->mailer = $mailer;
 	}
@@ -116,15 +123,20 @@ class PasswordReset {
 
 	private function createMail($to, $link): Message {
 		$mail = new Message();
+		$s1 = $this->translator->translate("Hello");
+		$s2 = $this->translator->translate("you have requested a password reset.");
+		$s3 = $this->translator->translate("To reset your password please click on the following link");
+		$s4 = $this->translator->translate("This e-mail has been sent automatically.");
+		$s5 = $this->translator->translate("Do not reply to this e-mail.");
 		$mail
 			->setFrom('Pocket Pilot <recovery@pocketpilot.cz>')
 			->addTo($to)
 			->setSubject('Password reset')
 			->setBody(
-				"Hello,\nyou have requested to reset your password.\n"
-				. "To reset your password please click on this link:\n"
-				. $link . ".\n\n"
-				."This e-mail has been sent automatically.\nDo not reply to this e-mail.");
+				"$s1,\n$s2\n"
+				. "$s3\n"
+				. $link . "\n\n"
+				."$s4\n$s5");
 		return $mail;
 	}
 }

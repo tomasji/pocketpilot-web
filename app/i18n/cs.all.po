@@ -381,3 +381,38 @@ msgstr "Zpráva byla odeslána."
 #: Added from Tracy bar
 msgid "Generate new key"
 msgstr "Vygenerovat nový klíč"
+
+#: Added from Tracy bar
+msgid "Sign up form"
+msgstr "Registrace"
+
+#: Added from Tracy bar
+msgid "Submit"
+msgstr "Potvrdit"
+
+#: Added from Tracy bar
+msgid "Password recovery"
+msgstr "Obnovení hesla"
+
+#: Added from Tracy bar
+msgid "Please enter your e-mail"
+msgstr "Zadejte prosím váš e-mail"
+
+msgid "To reset your password please click on the following link"
+msgstr "Pro nastavení nového hesla klepněte na následující odkaz"
+
+#: Added from Tracy bar
+msgid "Hello"
+msgstr "Dobrý den"
+
+#: Added from Tracy bar
+msgid "you have requested a password reset."
+msgstr "vyžádal(a) jste si obnovení hesla."
+
+#: Added from Tracy bar
+msgid "This e-mail has been sent automatically."
+msgstr "Tento e-mail byl odeslán automaticky."
+
+#: Added from Tracy bar
+msgid "Do not reply to this e-mail."
+msgstr "Na tento e-mail neodpovídejte."

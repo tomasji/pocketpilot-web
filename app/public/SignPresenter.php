@@ -113,7 +113,7 @@ class SignPresenter extends AppPresenter {
 			->setRequired('Please fill in both of the password fields.')
 			->setHtmlAttribute('placeholder', 'Password again')
 			->setOmitted(true);
-		$form->addSubmit('send', 'Sign up');
+		$form->addSubmit('send', 'Submit');
 		$form->onSuccess[] = [$this, 'processRegisterForm'];
 		return $form;
 	}

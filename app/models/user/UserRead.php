@@ -30,7 +30,7 @@ class UserRead {
 	 * @throws IncorrectCredentialsException
 	 * @throws \Nette\Utils\AssertionException
 	 */
-	public function fetch(string $email): UserEntry {
+	public function fetchBy(string $email): UserEntry {
 		Validators::assert($email, 'email');
 		$row = $this->database->table(UserDatabaseDef::TABLE_NAME)->where(UserDatabaseDef::COLUMN_EMAIL, $email)->fetch();
 		if ($row) {

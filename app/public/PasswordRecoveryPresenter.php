@@ -62,7 +62,7 @@ class PasswordRecoveryPresenter extends AppPresenter {
 			->setRequired('Please fill in both of the password fields.')
 			->setHtmlAttribute('placeholder', 'Password again')
 			->setOmitted(true);
-		$form->addSubmit('send', 'Save');
+		$form->addSubmit('send', 'Submit');
 
 		$form->onSuccess[] = array($this, 'processNewPasswordForm');
 		return $form;
@@ -77,7 +77,7 @@ class PasswordRecoveryPresenter extends AppPresenter {
 	 */
 	public function processRecoveryForm(Form $form): void {
 		try {
-			$user = $this->userRead->fetchByEmail($form->values->email);
+			$user = $this->userRead->fetchBy($form->values->email);
 			$this->pwReset->sendLinkTo($user);
 			$this->flashMessage($this->translator->translate("An e-mail has been sent to %s.", $user->getEmail()));
 			$this->redirect('Sign:');

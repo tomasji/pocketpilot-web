@@ -42,7 +42,7 @@ class PasswordAuthenticator {
 	 * @throws \Nette\Utils\AssertionException
 	 */
 	public function authenticate(PasswordCredentials $credentials): UserEntry {
-		$entry = $this->read->fetch($credentials->getEmail());
+		$entry = $this->read->fetchBy($credentials->getEmail());
 		$hash = $this->database->table(UserDatabaseDef::TABLE_NAME)
 			->where(UserDatabaseDef::COLUMN_ID, $entry->getId())->fetchField(UserDatabaseDef::COLUMN_PASSWORD_HASH);
 		if (!$this->passwords->verify($credentials->getAuthString(), $hash)) {
