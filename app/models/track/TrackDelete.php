@@ -22,10 +22,20 @@ class TrackDelete {
 		$this->database = $database;
 	}
 
+	/**
+	 * @param int $trackId
+	 * @return int
+	 * @throws \Nette\Utils\AssertionException
+	 * @throws \RuntimeException
+	 */
 	public function process(int $trackId): int {
-		Validators::assert($trackId, 'numericint:1..');
-		return $this->database->table(TrackDatabaseDef::TABLE_NAME)
-			->where(TrackDatabaseDef::COLUMN_ID, $trackId)
-			->delete();
+		try {
+			Validators::assert($trackId, 'numericint:1..');
+			return $this->database->table(TrackDatabaseDef::TABLE_NAME)
+				->where(TrackDatabaseDef::COLUMN_ID, $trackId)
+				->delete();
+		} catch (\PDOException $e) {
+			throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
+		}
 	}
 }

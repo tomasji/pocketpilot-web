@@ -22,13 +22,21 @@ class DashboardRead {
 		$this->database = $database;
 	}
 
+	/**
+	 * @return array
+	 * @throws \RuntimeException
+	 */
 	public function fetchAll(): array {
-		$rows = $this->database->table(DashboardDatabaseDef::TABLE_NAME)->order('id DESC')->fetchAll();
-		$ret = [];
-		foreach ($rows as $row) {
-			$ret[$row[DashboardDatabaseDef::COLUMN_ID]] = $this->toEntity($row);
+		try {
+			$rows = $this->database->table(DashboardDatabaseDef::TABLE_NAME)->order('id DESC')->fetchAll();
+			$ret = [];
+			foreach ($rows as $row) {
+				$ret[$row[DashboardDatabaseDef::COLUMN_ID]] = $this->toEntity($row);
+			}
+			return $ret;
+		} catch (\PDOException $e) {
+			throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
 		}
-		return $ret;
 	}
 
 	/**

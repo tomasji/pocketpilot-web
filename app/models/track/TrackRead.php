@@ -25,22 +25,27 @@ class TrackRead {
 	/**
 	 * @param int $userId
 	 * @return array [trackId => TrackEntry]
+	 * @throws \RuntimeException
 	 */
 	public function fetchBy(int $userId): array {
-		$ret = [];
-		$rows = $this->database->table(TrackDatabaseDef::TABLE_NAME)
-			->select(
-				TrackDatabaseDef::COLUMN_ID . ',' .
-				TrackDatabaseDef::COLUMN_USER_ID . ',' .
-				TrackDatabaseDef::COLUMN_NAME . ',' .
-				TrackDatabaseDef::COLUMN_CREATION_DATE . ',' .
-				'ST_Length('.TrackDatabaseDef::COLUMN_TRACK.') AS length' . ',' .
-				'ST_AsGeoJSON('.TrackDatabaseDef::COLUMN_TRACK.') AS geojson')
-			->where(TrackDatabaseDef::COLUMN_USER_ID, $userId)->fetchAll();
-		foreach ($rows as $row) {
-			$ret[$row[TrackDatabaseDef::COLUMN_ID]] = $this->toEntity($row);
+		try {
+			$ret = [];
+			$rows = $this->database->table(TrackDatabaseDef::TABLE_NAME)
+				->select(
+					TrackDatabaseDef::COLUMN_ID . ',' .
+					TrackDatabaseDef::COLUMN_USER_ID . ',' .
+					TrackDatabaseDef::COLUMN_NAME . ',' .
+					TrackDatabaseDef::COLUMN_CREATION_DATE . ',' .
+					'ST_Length('.TrackDatabaseDef::COLUMN_TRACK.') AS length' . ',' .
+					'ST_AsGeoJSON('.TrackDatabaseDef::COLUMN_TRACK.') AS geojson')
+				->where(TrackDatabaseDef::COLUMN_USER_ID, $userId)->fetchAll();
+			foreach ($rows as $row) {
+				$ret[$row[TrackDatabaseDef::COLUMN_ID]] = $this->toEntity($row);
+			}
+			return $ret;
+		} catch (\PDOException $e) {
+			throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
 		}
-		return $ret;
 	}
 
 	/**

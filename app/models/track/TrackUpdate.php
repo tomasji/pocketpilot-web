@@ -22,15 +22,27 @@ class TrackUpdate {
 		$this->database = $database;
 	}
 
+	/**
+	 * @param int $trackId
+	 * @param string $trackName
+	 * @param array $waypoints
+	 * @return int
+	 * @throws \Nette\Utils\AssertionException
+	 * @throws \RuntimeException
+	 */
 	public function process(int $trackId, string $trackName, array $waypoints) : int {
 		Validators::assert($trackId, 'numericint:1..');
 		Validators::assert($trackName, 'string:1..50');
-		return $this->database->table(TrackDatabaseDef::TABLE_NAME)
-			->where(TrackDatabaseDef::COLUMN_ID, $trackId)
-			->update([
-				TrackDatabaseDef::COLUMN_NAME => $trackName,
-				TrackDatabaseDef::COLUMN_TRACK => $this->database::literal($this->prepareQuery($waypoints))
-			]);
+		try {
+			return $this->database->table(TrackDatabaseDef::TABLE_NAME)
+				->where(TrackDatabaseDef::COLUMN_ID, $trackId)
+				->update([
+					TrackDatabaseDef::COLUMN_NAME => $trackName,
+					TrackDatabaseDef::COLUMN_TRACK => $this->database::literal($this->prepareQuery($waypoints))
+				]);
+		} catch (\PDOException $e) {
+			throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
+		}
 	}
 
 	private function prepareQuery(array $waypoints): string {

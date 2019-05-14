@@ -99,7 +99,7 @@ class TracksPresenter extends AppPresenter {
 		try {
 			$this->delete->process((int)$id);
 			$this->flashMessage($this->translator->translate("Track '%s' has been deleted.", $name));
-		} catch (\PDOException $t) {
+		} catch (\RuntimeException $e) {
 			$this->flashMessage($this->translator->translate("An error occurred while deleting the track."));
 		}
 		$this->redrawControl();
@@ -109,6 +109,7 @@ class TracksPresenter extends AppPresenter {
 	 * @internal
 	 * @param Form $form
 	 * @throws \Nette\Application\AbortException
+	 * @throws \Nette\Utils\AssertionException
 	 */
 	public function processForm(Form $form): void {
 		$values = $form->getValues();
@@ -127,7 +128,7 @@ class TracksPresenter extends AppPresenter {
 				$this->payload->forceRedirect = true;
 				$this->flashMessage($this->translator->translate("Track '%s' has been saved.", $values->name));
 				$this->redirect('Tracks:');
-			} catch (\PDOException $e) {
+			} catch (\RuntimeException $e) {
 				$this->flashMessage($this->translator->translate('An error occurred while saving the track.'));
 				$this->redrawControl();
 			}

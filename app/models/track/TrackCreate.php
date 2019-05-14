@@ -23,14 +23,26 @@ class TrackCreate {
 		$this->database = $database;
 	}
 
+	/**
+	 * @param string $trackName
+	 * @param int $userId
+	 * @param array $waypoints
+	 * @return ActiveRow|null
+	 * @throws \Nette\Utils\AssertionException
+	 * @throws \RuntimeException
+	 */
 	public function process(string $trackName, int $userId, array $waypoints) : ?ActiveRow {
 		Validators::assert($trackName, 'string:1..50');
 		Validators::assert($userId, 'numericint:1..');
-		return $this->database->table(TrackDatabaseDef::TABLE_NAME)->insert([
-			TrackDatabaseDef::COLUMN_NAME => $trackName,
-			TrackDatabaseDef::COLUMN_USER_ID => $userId,
-			TrackDatabaseDef::COLUMN_TRACK => $this->database::literal($this->prepareQuery($waypoints))
-		]);
+		try {
+			return $this->database->table(TrackDatabaseDef::TABLE_NAME)->insert([
+				TrackDatabaseDef::COLUMN_NAME => $trackName,
+				TrackDatabaseDef::COLUMN_USER_ID => $userId,
+				TrackDatabaseDef::COLUMN_TRACK => $this->database::literal($this->prepareQuery($waypoints))
+			]);
+		} catch (\PDOException $e) {
+			throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
+		}
 	}
 
 	private function prepareQuery(array $waypoints): string {

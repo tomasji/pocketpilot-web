@@ -26,6 +26,10 @@ class DashboardPresenter extends AppPresenter {
 	}
 
 	public function renderDefault() {
-		$this->template->items = $this->read->fetchAll();
+		$this->template->items = $this->getItems();
+	}
+
+	public function getItems(): array {
+		return $this->read->fetchAll();
 	}
 }
