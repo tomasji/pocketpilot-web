@@ -52,7 +52,7 @@ class FacebookAuthenticator {
 			$this->updateMissingUid($credentials);
 		}
 		if ($row && isset($row[UserDatabaseDef::COLUMN_FB_UID]) && $row[UserDatabaseDef::COLUMN_FB_UID] === $credentials->getAuthString()) {
-			return $this->read->fetchByEmail($credentials->getEmail());
+			return $this->read->fetch($credentials->getEmail());
 		} else {
 			throw new IncorrectCredentialsException("FB user ID does not match with local FB uID.");
 		}

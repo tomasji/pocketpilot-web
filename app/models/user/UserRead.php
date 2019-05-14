@@ -25,28 +25,12 @@ class UserRead {
 	}
 
 	/**
-	 * @param int $id
-	 * @return UserEntry
-	 * @throws IncorrectCredentialsException
-	 * @throws \Nette\Utils\AssertionException
-	 */
-	public function fetchById(int $id): UserEntry {
-		Validators::assert($id, 'numericint:1..');
-		$row = $this->database->table(UserDatabaseDef::TABLE_NAME)->where(UserDatabaseDef::COLUMN_ID, $id)->fetch();
-		if ($row) {
-			return $this->toEntity($row);
-		} else {
-			throw new IncorrectCredentialsException("User with id '$id' does not exists.");
-		}
-	}
-
-	/**
 	 * @param string $email
 	 * @return UserEntry
 	 * @throws IncorrectCredentialsException
 	 * @throws \Nette\Utils\AssertionException
 	 */
-	public function fetchByEmail(string $email): UserEntry {
+	public function fetch(string $email): UserEntry {
 		Validators::assert($email, 'email');
 		$row = $this->database->table(UserDatabaseDef::TABLE_NAME)->where(UserDatabaseDef::COLUMN_EMAIL, $email)->fetch();
 		if ($row) {

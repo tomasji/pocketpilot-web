@@ -13,6 +13,8 @@ use PP\User\FacebookAuthenticator;
 use PP\User\FacebookCredentials;
 use PP\User\PasswordCredentials;
 use PP\User\PasswordAuthenticator;
+use PP\User\TokenAuthenticator;
+use PP\User\TokenCredentials;
 use PP\User\UserEntry;
 
 /**
@@ -32,9 +34,17 @@ class Authenticator implements IAuthenticator {
 	 */
 	private $fbAuthenticator;
 
-	public function __construct(PasswordAuthenticator $pwAuthenticator, FacebookAuthenticator $fbAuthenticator) {
+	/**
+	 * @var TokenAuthenticator
+	 */
+	private $tokenAuthenticator;
+
+	public function __construct(
+		PasswordAuthenticator $pwAuthenticator, FacebookAuthenticator $fbAuthenticator, TokenAuthenticator $tokenAuthenticator
+	) {
 		$this->pwAuthenticator = $pwAuthenticator;
 		$this->fbAuthenticator = $fbAuthenticator;
+		$this->tokenAuthenticator = $tokenAuthenticator;
 	}
 
 	/**
@@ -57,6 +67,9 @@ class Authenticator implements IAuthenticator {
 					break;
 				case $credentials instanceof FacebookCredentials:
 					$user = $this->fbAuthenticator->authenticate($credentials);
+					break;
+				case $credentials instanceof TokenCredentials:
+					$user = $this->tokenAuthenticator->authenticate($credentials);
 					break;
 				default:
 					throw new \UnexpectedValueException('Only PasswordCredentials and FacebookCredentials allowed.');

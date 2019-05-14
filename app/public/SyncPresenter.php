@@ -30,7 +30,7 @@ class SyncPresenter extends AppPresenter {
 	protected function createComponentForm(): Form {
 		$form = new Form();
 		$form->setTranslator($this->translator);
-		$form->addText('id', 'ID')->setHtmlAttribute('readonly', 'readonly');
+		$form->addText('email', 'E-mail')->setHtmlAttribute('readonly', 'readonly');
 		$form->addText('token', 'Secret key')->setHtmlAttribute('readonly', 'readonly');
 //		$form->addSubmit('submit', 'Generate new');
 		$form->setDefaults($this->getDefaults());
@@ -43,8 +43,8 @@ class SyncPresenter extends AppPresenter {
 	 */
 	private function getDefaults(): array {
 		return [
-			'id' => $this->getUser()->getId(),
-			'token' => $this->read->fetchById($this->getUser()->getId())->getToken()
+			'email' => $this->getUser()->getIdentity()->email,
+			'token' => $this->read->fetch($this->getUser()->getIdentity()->email)->getToken()
 		];
 	}
 }

@@ -22,7 +22,23 @@ class TracksPresenter extends Presenter {
 		$this->read = $read;
 	}
 
-	public function actionRead() {
+	/**
+	 * @param $element
+	 * @throws \Nette\Application\AbortException
+	 * @throws \Nette\Application\ForbiddenRequestException
+	 */
+	public function checkRequirements($element): void {
+		parent::checkRequirements($this->getReflection());
+		if (!$this->user->isLoggedIn()) {
+			$this->getHttpResponse()->setCode(403);
+			$this->sendResponse(new JsonResponse(['error' => 'User not authenticated']));
+		}
+	}
+
+	/**
+	 * @throws \Nette\Application\AbortException
+	 */
+	public function actionRead(): void {
 		$tracks = $this->read->fetchBy($this->user->getId());
 		$tracks = array_map(function($track) {
 			$x = new \stdClass();

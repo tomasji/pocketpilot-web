@@ -26,6 +26,7 @@ services:
 	passwordReset: PP\User\PasswordReset
 	router: PP\RouterFactory::createRouter
 	signModel: PP\SignModel
+	tokenAuthenticator: PP\User\TokenAuthenticator
 	trackCreate: PP\Track\TrackCreate
 	trackDelete: PP\Track\TrackDelete
 	trackRead: PP\Track\TrackRead
