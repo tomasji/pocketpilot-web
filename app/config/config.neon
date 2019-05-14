@@ -33,6 +33,7 @@ services:
 	trackUpdate: PP\Track\TrackUpdate
 	userRead: PP\User\UserRead
 	userRegister: PP\User\UserRegister
+	userUpdate: PP\User\UserUpdate
 
 
 http:

@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace PP\User;
 
 use Nette\Database\Context;
+use Nette\Security\IIdentity;
 use Nette\SmartObject;
+use Nette\Utils\DateTime;
 
 /**
  * @author Andrej Souček
@@ -28,6 +30,18 @@ class UserUpdate {
 		$this->database->table(UserDatabaseDef::TABLE_NAME)
 			->where(UserDatabaseDef::COLUMN_ID, $changes->getId())
 			->update($this->toArray($changes));
+	}
+
+	/**
+	 * @param IIdentity $user
+	 * @return string
+	 */
+	public function regenerateTokenFor(IIdentity $user): string {
+		$newToken = md5($user->username . new DateTime());
+		$this->database->table(UserDatabaseDef::TABLE_NAME)
+			->where(UserDatabaseDef::COLUMN_ID, $user->getId())
+			->update([UserDatabaseDef::COLUMN_TOKEN => md5($user->username . new DateTime())]);
+		return $newToken;
 	}
 
 	/**

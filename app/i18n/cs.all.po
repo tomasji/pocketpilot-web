@@ -377,3 +377,7 @@ msgstr "Odpověď bude odeslána na Váš e-mail."
 
 msgid "Message has been sent."
 msgstr "Zpráva byla odeslána."
+
+#: Added from Tracy bar
+msgid "Generate new key"
+msgstr "Vygenerovat nový klíč"
