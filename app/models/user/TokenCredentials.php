@@ -1,7 +1,6 @@
 <?php
-/*
- * Copyright © 2000-2019 ANTEE s.r.o., All rights reserved. Confidential.
- */
+
+declare(strict_types=1);
 
 namespace PP\User;
 
