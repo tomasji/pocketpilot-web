@@ -14,6 +14,9 @@
   },
   "homepage": "https://github.com/andrejsoucek/pocketpilot-web#readme",
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.19",
+    "@fortawesome/free-brands-svg-icons": "^5.9.0",
+    "@fortawesome/free-solid-svg-icons": "^5.9.0",
     "leaflet": "^1.4.0",
     "leaflet-control-geocoder": "^1.6.0",
     "materialize-css": "^1.0.0-rc.2",
@@ -23,7 +26,6 @@
   "devDependencies": {
     "@babel/core": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
-    "@fortawesome/fontawesome-free": "^5.8.1",
     "babel-loader": "^8.0.5",
     "clean-webpack-plugin": "^2.0.1",
     "css-loader": "^2.1.1",

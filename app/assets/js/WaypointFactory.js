@@ -1,5 +1,7 @@
 import { DivIcon, DomUtil, Popup } from 'leaflet'
 import { Waypoint } from './Waypoint'
+import { icon } from '@fortawesome/fontawesome-svg-core'
+import { faMapMarkerAlt, faTrash, faRoute } from '@fortawesome/free-solid-svg-icons'
 
 const createWaypointIcon = (pulse) => {
 	let classes = 'map-marker map-marker-circle'
@@ -18,7 +20,7 @@ export function createEntryPoint(latlng, onAdd, onDrag, onDragEnd, onAddClick) {
 	const o = new Waypoint(latlng, { icon: createWaypointIcon(true), draggable: true })
 	const div = DomUtil.create('div', 'center')
 	const addBtn = DomUtil.create('button', 'add blue lighten-1 btn')
-	addBtn.innerHTML = '<i class="fas fa-map-marker-alt"></i>'
+	addBtn.appendChild(icon(faMapMarkerAlt).node[0])
 	addBtn.addEventListener('click', () => onAddClick(o))
 	div.appendChild(addBtn)
 	const popup = new Popup({ minWidth: 80 }).setContent(div)
@@ -34,13 +36,13 @@ export function createTurningPoint(latlng, onAdd, onRemove, onDrag, onDragEnd, o
 	const o = new Waypoint(latlng, { icon: createWaypointIcon(false), draggable: true })
 	const div = DomUtil.create('div', 'center')
 	const addBtn = DomUtil.create('button', 'add blue lighten-1 btn')
-	addBtn.innerHTML = '<i class="fas fa-map-marker-alt"></i>'
+	addBtn.appendChild(icon(faMapMarkerAlt).node[0])
 	addBtn.addEventListener('click', () => onAddClick(o))
 	const removeBtn = DomUtil.create('button', 'remove blue lighten-1 btn')
-	removeBtn.innerHTML = '<i class="fas fa-trash"></i>'
+	removeBtn.appendChild(icon(faTrash).node[0])
 	removeBtn.addEventListener('click', () => onRemoveClick(o))
 	const finishBtn = DomUtil.create('button', 'finish blue lighten-1 btn')
-	finishBtn.innerHTML = '<i class="fas fa-route"></i>'
+	finishBtn.appendChild(icon(faRoute).node[0])
 	finishBtn.addEventListener('click', () => onFinishClick(o))
 	div.appendChild(addBtn)
 	div.appendChild(removeBtn)
