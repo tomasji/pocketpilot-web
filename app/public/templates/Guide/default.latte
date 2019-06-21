@@ -1,0 +1,54 @@
+{block content}
+{control navbar}
+<div class="row guide">
+	<div class="col s12 m12 l4">
+		<div class="card darken-1 hoverable">
+			<div class="card-content">
+				<span class="card-title">{_'Tracks planning'}</span>
+				<p>{_'You can synchronize planned track in this application with your mobile phone.'}
+				{_'The planned track will be shown in the mobile app and you can use your device as a navigation system.'}
+				</p>
+				<ul>
+					<li>{_'To synchronize the device, simply scan the QR code shown in the'} <a href="{plink Sync:}">{_'Pair device section'}.</a></li>
+					<li>{_'If you are not able to scan the QR code, enter your e-mail and secret key manually.'}</li>
+					<li>{_'Planned tracks will be shown in the device.'}</li>
+					<li>{_"To view the track on the map, tap the three dots menu and select 'Show planned track'."}</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="col s12 m12 l4">
+		<div class="card darken-1 hoverable">
+			<div class="card-content">
+				<span class="card-title">{_'Importing flights'}</span>
+				<p>{_'If you want to import your flight log you can use the import function.'}
+					{_'The file must be in CSV format with semicolon separator, encoded in UTF-8. The header must include'}
+				</p>
+				<ul>
+					<li><strong>StartDate</strong> - {_'take off date in YYYY-MM-DD format'}</li>
+					<li><strong>StartTime</strong> - {_'take off time in HH:MM format'}</li>
+					<li><strong>StartPlace</strong> - {_'take off airfield e.g. LKLT)'}</li>
+					<li><strong>LandingDate</strong> - {_'landing date in YYYY-MM-DD format'}</li>
+					<li><strong>LandingTime</strong> - {_'landing time in HH:MM format'}</li>
+					<li><strong>Destination</strong> - {_'destination airfield e.g. LKLT'}</li>
+					<li><strong>Takeoffs</strong> - {_'number of landings'}</li>
+					<li><strong>Imat</strong> - {_'plane registration'}</li>
+					<li><strong>Type</strong> - {_"flight type - 'Sólo'/'Dvojí'"}</li>
+					<li><strong>Note</strong> - {_'your notes'}</li>
+				</ul>
+				<p>{_"Save the CSV file as 'Flights.csv' into Flights folder in your device, go to Flight log, tap menu and choose 'Import'."}
+				{_'I recommend using LibreOffice Calc for editing the file.'}</p>
+			</div>
+		</div>
+	</div>
+	<div class="col s12 m12 l4">
+		<div class="card darken-1 hoverable">
+			<div class="card-content">
+				<span class="card-title">{_'Offline maps'}</span>
+				<p>{_'If you are not able to download the map using the in-app map manager, you can download it manually'}
+					<a href="/maps">{_'from here'}</a>. {_"After downloading the map, put the file into the osmdroid file in the device's storage."}
+				</p>
+			</div>
+		</div>
+	</div>
+</div>

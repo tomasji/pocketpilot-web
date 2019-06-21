@@ -98,6 +98,11 @@ nav {
   }
 }
 
+.guide .card-content li {
+  list-style-type: square;
+  margin-left: 2rem;
+}
+
 textarea.message {
   min-height: 10rem;
   resize: vertical;

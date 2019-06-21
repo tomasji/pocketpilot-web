@@ -416,3 +416,136 @@ msgstr "Tento e-mail byl odeslán automaticky."
 #: Added from Tracy bar
 msgid "Do not reply to this e-mail."
 msgstr "Na tento e-mail neodpovídejte."
+
+#: Added from Tracy bar
+msgid "You can synchronize planned track in this application with your mobile phone."
+msgstr ""
+"Díky propojení mobilní aplikace s webovým rozhraním můžete využít jedinečné možn"
+"osti plánování letů."
+
+#: Added from Tracy bar
+msgid ""
+"The planned track will be shown in the mobile app and you can use your device as"
+" a navigation system."
+msgstr ""
+"Trať, kterou vytvoříte na PC se zobrazí v zařízení a můžete tak využít svůj mobi"
+"l jako leteckou navigaci."
+
+#: Added from Tracy bar
+msgid "Pair device section"
+msgstr "sekci Spárovat"
+
+#: Added from Tracy bar
+msgid "To synchronize the device, simply scan the QR code shown in the"
+msgstr "Pro synchronizování zařízení jednoduše naskenujte QR kód v "
+
+#: Added from Tracy bar
+msgid ""
+"If you are not able to scan the QR code, enter your e-mail and secret key manual"
+"ly."
+msgstr ""
+"Pokud nemůžete QR kód naskenovat, zadejte do zařízení svůj e-mail a API klíč man"
+"uálně."
+
+#: Added from Tracy bar
+msgid "Planned tracks will be shown in the device."
+msgstr "Naplánované tratě se zobrazí v zařízení."
+
+#: Added from Tracy bar
+msgid ""
+"To view the track on the map, tap the three dots menu and select 'Show planned t"
+"rack'."
+msgstr ""
+"Pro vykreslení trasy na mapu klepněte na ikonu tří teček a zvolte možnost 'Zobra"
+"zit naplánovanou trasu'."
+
+#: Added from Tracy bar
+msgid "If you want to import your flight log you can use the import function."
+msgstr "Pokud chcete importovat svůj zápisník letů, můžete využít funkci importu."
+
+#: Added from Tracy bar
+msgid ""
+"The file must be in CSV format with semicolon separator, encoded in UTF-8. The h"
+"eader must include"
+msgstr ""
+"Soubor musí být ve formátu CSV, oddělovač středník, kódování UTF-8. Hlavička mus"
+"í obsahovat:"
+
+#: Added from Tracy bar
+msgid "take off date in YYYY-MM-DD format"
+msgstr "datum vzletu ve formátu RRRR-MM-DD"
+
+#: Added from Tracy bar
+msgid "take off time in HH:MM format"
+msgstr "čas vzletu ve formátu HH:MM"
+
+#: Added from Tracy bar
+msgid "take off airfield e.g. LKLT)"
+msgstr "místo vzletu (např. LKLT)"
+
+#: Added from Tracy bar
+msgid "landing date in YYYY-MM-DD format"
+msgstr "datum přistání ve formátu RRRR-MM-DD"
+
+#: Added from Tracy bar
+msgid "landing time in HH:MM format"
+msgstr "čas přistání ve formátu HH:MM"
+
+#: Added from Tracy bar
+msgid "destination airfield e.g. LKLT"
+msgstr "místo přistání (např. LKLT)"
+
+#: Added from Tracy bar
+msgid "number of landings"
+msgstr "počet přistání (číslo)"
+
+#: Added from Tracy bar
+msgid "plane registration"
+msgstr "imatrikulace"
+
+#: Added from Tracy bar
+msgid "your notes"
+msgstr "libovolná poznámka"
+
+#: Added from Tracy bar
+msgid "flight type - 'Sólo'/'Dvojí'"
+msgstr "typ - 'Sólo'/'Dvojí'"
+
+#: Added from Tracy bar
+msgid ""
+"Save the CSV file as 'Flights.csv' into Flights folder in your device, go to Fli"
+"ght log, tap menu and choose 'Import'."
+msgstr ""
+"Konečný soubor pojmenujte 'Flights.csv' a uložte jej do složky Flights v úložišt"
+"i vašeho telefonu. Poté přejďěte do zápisníku letů a přes menu zvolte možnost 'I"
+"mport'."
+
+#: Added from Tracy bar
+msgid "I recommend using LibreOffice Calc for editing the file."
+msgstr "Pro úpravu CSV souboru pro import doporučuji program LibreOffice Calc."
+
+#: Added from Tracy bar
+msgid "Importing flights"
+msgstr "Import letů"
+
+#: Added from Tracy bar
+msgid "Offline maps"
+msgstr "Offline mapy"
+
+#: Added from Tracy bar
+msgid ""
+"If you are not able to download the map using the in-app map manager, you can do"
+"wnload it manually"
+msgstr "Pokud nemůže stáhnout mapy v aplikaci, můžete využít manuální stažení"
+
+#: Added from Tracy bar
+msgid "from here"
+msgstr "odsud"
+
+#: Added from Tracy bar
+msgid ""
+"After downloading the map, put the file into the osmdroid file in the device's s"
+"torage."
+msgstr ""
+"Po dokončení stahování vložte stažený soubor do složky osmdroid v úložišti zaříz"
+"ení."

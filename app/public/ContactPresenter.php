@@ -24,7 +24,7 @@ class ContactPresenter extends AppPresenter {
 	private $mailer;
 
 	public function __construct(DirResolver $dirResolver, Gettext $translator, IMailer $mailer) {
-	parent::__construct($dirResolver, $translator);
+		parent::__construct($dirResolver, $translator);
 		$this->mailer = $mailer;
 	}
 
