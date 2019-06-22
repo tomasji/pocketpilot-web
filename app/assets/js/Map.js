@@ -1,19 +1,28 @@
 import { GeoJSON, Map, TileLayer, DomUtil } from 'leaflet'
 import { Track } from './Track'
 
+const MAP_BASE = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+const MAP_OFM = 'https://snapshots.openflightmaps.org/live/1904/tiles/world/noninteractive/epsg3857/aero/512/latest/{z}/{x}/{y}.png'
+
 const map = new Map(
 	'map',
-	{ minZoom: 8, maxZoom: 12 }
+	{ minZoom: 8, maxZoom: 11 }
 )
-const mapLink = '<a href="http://openstreetmap.org">OpenStreetMap</a>'
-const tiles = new TileLayer(
-	'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-		attribution: '&copy; ' + mapLink + ' Contributors',
-		maxZoom: 18
+const osmLink = '<a href="http://openstreetmap.org" target="_blank">OpenStreetMap</a>'
+const ground = new TileLayer(
+	MAP_BASE, {
+		attribution: '&copy; ' + osmLink + ' Contributors',
+		maxZoom: 11
 	})
+const ofmLink = '<a href="https://www.openflightmaps.org/" target="_blank">OpenFlightMaps</a>'
+const ofm = new TileLayer(MAP_OFM, {
+	attribution: ofmLink,
+	maxZoom: 11
+})
 map.setView([50.075, 14.437], 8)
 map.zoomControl.setPosition('topright')
-tiles.addTo(map)
+ground.addTo(map)
+ofm.addTo(map)
 
 let zoom = map.getZoom()
 DomUtil.addClass(map.getContainer(), 'zoom-' + zoom)
