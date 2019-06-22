@@ -19,6 +19,7 @@ class TracksPresenter extends Presenter {
 	private $read;
 
 	public function __construct(TrackRead $read) {
+		parent::__construct();
 		$this->read = $read;
 	}
 
@@ -29,7 +30,7 @@ class TracksPresenter extends Presenter {
 	 */
 	public function checkRequirements($element): void {
 		parent::checkRequirements($this->getReflection());
-		if (!$this->user->isLoggedIn()) {
+		if (!$this->getUser()->isLoggedIn()) {
 			$this->getHttpResponse()->setCode(403);
 			$this->sendResponse(new JsonResponse(['error' => 'User not authenticated']));
 		}
@@ -39,7 +40,7 @@ class TracksPresenter extends Presenter {
 	 * @throws \Nette\Application\AbortException
 	 */
 	public function actionRead(): void {
-		$tracks = $this->read->fetchBy($this->user->getId());
+		$tracks = $this->read->fetchBy($this->getUser()->getId());
 		$tracks = array_map(function($track) {
 			$x = new \stdClass();
 			$x->id = $track->getId();

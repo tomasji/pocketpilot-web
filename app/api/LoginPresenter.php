@@ -23,7 +23,7 @@ class LoginPresenter extends Presenter {
 			$key = $this->getRequest()->getPost('key');
 			$this->getUser()->login(new TokenCredentials($email, $key));
 		} catch (AuthenticationException $e) {
-			$this->getHttpResponse()->setCode(403);
+			$this->getHttpResponse()->setCode(401);
 			$this->sendResponse(new JsonResponse(['error' => 'Incorrect e-mail or key.']));
 		}
 		if ($this->getSession()->isStarted()) {
@@ -31,6 +31,7 @@ class LoginPresenter extends Presenter {
 			$this->getSession()->destroy();
 		}
 		$this->getSession()->setExpiration('4 hours');
+		$this->getHttpResponse()->setCode(200);
 		$this->sendResponse(new JsonResponse(['session' => $this->getSession()->getId()]));
 	}
 
