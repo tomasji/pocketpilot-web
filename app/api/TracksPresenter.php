@@ -49,7 +49,7 @@ class TracksPresenter extends Presenter {
 			$x->length = $track->getLength();
 			$x->createdAt = $track->getCreated();
 			return $x;
-		}, $tracks);
+		}, array_values($tracks));
 		$this->sendResponse(new JsonResponse($tracks));
 	}
 
