@@ -1,10 +1,10 @@
 import { Marker, CRS } from 'leaflet'
-import leafletControlGeocoder from 'leaflet-control-geocoder'
+import 'leaflet-control-geocoder'
 
 class Waypoint extends Marker {
 	constructor(latlng, options) {
 		super(latlng, options)
-		this.geocoder = leafletControlGeocoder.L.Control.Geocoder.nominatim()
+		this.geocoder = L.Control.Geocoder.nominatim()
 	}
 	fetchPlace() {
 		return new Promise((resolve) => {
