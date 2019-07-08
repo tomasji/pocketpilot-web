@@ -44,7 +44,7 @@ class TracksPresenter extends Presenter {
 		$tracks = array_map(function($track) {
 			$x = new \stdClass();
 			$x->id = $track->getId();
-			$x->track = $track->getTrack();
+			$x->track = json_decode($track->getTrack());
 			$x->name = $track->getName();
 			$x->length = $track->getLength();
 			$x->createdAt = $track->getCreated();
