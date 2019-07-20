@@ -31,6 +31,18 @@ class PasswordRecoveryPresenter extends AppPresenter {
 		$this->pwReset = $pwReset;
 	}
 
+	public function renderDefault() {
+		$this->template->lang = $this->getLang();
+	}
+
+	public function renderReset() {
+		$this->template->lang = $this->getLang();
+	}
+
+	public function getLang(): string {
+		return $this->translator->getLang();
+	}
+
 	public function actionReset($token): void {
 		if (isset($token) && !$this->pwReset->isTokenValid($token)) {
 			$this->flashMessage($this->translator->translate('Invalid token.'));

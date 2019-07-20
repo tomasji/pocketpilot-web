@@ -50,19 +50,23 @@ class SignPresenter extends AppPresenter {
 	public function renderDefault(): void {
 		$this->template->currentUserName = $this->getCurrentUserName();
 		$this->template->fbLoginUrl = $this->getFbLoginUrl();
+		$this->template->lang = $this->getLang();
+	}
+
+	public function renderRegister(): void {
+		$this->template->lang = $this->getLang();
 	}
 
 	public function getCurrentUserName(): string {
 		return $this->getUser()->getIdentity() ? $this->getUser()->getIdentity()->username : "unknown";
 	}
 
-	/**
-	 * @return string
-	 * @throws \Nette\Application\UI\InvalidLinkException
-	 * @throws \Nette\Utils\AssertionException
-	 */
 	public function getFbLoginUrl(): string {
 		return $this->model->generateLoginUrl($this->link('//fbLogin'));
+	}
+
+	public function getLang(): string {
+		return $this->translator->getLang();
 	}
 
 	protected function createComponentLoginForm(): Form {
