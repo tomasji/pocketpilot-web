@@ -114,7 +114,7 @@ class TracksPresenter extends AppPresenter {
 	public function processForm(Form $form): void {
 		$values = $form->getValues();
 		$wpts = json_decode($values->waypoints, true);
-		if (count($wpts) <= 1) {
+		if (empty($wpts) || count($wpts) <= 1) {
 			$this->flashMessage($this->translator->translate('Track must have more than 1 point'));
 			$this->redrawControl();
 			return;
