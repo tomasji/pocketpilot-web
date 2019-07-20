@@ -2,13 +2,10 @@
 @import '../../../node_modules/materialize-css/sass/components/_variables.scss';
 
 .btn-action {
+  @media #{$medium-and-down} {
+    margin-bottom: 0.5rem;
+  }
   @media #{$small-and-down} {
     width: 4rem;
-  }
-  & > i {
-    padding-right: 0.5rem;
-    @media #{$small-and-down} {
-      padding-right: 0;
-    }
   }
 }
