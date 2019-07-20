@@ -557,3 +557,47 @@ msgstr "Opravdu chcete odejít bez uložení?"
 #: Added from Tracy bar
 msgid "Do you really want to delete the track?"
 msgstr "Opravdu chcete smazat trasu?"
+
+#: Added from Tracy bar
+msgid "No more paper notes about your flights."
+msgstr "Už žádné přepisování informací z papíru."
+
+#: Added from Tracy bar
+msgid "Logbook"
+msgstr "Zápisník letů"
+
+#: Added from Tracy bar
+msgid "Offline map"
+msgstr "Offline mapa"
+
+#: Added from Tracy bar
+msgid "Watch your position and airspaces without mobile data usage."
+msgstr "Sledujte svou aktuální polohu a vzdušné prostory bez spotřeby mobilních dat."
+
+#: Added from Tracy bar
+msgid "Thanks to the"
+msgstr "Díky"
+
+#: Added from Tracy bar
+msgid "web app"
+msgstr "webové aplikaci"
+
+#: Added from Tracy bar
+msgid "you can plan your tracks."
+msgstr "nebylo plánování tras snazší."
+
+#: Added from Tracy bar
+msgid "Licences manager"
+msgstr "Správce dokladů"
+
+#: Added from Tracy bar
+msgid "Do you know your licences expiration dates? Do not let them expire."
+msgstr "Víte, kdy vám končí platnost vašich dokladů? Nenechte je propadnout."
+
+#: Added from Tracy bar
+msgid "Do aplikace"
+msgstr "Open the web app"
+
+#: Added from Tracy bar
+msgid "Open the web app"
+msgstr "Do aplikace"

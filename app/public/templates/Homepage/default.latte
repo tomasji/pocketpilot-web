@@ -1,1 +1,43 @@
-<p>This is a placeholder of a homepage. Please continue by <a href="{link Sign:}">logging in</a>.</p>
+{block content}
+<div class="row" style="height: 100%; margin:0">
+	<div class="col s12 m12 l6 valign-wrapper" style="height: 100%">
+		<div class="center" style="margin: auto;">
+			<div class="logo"></div>
+			<h3>Pocket Pilot</h3>
+			<h5>Android aplikace pro piloty ultralehkých letadel</h5>
+			<a class="badge" href='https://play.google.com/store/apps/details?id=cz.pocketpilot.app&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
+				<img class="badge" alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/{if $lang === 'cs'}cs{else}en{/if}_badge_web_generic.png'/>
+			</a>
+		</div>
+	</div>
+	<div class="col s12 m12 l6 valign-wrapper center blue lighten-1 relative" style="height: 100%; overflow: hidden;">
+		<div class="container white hoverable" style="z-index:2;padding: 2em">
+			<a n:href="this, lang => 'cs'">CZ</a>
+			<a n:href="this, lang => 'en'">EN</a>
+			<ul>
+				<li>
+					<i class="fas fa-pencil-alt"></i>
+					<h6><strong>{_'Logbook'}</strong></h6>
+					<p>{_'No more paper notes about your flights.'}</p>
+				</li>
+				<li>
+					<i class="fas fa-globe-europe"></i>
+					<h6><strong>{_'Offline map'}</strong></h6>
+					<p>{_'Watch your position and airspaces without mobile data usage.'}</p>
+				</li>
+				<li>
+					<i class="fas fa-map-marked-alt"></i>
+					<h6><strong>{_'Tracks planning'}</strong></h6>
+					<p>{_'Thanks to the'} <a href="{link Sign:}">{_'web app'}</a> {_'you can plan your tracks.'}</p>
+				</li>
+				<li>
+					<i class="fas fa-briefcase"></i>
+					<h6><strong>{_'Licences manager'}</strong></h6>
+					<p>{_'Do you know your licences expiration dates? Do not let them expire.'}</p>
+				</li>
+			</ul>
+			<a class="blue lighten-1 btn waves-effect" href="{link Sign:}">{_'Open the web app'}</a>
+		</div>
+		<div class="cross-line blue darken-1"></div>
+	</div>
+</div>

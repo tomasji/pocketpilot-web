@@ -9,4 +9,11 @@ namespace PP\Presenters;
  */
 class HomepagePresenter extends AppPresenter {
 
+	public function renderDefault(): void {
+		$this->template->lang = $this->getLang();
+	}
+
+	public function getLang(): string {
+		return $this->translator->getLang();
+	}
 }
