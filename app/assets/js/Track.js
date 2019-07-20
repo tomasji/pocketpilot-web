@@ -9,7 +9,7 @@ class Track {
 		this.map = map
 		this.waypoints = []
 		this.line = null
-		this.table = new TrackTable(map.getContainer())
+		this.table = new TrackTable()
 		this.controls = new Controls(this, this.table)
 		!latlngs || latlngs.forEach(latlng => {
 			const wp = this.addWaypoint(latlng, this.waypoints.length)

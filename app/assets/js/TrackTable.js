@@ -2,8 +2,7 @@ import { DomUtil } from 'leaflet'
 import { getHeading } from './Utils'
 
 class TrackTable {
-	constructor(mapContainer) {
-		this.mapContainer = mapContainer
+	constructor() {
 		this.table = this.renderEmpty()
 	}
 	renderEmpty() {

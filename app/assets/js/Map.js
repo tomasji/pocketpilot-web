@@ -1,6 +1,5 @@
 import { GeoJSON, Map, TileLayer, DomUtil } from 'leaflet'
 import { Track } from './Track'
-import M from 'materialize-css'
 
 const MAP_BASE = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 const MAP_OFM = 'https://snapshots.openflightmaps.org/live/1904/tiles/world/noninteractive/epsg3857/aero/512/latest/{z}/{x}/{y}.png'
