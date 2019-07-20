@@ -85,14 +85,17 @@ class PasswordReset {
 	 */
 	public function changePassword(string $token, string $pw): void {
 		$tokenHash = TokenProcessor::calculateTokenHash($token);
-		$userId = $this->database->table(PasswordResetDatabaseDef::TABLE_NAME)
+		$row = $this->database->table(PasswordResetDatabaseDef::TABLE_NAME)
 			->where(PasswordResetDatabaseDef::COLUMN_TOKEN, $tokenHash)
-			->fetchField(PasswordResetDatabaseDef::COLUMN_ID_USER);
-		$this->database->table(UserDatabaseDef::TABLE_NAME)
-			->update([UserDatabaseDef::COLUMN_PASSWORD_HASH => $this->passwords->hash($pw)]);
-		$this->database->table(PasswordResetDatabaseDef::TABLE_NAME)
-			->where(PasswordResetDatabaseDef::COLUMN_ID_USER, $userId)
-			->delete();
+			->fetch();
+		if ($row) {
+			$userId = $row[PasswordResetDatabaseDef::COLUMN_ID_USER];
+			$this->database->table(UserDatabaseDef::TABLE_NAME)
+				->update([UserDatabaseDef::COLUMN_PASSWORD_HASH => $this->passwords->hash($pw)]);
+			$this->database->table(PasswordResetDatabaseDef::TABLE_NAME)
+				->where(PasswordResetDatabaseDef::COLUMN_ID_USER, $userId)
+				->delete();
+		}
 	}
 
 	/**

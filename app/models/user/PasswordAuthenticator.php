@@ -43,8 +43,9 @@ class PasswordAuthenticator {
 	 */
 	public function authenticate(PasswordCredentials $credentials): UserEntry {
 		$entry = $this->read->fetchBy($credentials->getEmail());
-		$hash = $this->database->table(UserDatabaseDef::TABLE_NAME)
-			->where(UserDatabaseDef::COLUMN_ID, $entry->getId())->fetchField(UserDatabaseDef::COLUMN_PASSWORD_HASH);
+		$row = $this->database->table(UserDatabaseDef::TABLE_NAME)
+			->where(UserDatabaseDef::COLUMN_ID, $entry->getId())->fetch();
+		$hash = $row[UserDatabaseDef::COLUMN_PASSWORD_HASH];
 		if (!$this->passwords->verify($credentials->getAuthString(), $hash)) {
 			throw new IncorrectCredentialsException('Entered password is incorrect.');
 		} elseif ($this->passwords->needsRehash($hash)) {
