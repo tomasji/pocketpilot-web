@@ -549,3 +549,11 @@ msgid ""
 msgstr ""
 "Po dokončení stahování vložte stažený soubor do složky osmdroid v úložišti zaříz"
 "ení."
+
+#: Added from Tracy bar
+msgid "Do you really want to leave without saving?"
+msgstr "Opravdu chcete odejít bez uložení?"
+
+#: Added from Tracy bar
+msgid "Do you really want to delete the track?"
+msgstr "Opravdu chcete smazat trasu?"

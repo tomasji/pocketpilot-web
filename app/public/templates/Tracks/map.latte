@@ -6,17 +6,17 @@
 			<input title="{_'Speed'}" name="speed" type="text" value="150"><span>km/h</span>
 		</div>
 		<div class="controls-buttons right">
-			<button data-target="modal" class="save waves-effect blue lighten-1 btn btn-action modal-trigger">
+			<button data-target="save" class="save waves-effect blue lighten-1 btn btn-action modal-trigger">
 				<i class="fas fa-save"></i>
 				<span class="hide-on-small-only">{_'Save track'}</span>
 			</button>
-			<a href="{link default}" class="exit waves-effect blue lighten-1 btn btn-action">
+			<button data-positive="{link default}" data-confirm="#confirm" class="exit waves-effect blue lighten-1 btn btn-action">
 				<i class="fas fa-sign-out-alt"></i>
 				<span class="hide-on-small-only">{_'Exit'}</span>
-			</a>
+			</button>
 		</div>
 	</div>
-	<div id="modal" class="modal">
+	<div id="save" class="modal">
 		<div class="modal-content save-track container center">
 			{if $trackJson}
 				<p class="red-text darken-4-text">{_'Warning: The original track will be overwitten by this action.'}</p>
@@ -32,6 +32,13 @@
 					<span>{_'Cancel'}</span>
 				</a>
 			{/form}
+		</div>
+	</div>
+	<div id="confirm" class="modal">
+		<div class="modal-content container center">
+			<p>{_'Do you really want to leave without saving?'}</p>
+			<a href="#" class="waves-effect blue lighten-1 btn btn-action modal-close positive">{_'Exit'}</a>
+			<a href="#" class="waves-effect blue lighten-1 btn btn-action modal-close negative">{_'Cancel'}</a>
 		</div>
 	</div>
 </div>

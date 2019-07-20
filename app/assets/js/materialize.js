@@ -36,3 +36,21 @@ document.addEventListener('DOMContentLoaded', function() {
 		M.toast({ html: message, displayLength: 2500 })
 	}
 })
+
+// confirm dialogs
+document.addEventListener('DOMContentLoaded', function() {
+	const confirms = document.querySelectorAll('[data-confirm]')
+	confirms.forEach(el => {
+		const cb = el.dataset.positive
+		const selector = el.dataset.confirm
+		if (!cb || !selector) return
+		const ele = document.querySelector(selector)
+		M.Modal.init(ele)
+		el.addEventListener('click', function() {
+			const positiveBtn = ele.querySelector('.modal-content > a.positive')
+			positiveBtn.setAttribute('href', cb)
+			const inst = M.Modal.getInstance(ele)
+			inst.open()
+		})
+	})
+})

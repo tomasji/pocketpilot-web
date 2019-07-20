@@ -18,10 +18,10 @@
 						<i class="fas fa-eye"></i>
 						<span class="hide-on-small-only">{_'Show'}</span>
 					</a>
-					<a href="{link delete!, $track->getId(), $track->getName()}" class="waves-effect blue lighten-1 btn btn-action ajax">
+					<button data-positive="{link delete!, $track->getId(), $track->getName()}" data-confirm="#confirm" class="waves-effect blue lighten-1 btn btn-action ajax">
 						<i class="fas fa-trash"></i>
 						<span class="hide-on-small-only">{_'Delete'}</span>
-					</a>
+					</button>
 				</div>
 			</div>
 		{/foreach}
@@ -31,4 +31,11 @@
 	<a href="{link map}" class="btn-floating btn-large waves-effect blue lighten-1 center{if count($tracks) < 1} pulse{/if} tooltipped" data-position="top" data-tooltip="{_'New track'}">
 		<i class="fas fa-plus"></i>
 	</a>
+</div>
+<div id="confirm" class="modal">
+	<div class="modal-content container center">
+		<p>{_'Do you really want to delete the track?'}</p>
+		<a href="#" class="waves-effect blue lighten-1 btn btn-action modal-close positive">{_'Delete'}</a>
+		<a href="#" class="waves-effect blue lighten-1 btn btn-action modal-close negative">{_'Cancel'}</a>
+	</div>
 </div>
