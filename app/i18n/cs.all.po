@@ -601,3 +601,7 @@ msgstr "Open the web app"
 #: Added from Tracy bar
 msgid "Open the web app"
 msgstr "Do aplikace"
+
+#: Added from Tracy bar
+msgid "Android application for pilots of ultralight aircraft"
+msgstr "Android aplikace pro piloty ultralehkých letadel"
