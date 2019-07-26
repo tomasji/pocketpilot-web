@@ -27,7 +27,7 @@ class TokenCredentials implements Credentials {
 	public function __construct(string $email, string $token) {
 		Validators::assert($email, 'email');
 		Validators::assert($token, 'string:32');
-		$this->email = $email;
+		$this->email = strtolower($email);
 		$this->token = $token;
 	}
 

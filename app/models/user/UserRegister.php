@@ -49,7 +49,7 @@ class UserRegister {
 		try {
 			return $this->database->table(UserDatabaseDef::TABLE_NAME)->insert(array(
 				UserDatabaseDef::COLUMN_NAME => $username,
-				UserDatabaseDef::COLUMN_EMAIL => $email,
+				UserDatabaseDef::COLUMN_EMAIL => strtolower($email),
 				UserDatabaseDef::COLUMN_FB_UID => $fbUid,
 				UserDatabaseDef::COLUMN_PASSWORD_HASH => $password ? $this->passwords->hash($password) : null,
 			));

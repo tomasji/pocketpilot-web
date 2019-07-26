@@ -33,7 +33,7 @@ class FacebookCredentials implements Credentials {
 		Validators::assert($email, 'email');
 		Validators::assert($uid, 'string:1..');
 		Validators::assert($firstName, 'string:1..');
-		$this->email = $email;
+		$this->email = strtolower($email);
 		$this->uid = $uid;
 		$this->firstName = $firstName;
 	}

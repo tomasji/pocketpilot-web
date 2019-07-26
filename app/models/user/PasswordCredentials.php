@@ -27,7 +27,7 @@ class PasswordCredentials implements Credentials {
 	public function __construct(string $email, string $password) {
 		Validators::assert($email, 'email');
 		Validators::assert($password, 'string:1..');
-		$this->email = $email;
+		$this->email = strtolower($email);
 		$this->password = $password;
 	}
 
