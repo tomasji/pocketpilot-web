@@ -36,8 +36,8 @@ if (map.getContainer().dataset.track) {
 	const geoJSON = new GeoJSON(JSON.parse(map.getContainer().dataset.track))
 	new Track(map, geoJSON.getLayers()[0].feature.geometry.coordinates)
 } else {
+	const track = new Track(map)
 	const addFirstWpt = function(e) {
-		const track = new Track(map)
 		track.addWaypoint(e.latlng)
 		map.off('click')
 	}
