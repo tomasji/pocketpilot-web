@@ -605,3 +605,27 @@ msgstr "Do aplikace"
 #: Added from Tracy bar
 msgid "Android application for pilots of ultralight aircraft"
 msgstr "Android aplikace pro piloty ultralehkých letadel"
+
+#: Added from Tracy bar
+msgid "Navigation Log"
+msgstr "Navigační štítek"
+
+#: Added from Tracy bar
+msgid "Total Time"
+msgstr "Celkový čas"
+
+#: Added from Tracy bar
+msgid "Wind"
+msgstr "Vítr"
+
+#: Added from Tracy bar
+msgid "Actual time of departure"
+msgstr "Čas vzletu"
+
+#: Added from Tracy bar
+msgid "Total Distance"
+msgstr "Celková vzdálenost"
+
+#: Added from Tracy bar
+msgid "Navigation log"
+msgstr "Navigační štítek"

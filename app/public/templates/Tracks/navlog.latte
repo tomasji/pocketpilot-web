@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Pocket Pilot</title>
+	</head>
+
+	<body>
+		<div class="a5">
+			<table>
+				<tr>
+					<th colspan="7">{_'Navigation Log'}</th>
+				</tr>
+				<tr class="info">
+					<td colspan="2"><div class="label">{_'Total Time'}</div><div class="value total-time"></div></td>
+					<td colspan="2"><div class="label">QNH</div></td>
+					<td colspan="3"><div class="label">{_'Wind'}</td>
+				</tr class="info">
+				<tr class="info">
+					<td colspan="2"><span class="label">{_'Total Distance'}</span><div class="value total-distance"></div></td>
+					<td colspan="2"><span class="label">{_'Speed'}</span>
+						<div>
+							<input type="text" value="150" class="speed"> km/h
+						</div>
+					</td>
+					<td colspan="3"><span class="label">{_'Actual time of departure'}</span></td>
+				</tr>
+			</table>
+			<table data-track="{$trackJson}">
+				<tr>
+					<th colspan="2">WPT</th>
+					<th>HDG</th>
+					<th>DIST</th>
+					<th>TIME</th>
+					<th class="eta">ETA</th>
+				</tr>
+			</table>
+		</div>
+		{control webpack 'navlog'}
+	</body>
+</html>

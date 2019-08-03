@@ -64,23 +64,19 @@ class TracksPresenter extends AppPresenter {
 		$this->template->maximum = $this->getMaximum();
 	}
 
+	public function renderNavlog($id): void {
+		if ($id && isset($this->getTracks()[$id]) && $this->getTracks()[$id]->getUserId() === $this->getUser()->getId()) {
+			$this->template->trackJson = $this->getTracks()[$id]->getTrack();
+		} else {
+			$this->redirect('Tracks:');
+		}
+	}
+
 	public function getTracks(): array {
 		if (empty($tracks)) {
 			$this->tracks = $this->read->fetchBy($this->user->getId());
 		}
 		return $this->tracks;
-	}
-
-	public function getMaximum(): int {
-		switch ($this->user->getRoles()[0]) {
-			case 'admin':
-			case 'premium':
-				return 100;
-			case 'user':
-				return 5;
-			default:
-				throw new UnexpectedValueException('Unknown role.');
-		}
 	}
 
 	public function renderMap($id): void {
@@ -103,6 +99,18 @@ class TracksPresenter extends AppPresenter {
 			$this->flashMessage($this->translator->translate("An error occurred while deleting the track."));
 		}
 		$this->redrawControl();
+	}
+
+	public function getMaximum(): int {
+		switch ($this->user->getRoles()[0]) {
+			case 'admin':
+			case 'premium':
+				return 100;
+			case 'user':
+				return 5;
+			default:
+				throw new UnexpectedValueException('Unknown role.');
+		}
 	}
 
 	/**
