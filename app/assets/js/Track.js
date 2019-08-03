@@ -89,7 +89,11 @@ class Track {
 			this._recreateConnection()
 		}
 		const index = this.waypoints.indexOf(wp)
-		this.table.addWaypoint(index, this.waypoints[index - 1], wp)
+		if (this.waypoints[index]) {
+			this.table.addWaypoint(index, this.waypoints[index - 1], wp, this.waypoints[index + 1])
+		} else {
+			this.table.addWaypoint(index, this.waypoints[index - 1], wp)
+		}
 	}
 
 	_onWaypointDrag() {

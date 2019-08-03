@@ -14,9 +14,14 @@ class TrackTable {
 		DomUtil.create('th', '', header).innerText = 'HDG'
 		DomUtil.create('th', '', header).innerText = 'DIST'
 		DomUtil.create('th', '', header).innerText = 'TIME'
+		const total = DomUtil.create('tr', 'info-table-summary', table)
+		DomUtil.create('td', '', total).innerHTML = '<strong>SUM</strong>'
+		DomUtil.create('td', '', total)
+		DomUtil.create('td', '', total).innerText = '-'
+		DomUtil.create('td', '', total).innerText = '-'
 		return table
 	}
-	addWaypoint(index, current, created) {
+	addWaypoint(index, current, created, next) {
 		const row = DomUtil.create('tr', '')
 		const place = DomUtil.create('td', '', row)
 		place.innerText = 'Loading...'
@@ -25,6 +30,10 @@ class TrackTable {
 		const time = DomUtil.create('td', '', row)
 		this.table.insertBefore(row, this.table.children[index + 1])
 		this._setValues(current, created, place, hdg, dist, time)
+		if (next) {
+			const nextCells = this.table.children[index + 2].children
+			this._setValues(created, next, nextCells[0], nextCells[1], nextCells[2], nextCells[3])
+		}
 	}
 	editWaypoint(index, previous, current, next) {
 		const currCells = this.table.children[index + 1].children
@@ -69,6 +78,17 @@ class TrackTable {
 			dist.innerText = '-'
 			time.innerText = '-'
 		}
+		const rows = Array.from(this.table.children).slice(2)
+		rows.pop()
+		const summary = this.table.children[this.table.children.length - 1].children
+		let totalDist = 0
+		let totalTime = 0
+		rows.forEach((row) => {
+			totalDist += parseInt(row.children[2].innerText)
+			totalTime += parseInt(row.children[3].innerText)
+		})
+		summary[2].innerText = totalDist + ' km'
+		summary[3].innerText = totalTime + ' min'
 	}
 }
 export { TrackTable }
