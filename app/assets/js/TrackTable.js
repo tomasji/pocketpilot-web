@@ -52,8 +52,8 @@ class TrackTable {
 	}
 	recalculateTimes(speed) {
 		const rows = Array.from(this.table.children).slice(2)
-		rows.forEach((row) => {
-			row.children[3].innerText = Math.floor(parseInt(row.children[2].innerText) / speed * 60)
+		rows.forEach((row, index) => {
+			row.children[3].innerText = Math.floor(parseInt(row.children[2].innerText) / speed * 60) + (index === rows.length - 1 ? ' min' : '')
 		})
 	}
 
