@@ -35,7 +35,7 @@ class TrackDelete {
 				->where(TrackDatabaseDef::COLUMN_ID, $trackId)
 				->delete();
 		} catch (\PDOException $e) {
-			throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
+			throw new \RuntimeException($e->getMessage(), (int)$e->getCode(), $e);
 		}
 	}
 }

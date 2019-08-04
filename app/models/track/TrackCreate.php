@@ -41,7 +41,7 @@ class TrackCreate {
 				TrackDatabaseDef::COLUMN_TRACK => $this->database::literal($this->prepareQuery($waypoints))
 			]);
 		} catch (\PDOException $e) {
-			throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
+			throw new \RuntimeException($e->getMessage(), (int)$e->getCode(), $e);
 		}
 	}
 
