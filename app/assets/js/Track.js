@@ -1,4 +1,4 @@
-import { DomUtil, Polyline } from 'leaflet'
+import { DomUtil, Polyline, LatLngBounds } from 'leaflet'
 import { createEntryPoint, createTurningPoint } from './WaypointFactory'
 import { calculateDestination, getHeading, middle } from './Utils'
 import { Controls } from './Controls'
@@ -11,10 +11,13 @@ class Track {
 		this.line = null
 		this.table = new TrackTable()
 		this.controls = new Controls(this, this.table)
-		!latlngs || latlngs.forEach(latlng => {
-			const wp = this.addWaypoint(latlng, this.waypoints.length)
-			DomUtil.removeClass(wp._icon, 'map-marker-pulse')
-		})
+		if (latlngs) {
+			latlngs.forEach(latlng => {
+				const wp = this.addWaypoint(latlng, this.waypoints.length)
+				DomUtil.removeClass(wp._icon, 'map-marker-pulse')
+			})
+			map.fitBounds(new LatLngBounds(latlngs))
+		}
 	}
 	addWaypoint(latlng, index) {
 		const wp = this._createWaypoint(latlng, index)

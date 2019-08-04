@@ -1,5 +1,5 @@
 import { createStaticWaypoint } from './WaypointFactory'
-import { Polyline } from 'leaflet'
+import { LatLngBounds, Polyline } from 'leaflet'
 
 class StaticTrack {
 	constructor(map, latlngs) {
@@ -10,6 +10,7 @@ class StaticTrack {
 				wpts.push(this.addWaypoint(latlng))
 			})
 			this._createConnection(wpts).addTo(this.map)
+			map.fitBounds(new LatLngBounds(latlngs))
 		}
 	}
 	addWaypoint(latlng) {
