@@ -22,6 +22,9 @@ nav {
   }
   .brand-logo {
     padding-left: 15px;
+    @media #{$small-and-down} {
+      font-size: 1.8rem;
+    }
   }
 }
 
@@ -105,4 +108,10 @@ nav {
 textarea.message {
   min-height: 10rem;
   resize: vertical;
+}
+
+.card-panel {
+  @media #{$small-and-down} {
+    padding: 10px;
+  }
 }

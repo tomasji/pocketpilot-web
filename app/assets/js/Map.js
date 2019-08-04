@@ -1,5 +1,6 @@
 import { GeoJSON, Map, TileLayer, DomUtil } from 'leaflet'
 import { Track } from './Track'
+import { StaticTrack } from './StaticTrack'
 import '../css/map.scss'
 
 const MAP_BASE = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
@@ -33,14 +34,33 @@ map.on('zoomend', function() {
 	DomUtil.addClass(map.getContainer(), 'zoom-' + zoom)
 })
 
-if (map.getContainer().dataset.track) {
-	const geoJSON = new GeoJSON(JSON.parse(map.getContainer().dataset.track))
-	new Track(map, geoJSON.getLayers()[0].feature.geometry.coordinates)
-} else {
-	const track = new Track(map)
-	const addFirstWpt = function(e) {
-		track.addWaypoint(e.latlng)
-		map.off('click')
+const createMap = function(editable) {
+	if (map.getContainer().dataset.track) {
+		const geoJSON = new GeoJSON(JSON.parse(map.getContainer().dataset.track))
+		if (editable) {
+			new Track(map, geoJSON.getLayers()[0].feature.geometry.coordinates)
+		} else {
+			new StaticTrack(map, new GeoJSON(JSON.parse(map.getContainer().dataset.track)).getLayers()[0].feature.geometry.coordinates)
+		}
+	} else {
+		if (editable) {
+			const track = new Track(map)
+			const addFirstWpt = function(e) {
+				track.addWaypoint(e.latlng)
+				map.off('click')
+			}
+			map.on('click', addFirstWpt)
+		}
 	}
-	map.on('click', addFirstWpt)
+}
+const editable = map.getContainer().dataset.editable
+switch (editable) {
+	case 'true':
+		createMap(true)
+		break
+	case 'false':
+		createMap(false)
+		break
+	default:
+		throw Error('Invalid [data-editable] value.')
 }

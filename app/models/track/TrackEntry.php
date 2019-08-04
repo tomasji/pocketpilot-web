@@ -44,13 +44,19 @@ class TrackEntry {
 	 */
 	private $created;
 
-	public function __construct(int $id, string $track, float $length, int $userId, string $name, DateTime $created) {
+	/**
+	 * @var string
+	 */
+	private $hash;
+
+	public function __construct(int $id, string $track, float $length, int $userId, string $name, DateTime $created, string $hash) {
 		$this->id = $id;
 		$this->track = $track;
 		$this->length = $length;
 		$this->userId = $userId;
 		$this->name = $name;
 		$this->created = $created;
+		$this->hash = $hash;
 	}
 
 	/**
@@ -93,5 +99,12 @@ class TrackEntry {
 	 */
 	public function getCreated(): DateTime {
 		return $this->created;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getHash(): string {
+		return $this->hash;
 	}
 }

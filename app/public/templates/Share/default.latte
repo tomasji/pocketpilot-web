@@ -1,0 +1,5 @@
+{block content}
+<div id="app">
+	<div id="map"{if $trackJson} data-track="{$trackJson}"{/if} data-editable="false"></div>
+</div>
+{control webpack 'map'}

@@ -629,3 +629,7 @@ msgstr "Celková vzdálenost"
 #: Added from Tracy bar
 msgid "Navigation log"
 msgstr "Navigační štítek"
+
+#: Added from Tracy bar
+msgid "Share"
+msgstr "Sdílet"

@@ -15,5 +15,6 @@ class TrackDatabaseDef {
 		COLUMN_TRACK = 'track',
 		COLUMN_USER_ID = 'user_id',
 		COLUMN_NAME = 'name',
-		COLUMN_CREATION_DATE = 'cre_date';
+		COLUMN_CREATION_DATE = 'cre_date',
+		COLUMN_HASH = 'hash';
 }

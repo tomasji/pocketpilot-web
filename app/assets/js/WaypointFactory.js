@@ -56,3 +56,7 @@ export function createTurningPoint(latlng, onAdd, onRemove, onDrag, onDragEnd, o
 	o.on('popupopen', () => onPopupOpen(o))
 	return o
 }
+
+export function createStaticWaypoint(latlng) {
+	return new Waypoint(latlng, { icon: createWaypointIcon(false), draggable: false })
+}

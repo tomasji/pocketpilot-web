@@ -4,7 +4,14 @@
 	{snippet}
 		{foreach $tracks as $track}
 			<div class="row card-panel hoverable">
-				<a href="{link map, $track->getId()}"><div class="col s12 center-align flow-text">{$track->getName()}</div></a>
+				<a href="{link map, $track->getId()}">
+					<div class="col s10 m10 l10 push-s1 push-m1 push-l1 center-align flow-text">{$track->getName()}</div>
+				</a>
+				<a href="{link Share: $track->getHash()}" target="_blank">
+					<div class="col s2 m2 l2 right-align tooltipped" data-position="right" data-tooltip="{_'Share'}">
+						<i class="fas fa-share-square"></i>
+					</div>
+				</a>
 				<div class="col s4 tooltipped" data-position="bottom" data-tooltip="{_'Creation date'}">
 					<div class="col s12 center-align"><i class="fas fa-calendar"></i></div>
 					<div class="col s12 center-align">{$track->getCreated()|date:'d.m.Y G:i'}</div>
