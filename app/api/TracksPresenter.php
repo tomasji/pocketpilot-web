@@ -40,7 +40,7 @@ class TracksPresenter extends Presenter {
 	 * @throws \Nette\Application\AbortException
 	 */
 	public function actionRead(): void {
-		$tracks = $this->read->fetchBy($this->getUser()->getId());
+		$tracks = $this->read->fetchForUser($this->getUser()->getId());
 		$tracks = array_map(function($track) {
 			$x = new \stdClass();
 			$x->id = $track->getId();

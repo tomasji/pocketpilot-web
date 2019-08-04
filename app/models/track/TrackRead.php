@@ -27,7 +27,7 @@ class TrackRead {
 	 * @return array [trackId => TrackEntry]
 	 * @throws \RuntimeException
 	 */
-	public function fetchBy(int $userId): array {
+	public function fetchForUser(int $userId): array {
 		try {
 			$ret = [];
 			$rows = $this->database->table(TrackDatabaseDef::TABLE_NAME)

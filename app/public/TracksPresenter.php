@@ -74,7 +74,7 @@ class TracksPresenter extends AppPresenter {
 
 	public function getTracks(): array {
 		if (empty($tracks)) {
-			$this->tracks = $this->read->fetchBy($this->user->getId());
+			$this->tracks = $this->read->fetchForUser($this->user->getId());
 		}
 		return $this->tracks;
 	}
