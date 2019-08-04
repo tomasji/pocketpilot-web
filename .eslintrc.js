@@ -37,7 +37,7 @@ module.exports = {
             'after': true
         }],
         'handle-callback-err': [2, '^(err|error)$'],
-        "indent": ["error", "tab"],
+        "indent": ["error", "tab", { "SwitchCase": 1 }],
         'jsx-quotes': [2, 'prefer-single'],
         'key-spacing': [2, {
             'beforeColon': false,
