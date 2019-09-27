@@ -28,7 +28,7 @@ export function createEntryPoint(latlng, onAdd, onDrag, onDragEnd, onAddClick) {
 	o.on('add', () => onAdd(o))
 	o.on('click', (e) => { removePulse(o, e) })
 	o.on('drag', onDrag)
-	o.on('dragend', () => onDragEnd(o))
+	o.on('dragend', (e) => { removePulse(o, e); onDragEnd(o) })
 	return o
 }
 
