@@ -38,7 +38,7 @@ const createMap = function(editable) {
 	if (map.getContainer().dataset.track) {
 		const geoJSON = new GeoJSON(JSON.parse(map.getContainer().dataset.track))
 		if (editable) {
-			new Track(map, geoJSON.getLayers()[0].feature.geometry.coordinates)
+			new Track(map, GeoJSON.coordsToLatLngs(geoJSON.getLayers()[0].feature.geometry.coordinates))
 		} else {
 			new StaticTrack(map, new GeoJSON(JSON.parse(map.getContainer().dataset.track)).getLayers()[0].feature.geometry.coordinates)
 		}

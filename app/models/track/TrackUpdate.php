@@ -49,9 +49,9 @@ class TrackUpdate {
 		$out = 'ST_GeomFromText(\'LINESTRING(';
 		$points = [];
 		foreach ($waypoints as $waypoint) {
-			$lat = $waypoint['lat'];
 			$lng = $waypoint['lng'];
-			$points[] = "$lat $lng";
+			$lat = $waypoint['lat'];
+			$points[] = "$lng $lat";
 		}
 		$out .= implode(',', $points);
 		$out .= ')\')';
