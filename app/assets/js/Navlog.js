@@ -7,7 +7,7 @@ const table = document.querySelector('table[data-track]')
 const tableBody = table.getElementsByTagName('tbody')[0]
 const geoJSON = new GeoJSON(JSON.parse(table.dataset.track))
 const wpts = []
-const latlngs = geoJSON.getLayers()[0].feature.geometry.coordinates
+const latlngs = GeoJSON.coordsToLatLngs(geoJSON.getLayers()[0].feature.geometry.coordinates)
 const speed = document.querySelector('.speed')
 let totalTime = 0
 let totalDist = 0
@@ -21,14 +21,14 @@ latlngs.forEach((latlng, i) => {
 	place.value = '...'
 	wpt.fetchPlace()
 		.then((results) => {
-			place.value = results[0].properties.address.city || results[0].properties.address.town
+			console.log(results)
+			place.value = results[0].properties.address.city || results[0].properties.address.town || 'Waypoint'
 		})
 		.catch(() => {
 			place.value = 'Waypoint'
 		})
 	if (i > 0) {
-		const prev = latlngs[i - 1]
-		const prevLatLng = new LatLng(prev[0], prev[1])
+		const prevLatLng = latlngs[i - 1]
 		const distance = Math.floor(prevLatLng.distanceTo(wpt.getLatLng()) / 1000)
 		const time = Math.floor(distance / speed.value * 60)
 		DomUtil.create('td', '', tr).innerText = getHeading(prevLatLng, wpt.getLatLng())
