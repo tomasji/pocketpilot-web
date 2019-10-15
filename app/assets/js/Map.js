@@ -40,7 +40,7 @@ const createMap = function(editable) {
 		if (editable) {
 			new Track(map, GeoJSON.coordsToLatLngs(geoJSON.getLayers()[0].feature.geometry.coordinates))
 		} else {
-			new StaticTrack(map, new GeoJSON(JSON.parse(map.getContainer().dataset.track)).getLayers()[0].feature.geometry.coordinates)
+			new StaticTrack(map, GeoJSON.coordsToLatLngs(new GeoJSON(JSON.parse(map.getContainer().dataset.track)).getLayers()[0].feature.geometry.coordinates))
 		}
 	} else {
 		if (editable) {
