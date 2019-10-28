@@ -633,3 +633,15 @@ msgstr "Navigační štítek"
 #: Added from Tracy bar
 msgid "Share"
 msgstr "Sdílet"
+
+#: Added from Tracy bar
+msgid "Reworked design"
+msgstr "Přepracován design"
+
+#: Added from Tracy bar
+msgid "Improved stability and performance"
+msgstr "Zlepšení stability a výkonu"
+
+#: Added from Tracy bar
+msgid "New maps"
+msgstr "Nové mapy"
