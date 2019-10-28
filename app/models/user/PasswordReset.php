@@ -91,6 +91,7 @@ class PasswordReset {
 		if ($row) {
 			$userId = $row[PasswordResetDatabaseDef::COLUMN_ID_USER];
 			$this->database->table(UserDatabaseDef::TABLE_NAME)
+				->where(UserDatabaseDef::COLUMN_ID, $userId)
 				->update([UserDatabaseDef::COLUMN_PASSWORD_HASH => $this->passwords->hash($pw)]);
 			$this->database->table(PasswordResetDatabaseDef::TABLE_NAME)
 				->where(PasswordResetDatabaseDef::COLUMN_ID_USER, $userId)
