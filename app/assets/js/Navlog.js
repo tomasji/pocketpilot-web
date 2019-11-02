@@ -21,7 +21,6 @@ latlngs.forEach((latlng, i) => {
 	place.value = '...'
 	wpt.fetchPlace()
 		.then((results) => {
-			console.log(results)
 			place.value = results[0].properties.address.city || results[0].properties.address.town || 'Waypoint'
 		})
 		.catch(() => {
