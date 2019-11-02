@@ -3,7 +3,7 @@ import { Track } from './Track'
 import { StaticTrack } from './StaticTrack'
 import '../css/map.scss'
 
-const MAP_BASE = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+const MAP_BASE = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 const MAP_OFM = 'https://snapshots.openflightmaps.org/live/1904/tiles/world/noninteractive/epsg3857/aero/512/latest/{z}/{x}/{y}.png'
 
 const map = new Map(
