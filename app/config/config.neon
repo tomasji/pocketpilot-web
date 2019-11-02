@@ -39,8 +39,26 @@ services:
 
 http:
 	csp:
+		default-src: none
+		img-src:
+			- self
+			- play.google.com
+			- *.openstreetmap.org
+			- *.openflightmaps.org
+			- 'data:'
 		script-src:
+			- strict-dynamic
 			- nonce
+			- unsafe-inline
+		style-src:
+			- self
+			- unsafe-inline
+		connect-src:
+			- self
+			- *.openstreetmap.org
+		frame-ancestors:
+			- none
+	frames: DENY
 
 
 extensions:
