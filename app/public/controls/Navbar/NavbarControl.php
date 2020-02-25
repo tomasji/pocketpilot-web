@@ -26,3 +26,7 @@ class NavbarControl extends Control {
 		$this->template->render(__DIR__ . '/navbarControl.latte');
 	}
 }
+
+interface NavbarControlFactory {
+	public function create(): NavbarControl;
+}

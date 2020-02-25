@@ -43,3 +43,7 @@ class WebpackControl extends Control {
 		}
 	}
 }
+
+interface WebpackControlFactory {
+	public function create(): WebpackControl;
+}

@@ -7,7 +7,7 @@ class Controls {
 
 	_bind() {
 		document.addEventListener('DOMContentLoaded', (e) => {
-			const form = e.target.querySelector('.save-track > #frm-form')
+			const form = e.target.querySelector('.save-track > form')
 			const control = e.target.querySelector('.controls-buttons > .save')
 			const hidden = form.querySelector('input[name="waypoints"]')
 			control.addEventListener('click', () => {

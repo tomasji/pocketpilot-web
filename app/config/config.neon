@@ -21,20 +21,29 @@ services:
 	dashboardRead: PP\Dashboard\DashboardRead
 	dirResolver: PP\DirResolver(%appDir%, %scriptsDir%, %manifestDir%)
 	facebook: Facebook\Facebook( {app_id: %facebook.app_id%, app_secret: %facebook.app_secret%, default_graph_version: %facebook.dgv%} )
-	facebookAuthenticator: PP\User\FacebookAuthenticator
-	facebookService: PP\FacebookService
-	passwordAuthenticator: PP\User\PasswordAuthenticator
-	passwordReset: PP\User\PasswordReset
 	router: PP\RouterFactory::createRouter
-	signModel: PP\SignModel
-	tokenAuthenticator: PP\User\TokenAuthenticator
-	trackCreate: PP\Track\TrackCreate
-	trackDelete: PP\Track\TrackDelete
-	trackRead: PP\Track\TrackRead
-	trackUpdate: PP\Track\TrackUpdate
-	userRead: PP\User\UserRead
-	userRegister: PP\User\UserRegister
-	userUpdate: PP\User\UserUpdate
+	- PP\Controls\ApiKeyFormFactory
+	- PP\Controls\ContactFormFactory
+	- PP\Controls\LoginFormFactory
+	- PP\Controls\NavbarControlFactory
+	- PP\Controls\NewPasswordFormFactory
+	- PP\Controls\PasswordRecoveryFormFactory
+	- PP\Controls\RegisterFormFactory
+	- PP\Controls\SaveTrackFormFactory
+	- PP\Controls\WebpackControlFactory
+	- PP\FacebookService
+	- PP\SignModel
+	- PP\Track\TrackCreate
+	- PP\Track\TrackDelete
+	- PP\Track\TrackRead
+	- PP\Track\TrackUpdate
+	- PP\User\FacebookAuthenticator
+	- PP\User\PasswordAuthenticator
+	- PP\User\PasswordReset
+	- PP\User\TokenAuthenticator
+	- PP\User\UserRead
+	- PP\User\UserRegister
+	- PP\User\UserUpdate
 
 
 http:

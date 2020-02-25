@@ -18,8 +18,8 @@ class SharePresenter extends AppPresenter {
 	 */
 	private $read;
 
-	public function __construct(DirResolver $dirResolver, Gettext $translator, TrackRead $read) {
-		parent::__construct($dirResolver, $translator);
+	public function __construct(TrackRead $read) {
+		parent::__construct();
 		$this->read = $read;
 	}
 

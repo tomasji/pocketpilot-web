@@ -23,15 +23,7 @@
 			{else}
 				<p>{_'Please enter a name for the new track.'}</p>
 			{/if}
-			{form form}
-				{label name}
-				{input name}
-				{inputError name}
-				{input save, class => 'blue lighten-1 btn modal-close'}
-				<a class="waves-effect blue lighten-1 btn modal-close">
-					<span>{_'Cancel'}</span>
-				</a>
-			{/form}
+			{control form}
 		</div>
 	</div>
 	<div id="confirm" class="modal">

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace PP\Presenters;
 
-use GettextTranslator\Gettext;
-use Nette;
-use Nette\Application\UI\Form;
-use PP\DirResolver;
-use PP\IncorrectCredentialsException;
+use PP\Controls\NewPasswordForm;
+use PP\Controls\NewPasswordFormFactory;
+use PP\Controls\PasswordRecoveryForm;
+use PP\Controls\PasswordRecoveryFormFactory;
 use PP\User\PasswordReset;
+use PP\User\UserEntry;
 use PP\User\UserRead;
 
 /**
@@ -22,13 +22,31 @@ class PasswordRecoveryPresenter extends AppPresenter {
 	 */
 	private $userRead;
 
-	/** @var PasswordReset */
+	/**
+	 * @var PasswordReset
+	 */
 	private $pwReset;
 
-	public function __construct(DirResolver $dirResolver, Gettext $translator, UserRead $userRead, PasswordReset $pwReset) {
-		parent::__construct($dirResolver, $translator);
+	/**
+	 * @var PasswordRecoveryFormFactory
+	 */
+	private $passwordRecoveryFormFactory;
+
+	/**
+	 * @var NewPasswordFormFactory
+	 */
+	private $newPasswordFormFactory;
+
+	public function __construct(
+			UserRead $userRead,
+			PasswordReset $pwReset,
+			PasswordRecoveryFormFactory $passwordRecoveryFormFactory,
+			NewPasswordFormFactory $newPasswordFormFactory) {
+		parent::__construct();
 		$this->userRead = $userRead;
 		$this->pwReset = $pwReset;
+		$this->passwordRecoveryFormFactory = $passwordRecoveryFormFactory;
+		$this->newPasswordFormFactory = $newPasswordFormFactory;
 	}
 
 	public function renderDefault() {
@@ -50,62 +68,21 @@ class PasswordRecoveryPresenter extends AppPresenter {
 		}
 	}
 
-	protected function createComponentRecoveryForm(): Form {
-		$form = new Form();
-		$form->setTranslator($this->translator);
-		$form->addText('email', 'E-mail')
-			->setRequired('Please enter your e-mail.')
-			->addRule($form::EMAIL, 'The e-mail must be in correct format.')
-			->setHtmlAttribute('placeholder', 'E-mail');
-		$form->addSubmit('send', 'Reset password');
-
-		$form->onSuccess[] = array($this, 'processRecoveryForm');
-		return $form;
-	}
-
-	protected function createComponentNewPasswordForm(): Form {
-		$form = new Form();
-		$form->setTranslator($this->translator);
-		$form->addPassword('password', 'Password')
-			->setRequired('Please fill in both of the password fields.')
-			->setHtmlAttribute('placeholder', 'Password');
-		$form->addPassword('password_confirm', 'Password again')
-			->addRule(Form::EQUAL, 'Passwords do not match', $form['password'])
-			->setRequired('Please fill in both of the password fields.')
-			->setHtmlAttribute('placeholder', 'Password again')
-			->setOmitted(true);
-		$form->addSubmit('send', 'Submit');
-
-		$form->onSuccess[] = array($this, 'processNewPasswordForm');
-		return $form;
-	}
-
-	/**
-	 * @internal
-	 * @param Form $form
-	 * @throws Nette\Application\AbortException
-	 * @throws Nette\Utils\AssertionException
-	 * @throws Nette\Application\UI\InvalidLinkException
-	 */
-	public function processRecoveryForm(Form $form): void {
-		try {
-			$user = $this->userRead->fetchBy($form->values->email);
-			$this->pwReset->sendLinkTo($user);
+	protected function createComponentRecoveryForm(): PasswordRecoveryForm {
+		$form = $this->passwordRecoveryFormFactory->create();
+		$form->onSuccess[] = function (UserEntry $user) {
 			$this->flashMessage($this->translator->translate("An e-mail has been sent to %s.", $user->getEmail()));
 			$this->redirect('Sign:');
-		} catch(IncorrectCredentialsException $e) {
-			$form->addError($this->translator->translate('E-mail not found. Please sign up.'));
-		}
+		};
+		return $form;
 	}
 
-	/**
-	 * @internal
-	 * @param Form $form
-	 * @throws Nette\Application\AbortException
-	 */
-	public function processNewPasswordForm(Form $form): void {
-		$this->pwReset->changePassword($this->getParameter('token'), $form->values->password);
-		$this->flashMessage($this->translator->translate('Password change has been successful. Now you can log in.'));
-		$this->redirect('Homepage:');
+	protected function createComponentNewPasswordForm(): NewPasswordForm {
+		$form = $this->newPasswordFormFactory->create($this->getParameter('token'));
+		$form->onSuccess[] = function() {
+			$this->flashMessage($this->translator->translate('Password change has been successful. Now you can log in.'));
+			$this->redirect('Homepage:');
+		};
+		return $form;
 	}
 }

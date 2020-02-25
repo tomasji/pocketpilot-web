@@ -24,20 +24,7 @@
 				</div>
 			{else}
 				<h5>{_'Password recovery'}</h5>
-				{form recoveryForm class => 'col s12'}
-					<blockquote>
-						<ul class="errors" n:if="$form->hasErrors()">
-							<li n:foreach="$form->errors as $error">{$error}</li>
-						</ul>
-					</blockquote>
-					<div class="row">
-						<div class="input-field col s12">
-							{input email}
-						</div>
-						{input send class => 'blue lighten-1 btn', style => 'width: 90%'}
-						<a href="{plink Sign:}" class="btn btn-action blue lighten-1" style="width: 90%; margin-top:5px">Zpět</a>
-					</div>
-				{/form}
+				{control recoveryForm}
 			{/if}
 		</div>
 		<div class="cross-line blue darken-1"></div>

@@ -6,6 +6,7 @@ namespace PP\Presenters;
 
 use Nette\Application\UI\Presenter;
 use PP\Controls\WebpackControl;
+use PP\Controls\WebpackControlFactory;
 use PP\DirResolver;
 use GettextTranslator\Gettext;
 
@@ -21,20 +22,16 @@ class AppPresenter extends Presenter {
 	public $lang;
 
 	/**
-	 * @var DirResolver
-	 */
-	private $dirResolver;
-
-	/**
+	 * @inject
 	 * @var Gettext
 	 */
-	protected $translator;
+	public $translator;
 
-	public function __construct(DirResolver $dirResolver, Gettext $translator) {
-		parent::__construct();
-		$this->dirResolver = $dirResolver;
-		$this->translator = $translator;
-	}
+	/**
+	 * @inject
+	 * @var WebpackControlFactory
+	 */
+	public $webpackControlFactory;
 
 	public function startup() {
 		parent::startup();
@@ -45,7 +42,7 @@ class AppPresenter extends Presenter {
 		$this->template->setTranslator($this->translator);
 	}
 
-	protected function createComponentWebpack() {
-		return new WebpackControl($this->dirResolver);
+	protected function createComponentWebpack(): WebpackControl {
+		return $this->webpackControlFactory->create();
 	}
 }

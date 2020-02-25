@@ -7,6 +7,8 @@ namespace PP\Presenters;
 use GettextTranslator\Gettext;
 use Nette\Application\UI\Form;
 use Nette\UnexpectedValueException;
+use PP\Controls\SaveTrackForm;
+use PP\Controls\SaveTrackFormFactory;
 use PP\DirResolver;
 use PP\Track\TrackCreate;
 use PP\Track\TrackDelete;
@@ -29,34 +31,28 @@ class TracksPresenter extends AppPresenter {
 	private $read;
 
 	/**
+	 * lazy getter
 	 * @var TrackEntry[]
 	 */
 	private $tracks;
-
-	/**
-	 * @var TrackCreate
-	 */
-	private $create;
-
-	/**
-	 * @var TrackUpdate
-	 */
-	private $update;
 
 	/**
 	 * @var TrackDelete
 	 */
 	private $delete;
 
+	/**
+	 * @var SaveTrackFormFactory
+	 */
+	private $saveTrackFormFactory;
+
 	public function __construct(
-		DirResolver $dirResolver, Gettext $translator,
-		TrackRead $read, TrackCreate $create, TrackUpdate $update, TrackDelete $delete
+		TrackRead $read, TrackDelete $delete, SaveTrackFormFactory $saveTrackFormFactory
 	) {
-		parent::__construct($dirResolver, $translator);
+		parent::__construct();
 		$this->read = $read;
-		$this->create = $create;
-		$this->update = $update;
 		$this->delete = $delete;
+		$this->saveTrackFormFactory = $saveTrackFormFactory;
 	}
 
 	public function renderDefault(): void {
@@ -113,59 +109,18 @@ class TracksPresenter extends AppPresenter {
 		}
 	}
 
-	/**
-	 * @internal
-	 * @param Form $form
-	 * @throws \Nette\Application\AbortException
-	 * @throws \Nette\Utils\AssertionException
-	 */
-	public function processForm(Form $form): void {
-		$values = $form->getValues();
-		$wpts = json_decode($values->waypoints, true);
-		if (empty($wpts) || count($wpts) <= 1) {
-			$this->flashMessage($this->translator->translate('Track must have more than 1 point'));
-			$this->redrawControl();
-			return;
-		} else {
-			try {
-				if ($values->trackId) {
-					$this->update->process((int)$values->trackId, $values->name, $wpts);
-				} else {
-					$this->create->process($values->name, $this->getUser()->getId(), $wpts);
-				}
-				$this->payload->forceRedirect = true;
-				$this->flashMessage($this->translator->translate("Track '%s' has been saved.", $values->name));
-				$this->redirect('Tracks:');
-			} catch (\RuntimeException $e) {
-				$this->flashMessage($this->translator->translate('An error occurred while saving the track.'));
-				$this->redrawControl();
-			}
-		}
-	}
-
-	protected function createComponentForm(): Form {
-		$form = new Form();
-		$form->setTranslator($this->translator);
-		$form->addText('name', 'Track name')
-			->addRule(Form::REQUIRED, 'Please fill in the name.')
-			->addRule(Form::MAX_LENGTH, 'The name cannot be longer than %d letters.', 50);
-		$form->addHidden('waypoints');
-		$form->addHidden('trackId');
-		$form->addSubmit('save', 'Save');
-		$form->getElementPrototype()->addClass('ajax');
-		$form->setDefaults($this->getDefaults());
-		$form->onSuccess[] = [$this, 'processForm'];
-		return $form;
-	}
-
-	private function getDefaults(): array {
+	protected function createComponentForm(): SaveTrackForm {
 		$id = $this->getParameter('id');
-		if ($id) {
-			return [
-				'trackId' => $id,
-				'name' => $this->getTracks()[$id]->getName()
-			];
-		}
-		return [];
+		$form = $this->saveTrackFormFactory->create($id ? $this->getTracks()[$id] : null);
+		$form->onSuccess[] = function(string $trackName) {
+			$this->payload->forceRedirect = true;
+			$this->flashMessage($this->translator->translate("Track '%s' has been saved.", $trackName));
+			$this->redirect('Tracks:');
+		};
+		$form->onError[] = function(string $message) {
+			$this->flashMessage($message);
+			$this->redrawControl();
+		};
+		return $form;
 	}
 }

@@ -1,0 +1,79 @@
+<?php
+
+declare(strict_types=1);
+
+namespace PP\Controls;
+
+use GettextTranslator\Gettext;
+use Nette\Application\UI\Control;
+use Nette\Application\UI\Form;
+use PP\IncorrectCredentialsException;
+use PP\User\PasswordReset;
+use PP\User\UserRead;
+
+/**
+ * @author Andrej Souček
+ */
+class PasswordRecoveryForm extends Control {
+
+	public $onSuccess = [];
+
+	/**
+	 * @var UserRead
+	 */
+	private $userRead;
+
+	/**
+	 * @var PasswordReset
+	 */
+	private $pwReset;
+
+	/**
+	 * @var Gettext
+	 */
+	private $translator;
+
+	public function __construct(UserRead $userRead, PasswordReset $pwReset, Gettext $translator) {
+		$this->userRead = $userRead;
+		$this->pwReset = $pwReset;
+		$this->translator = $translator;
+	}
+
+	public function render(): void {
+		$this->template->setFile(__DIR__.'/passwordRecoveryForm.latte');
+		$this->template->render();
+	}
+
+	protected function createComponentForm(): Form {
+		$form = new Form();
+		$form->setTranslator($this->translator);
+		$form->addText('email', 'E-mail')
+			->setRequired('Please enter your e-mail.')
+			->addRule($form::EMAIL, 'The e-mail must be in correct format.')
+			->setHtmlAttribute('placeholder', 'E-mail');
+		$form->addSubmit('send', 'Reset password');
+
+		$form->onSuccess[] = array($this, 'processForm');
+		return $form;
+	}
+
+	/**
+	 * @param Form $form
+	 * @throws \Nette\Application\UI\InvalidLinkException
+	 * @throws \Nette\Utils\AssertionException
+	 * @internal
+	 */
+	public function processForm(Form $form): void {
+		try {
+			$user = $this->userRead->fetchBy($form->values->email);
+			$this->pwReset->sendLinkTo($user);
+			$this->onSuccess($user);
+		} catch(IncorrectCredentialsException $e) {
+			$form->addError($this->translator->translate('E-mail not found. Please sign up.'));
+		}
+	}
+}
+
+interface PasswordRecoveryFormFactory {
+	public function create(): PasswordRecoveryForm;
+}

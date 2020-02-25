@@ -20,8 +20,8 @@ class DashboardPresenter extends AppPresenter {
 	 */
 	private $read;
 
-	public function __construct(DirResolver $dirResolver, Gettext $translator, DashboardRead $read) {
-		parent::__construct($dirResolver, $translator);
+	public function __construct(DashboardRead $read) {
+		parent::__construct();
 		$this->read = $read;
 	}
 

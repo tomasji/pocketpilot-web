@@ -6,6 +6,8 @@ namespace PP\Presenters;
 
 use GettextTranslator\Gettext;
 use Nette\Application\UI\Form;
+use PP\Controls\ApiKeyForm;
+use PP\Controls\ApiKeyFormFactory;
 use PP\DirResolver;
 use PP\User\UserRead;
 use PP\User\UserUpdate;
@@ -19,29 +21,20 @@ class SyncPresenter extends AppPresenter {
 	use Navbar;
 
 	/**
-	 * @var UserRead
+	 * @var ApiKeyFormFactory
 	 */
-	private $read;
+	private $apiKeyFormFactory;
 
-	/**
-	 * @var UserUpdate
-	 */
-	private $update;
-
-	public function __construct(DirResolver $dirResolver, Gettext $translator, UserRead $read, UserUpdate $update) {
-		parent::__construct($dirResolver, $translator);
-		$this->read = $read;
-		$this->update = $update;
+	public function __construct(ApiKeyFormFactory $apiKeyFormFactory) {
+		parent::__construct();
+		$this->apiKeyFormFactory = $apiKeyFormFactory;
 	}
 
-	protected function createComponentForm(): Form {
-		$form = new Form();
-		$form->setTranslator($this->translator);
-		$form->addText('email', 'E-mail')->setHtmlAttribute('readonly', 'readonly');
-		$form->addText('token', 'Secret key')->setHtmlAttribute('readonly', 'readonly');
-		$form->addSubmit('submit', 'Generate new key');
-		$form->setDefaults($this->getDefaults());
-		$form->onSuccess[] = [$this, 'processForm'];
+	protected function createComponentForm(): ApiKeyForm {
+		$form = $this->apiKeyFormFactory->create();
+		$form->onSuccess[] = function() {
+			$this->redirect('this');
+		};
 		return $form;
 	}
 

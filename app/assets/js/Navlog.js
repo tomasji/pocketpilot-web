@@ -1,4 +1,4 @@
-import { GeoJSON, DomUtil, LatLng } from 'leaflet'
+import { GeoJSON, DomUtil } from 'leaflet'
 import { Waypoint } from './Waypoint'
 import { getHeading } from './Utils'
 import '../css/navlog.scss'

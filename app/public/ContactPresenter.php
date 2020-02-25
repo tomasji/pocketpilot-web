@@ -8,6 +8,8 @@ use GettextTranslator\Gettext;
 use Nette\Application\UI\Form;
 use Nette\Mail\IMailer;
 use Nette\Mail\Message;
+use PP\Controls\ContactForm;
+use PP\Controls\ContactFormFactory;
 use PP\DirResolver;
 
 /**
@@ -19,44 +21,21 @@ class ContactPresenter extends AppPresenter {
 	use Navbar;
 
 	/**
-	 * @var IMailer
+	 * @var ContactFormFactory
 	 */
-	private $mailer;
+	private $contactFormFactory;
 
-	public function __construct(DirResolver $dirResolver, Gettext $translator, IMailer $mailer) {
-		parent::__construct($dirResolver, $translator);
-		$this->mailer = $mailer;
+	public function __construct(ContactFormFactory $contactFormFactory) {
+		parent::__construct();
+		$this->contactFormFactory = $contactFormFactory;
 	}
 
-	public function createComponentForm(): Form {
-		$form = new Form();
-		$form->setTranslator($this->translator);
-		$form->addTextArea('message', 'Your message')
-			->setRequired('Please enter the message.')
-			->setHtmlAttribute('placeholder', 'Your message');
-		$form->addSubmit('send', 'Send');
-		$form->onSuccess[] = [$this, 'processForm'];
+	public function createComponentForm(): ContactForm {
+		$form = $this->contactFormFactory->create();
+		$form->onSuccess[] = function() {
+			$this->flashMessage($this->translator->translate('Message has been sent.'));
+			$this->redirect('this');
+		};
 		return $form;
-	}
-
-	/**
-	 * @internal
-	 * @param Form $form
-	 * @throws \Nette\Application\AbortException
-	 */
-	public function processForm(Form $form): void {
-		$values = $form->getValues();
-		$this->mailer->send($this->createMail($values->message));
-		$this->flashMessage($this->translator->translate('Message has been sent.'));
-		$this->redirect('this');
-	}
-
-	private function createMail(string $s): Message {
-		$message = new Message();
-		$message->addTo('andrejsoucek@gmail.com');
-		$message->setFrom($this->getUser()->getIdentity()->email);
-		$message->setSubject('Zpráva z PocketPilot.cz');
-		$message->setBody($s);
-		return $message;
 	}
 }
