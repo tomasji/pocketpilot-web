@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace PP\Controls;
 
 use GettextTranslator\Gettext;
-use Nette\Application\UI\Control;
 
 /**
  * @author Andrej Souček
  */
-class NavbarControl extends Control {
+class NavbarControl extends BaseControl {
 
 	/**
 	 * @var Gettext
@@ -22,8 +21,9 @@ class NavbarControl extends Control {
 	}
 
 	public function render(): void {
+		$this->template->setFile(__DIR__ . '/navbarControl.latte');
 		$this->template->setTranslator($this->translator);
-		$this->template->render(__DIR__ . '/navbarControl.latte');
+		$this->template->render();
 	}
 }
 

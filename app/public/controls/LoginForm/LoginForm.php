@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace PP\Controls;
 
 use GettextTranslator\Gettext;
-use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
 use Nette\Security\AuthenticationException;
 use Nette\Security\User;
@@ -14,7 +13,7 @@ use PP\User\PasswordCredentials;
 /**
  * @author Andrej Souček
  */
-class LoginForm extends Control {
+class LoginForm extends BaseControl {
 
 	public $onSuccess = [];
 
@@ -56,7 +55,7 @@ class LoginForm extends Control {
 	}
 
 	protected function createComponentForm(): Form {
-		$form = new Form;
+		$form = new Form();
 		$form->setTranslator($this->translator);
 		$form->addText('email', 'E-mail')
 			->setRequired('Please enter your e-mail.')

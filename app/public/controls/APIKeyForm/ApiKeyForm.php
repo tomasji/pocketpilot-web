@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace PP\Controls;
 
 use GettextTranslator\Gettext;
-use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
 use Nette\Security\User;
 use PP\User\UserRead;
@@ -14,7 +13,7 @@ use PP\User\UserUpdate;
 /**
  * @author Andrej Souček
  */
-class ApiKeyForm extends Control {
+class ApiKeyForm extends BaseControl {
 
 	public $onSuccess = [];
 

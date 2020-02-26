@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace PP\Controls;
 
-use Nette\Application\UI\Control;
 use PP\DirResolver;
 
 /**
  * @author Andrej Souček
  */
-class WebpackControl extends Control {
+class WebpackControl extends BaseControl {
 	/**
 	 * @var DirResolver
 	 */
@@ -21,8 +20,9 @@ class WebpackControl extends Control {
 	}
 
 	public function render(string $entry): void {
+		$this->template->setFile(__DIR__ . '/webpackControl.latte');
 		$this->template->paths = $this->resolvePaths($entry);
-		$this->template->render(__DIR__ . '/webpackControl.latte');
+		$this->template->render();
 	}
 
 	private function resolvePaths(string $entry): array {

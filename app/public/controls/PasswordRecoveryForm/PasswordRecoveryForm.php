@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace PP\Controls;
 
 use GettextTranslator\Gettext;
-use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
 use PP\IncorrectCredentialsException;
 use PP\User\PasswordReset;
@@ -14,7 +13,7 @@ use PP\User\UserRead;
 /**
  * @author Andrej Souček
  */
-class PasswordRecoveryForm extends Control {
+class PasswordRecoveryForm extends BaseControl {
 
 	public $onSuccess = [];
 

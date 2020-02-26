@@ -9,11 +9,14 @@ use PP\Controls\WebpackControl;
 use PP\Controls\WebpackControlFactory;
 use PP\DirResolver;
 use GettextTranslator\Gettext;
+use PP\Latte\TemplateProperty;
 
 /**
  * @author Andrej Souček
+ *
+ * @property-read TemplateProperty $template
  */
-class AppPresenter extends Presenter {
+abstract class AppPresenter extends Presenter {
 
 	/**
 	 * @var string

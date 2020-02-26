@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace PP\Controls;
 
 use GettextTranslator\Gettext;
-use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
 use PP\IncorrectCredentialsException;
 use PP\SignModel;
@@ -13,7 +12,7 @@ use PP\SignModel;
 /**
  * @author Andrej Souček
  */
-class RegisterForm extends Control {
+class RegisterForm extends BaseControl {
 
 	public $onSuccess = [];
 

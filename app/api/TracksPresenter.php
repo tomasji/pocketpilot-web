@@ -23,11 +23,6 @@ class TracksPresenter extends Presenter {
 		$this->read = $read;
 	}
 
-	/**
-	 * @param $element
-	 * @throws \Nette\Application\AbortException
-	 * @throws \Nette\Application\ForbiddenRequestException
-	 */
 	public function checkRequirements($element): void {
 		parent::checkRequirements($this->getReflection());
 		if (!$this->getUser()->isLoggedIn()) {

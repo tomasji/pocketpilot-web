@@ -37,24 +37,4 @@ class SyncPresenter extends AppPresenter {
 		};
 		return $form;
 	}
-
-	/**
-	 * @internal
-	 * @throws \Nette\Application\AbortException
-	 */
-	public function processForm() {
-		$this->update->regenerateTokenFor($this->getUser()->getIdentity());
-		$this->redirect('this');
-	}
-
-	/**
-	 * @return array
-	 * @throws \Nette\Utils\AssertionException
-	 */
-	private function getDefaults(): array {
-		return [
-			'email' => $this->getUser()->getIdentity()->email,
-			'token' => $this->read->fetchBy($this->getUser()->getIdentity()->email)->getToken()
-		];
-	}
 }

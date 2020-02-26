@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace PP\Controls;
 
 use GettextTranslator\Gettext;
-use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
 use Nette\Mail\IMailer;
 use Nette\Mail\Message;
@@ -14,7 +13,7 @@ use Nette\Security\User;
 /**
  * @author Andrej Souček
  */
-class ContactForm extends Control {
+class ContactForm extends BaseControl {
 
 	public $onSuccess = [];
 

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace PP\Controls;
 
 use GettextTranslator\Gettext;
-use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
 use Nette\Security\User;
 use PP\Track\TrackCreate;
@@ -16,7 +15,7 @@ use PP\Track\TrackUpdate;
 /**
  * @author Andrej Souček
  */
-class SaveTrackForm extends Control {
+class SaveTrackForm extends BaseControl {
 
 	public $onSuccess = [];
 
@@ -48,7 +47,7 @@ class SaveTrackForm extends Control {
 	private $user;
 
 	/**
-	 * @var TrackEntry
+	 * @var TrackEntry|null
 	 */
 	private $track;
 

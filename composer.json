@@ -50,7 +50,7 @@
 		"classmap": ["app/Booting.php"]
 	},
 	"scripts": {
-		"phpstan": "phpstan analyse --level 5 --configuration ./phpstan.neon app www"
+		"phpstan": "phpstan analyse --level 5 --configuration ./phpstan.neon"
 	},
 	"config": {
 		"platform": {

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace PP\Track;
 
 use Nette\Database\Context;
-use Nette\Database\Table\ActiveRow;
+use Nette\Database\IRow;
 use Nette\SmartObject;
 
 /**
@@ -73,10 +73,10 @@ class TrackRead {
 	}
 
 	/**
-	 * @param ActiveRow $data
+	 * @param IRow $data
 	 * @return TrackEntry
 	 */
-	private function toEntity(ActiveRow $data): TrackEntry {
+	private function toEntity(IRow $data): TrackEntry {
 		return new TrackEntry(
 			$data->offsetGet(TrackDatabaseDef::COLUMN_ID),
 			$data->offsetGet('geojson'),

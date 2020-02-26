@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace PP\Controls;
 
 use GettextTranslator\Gettext;
-use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
 use PP\User\PasswordReset;
 
 /**
  * @author Andrej Souček
  */
-class NewPasswordForm extends Control {
+class NewPasswordForm extends BaseControl {
 
 	public $onSuccess = [];
 

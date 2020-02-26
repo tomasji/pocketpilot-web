@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace PP\User;
 
 use Nette\Database\Context;
-use Nette\Database\Table\ActiveRow;
+use Nette\Database\IRow;
 use Nette\SmartObject;
 use Nette\Utils\Validators;
 use PP\IncorrectCredentialsException;
@@ -41,10 +41,10 @@ class UserRead {
 	}
 
 	/**
-	 * @param ActiveRow $data
+	 * @param IRow $data
 	 * @return UserEntry
 	 */
-	private function toEntity(ActiveRow $data): UserEntry {
+	private function toEntity(IRow $data): UserEntry {
 		return new UserEntry(
 			$data->offsetGet(UserDatabaseDef::COLUMN_ID),
 			$data->offsetGet(UserDatabaseDef::COLUMN_NAME),
