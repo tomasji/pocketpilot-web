@@ -43,12 +43,14 @@
 	},
 	"require-dev": {
 		"nette/tester": "^2.0",
-		"phpstan/phpstan": "^0.11.5",
-		"phpstan/phpstan-nette": "^0.11.0"
+		"phpstan/phpstan-nette": "^0.12.3"
 	},
 	"minimum-stability": "stable",
 	"autoload": {
 		"classmap": ["app/Booting.php"]
+	},
+	"scripts": {
+		"phpstan": "phpstan analyse --level 5 --configuration ./phpstan.neon app www"
 	},
 	"config": {
 		"platform": {
