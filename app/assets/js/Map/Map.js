@@ -1,40 +1,43 @@
 import { GeoJSON, Map, TileLayer, DomUtil } from 'leaflet'
 import { Track } from './Track'
 import { StaticTrack } from './StaticTrack'
-import '../css/map.scss'
 
 const MAP_BASE = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 const MAP_OFM = 'https://snapshots.openflightmaps.org/live/1904/tiles/world/noninteractive/epsg3857/aero/512/latest/{z}/{x}/{y}.png'
 
-const map = new Map(
-	'map',
-	{ minZoom: 8, maxZoom: 11 }
-)
-const osmLink = '<a href="http://openstreetmap.org" target="_blank">OpenStreetMap</a>'
-const ground = new TileLayer(
-	MAP_BASE, {
-		attribution: '&copy; ' + osmLink + ' Contributors',
+const configureMap = function() {
+	const map = new Map(
+		'map',
+		{ minZoom: 8, maxZoom: 11 }
+	)
+	const osmLink = '<a href="http://openstreetmap.org" target="_blank">OpenStreetMap</a>'
+	const ground = new TileLayer(
+		MAP_BASE, {
+			attribution: '&copy; ' + osmLink + ' Contributors',
+			maxZoom: 11
+		})
+	const ofmLink = '<a href="https://www.openflightmaps.org/" target="_blank">OpenFlightMaps</a>'
+	const ofm = new TileLayer(MAP_OFM, {
+		attribution: ofmLink,
 		maxZoom: 11
 	})
-const ofmLink = '<a href="https://www.openflightmaps.org/" target="_blank">OpenFlightMaps</a>'
-const ofm = new TileLayer(MAP_OFM, {
-	attribution: ofmLink,
-	maxZoom: 11
-})
-map.setView([50.075, 14.437], 8)
-map.zoomControl.setPosition('topright')
-ground.addTo(map)
-ofm.addTo(map)
+	map.setView([50.075, 14.437], 8)
+	map.zoomControl.setPosition('topright')
+	ground.addTo(map)
+	ofm.addTo(map)
 
-let zoom = map.getZoom()
-DomUtil.addClass(map.getContainer(), 'zoom-' + zoom)
-map.on('zoomend', function() {
-	DomUtil.removeClass(map.getContainer(), 'zoom-' + zoom)
-	zoom = map.getZoom()
+	let zoom = map.getZoom()
 	DomUtil.addClass(map.getContainer(), 'zoom-' + zoom)
-})
+	map.on('zoomend', function() {
+		DomUtil.removeClass(map.getContainer(), 'zoom-' + zoom)
+		zoom = map.getZoom()
+		DomUtil.addClass(map.getContainer(), 'zoom-' + zoom)
+	})
+	return map
+}
 
-const createMap = function(editable) {
+export const createMap = function(editable) {
+	const map = configureMap()
 	if (map.getContainer().dataset.track) {
 		const geoJSON = new GeoJSON(JSON.parse(map.getContainer().dataset.track))
 		if (editable) {
@@ -52,15 +55,4 @@ const createMap = function(editable) {
 			map.on('click', addFirstWpt)
 		}
 	}
-}
-const editable = map.getContainer().dataset.editable
-switch (editable) {
-	case 'true':
-		createMap(true)
-		break
-	case 'false':
-		createMap(false)
-		break
-	default:
-		throw Error('Invalid [data-editable] value.')
 }

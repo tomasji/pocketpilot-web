@@ -5,8 +5,10 @@ import {
 	faTrash, faPlus, faSave, faBars, faPencilAlt, faBriefcase, faGlobeEurope, faShareSquare
 } from '@fortawesome/free-solid-svg-icons'
 
-library.add(
-	faFacebookF, faMapMarkedAlt, faBookOpen, faSyncAlt, faEnvelopeOpen, faSignOutAlt, faTable, faCalendar, faArrowsAltH,
-	faTrash, faPlus, faSave, faBars, faPencilAlt, faBriefcase, faGlobeEurope, faShareSquare
-)
-document.addEventListener('DOMContentLoaded', dom.i2svg)
+export default function(el) {
+	library.add(
+		faFacebookF, faMapMarkedAlt, faBookOpen, faSyncAlt, faEnvelopeOpen, faSignOutAlt, faTable, faCalendar, faArrowsAltH,
+		faTrash, faPlus, faSave, faBars, faPencilAlt, faBriefcase, faGlobeEurope, faShareSquare
+	)
+	dom.i2svg({ node: el })
+}

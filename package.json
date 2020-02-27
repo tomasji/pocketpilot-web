@@ -20,7 +20,8 @@
     "leaflet": "^1.5.1",
     "leaflet-control-geocoder": "^1.8.2",
     "materialize-css": "^1.0.0",
-    "naja": "^1.6.0",
+    "naja": "^1.7.0",
+    "nette-forms": "^3.0.3",
     "qrcode-generator-es6": "^1.1.4"
   },
   "devDependencies": {

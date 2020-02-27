@@ -25,7 +25,7 @@
 						<i class="fas fa-table"></i>
 						<span class="hide-on-small-only">{_'Navigation log'}</span>
 					</a>
-					<button data-positive="{link delete!, $track->getId(), $track->getName()}" data-confirm="#confirm" class="waves-effect blue lighten-1 btn btn-action ajax">
+					<button data-positive="{link delete!, $track->getId(), $track->getName()}" data-confirm="#confirm" class="waves-effect blue lighten-1 btn btn-action">
 						<i class="fas fa-trash"></i>
 						<span class="hide-on-small-only">{_'Delete'}</span>
 					</button>
@@ -42,7 +42,7 @@
 <div id="confirm" class="modal">
 	<div class="modal-content container center">
 		<p>{_'Do you really want to delete the track?'}</p>
-		<a href="#" class="waves-effect blue lighten-1 btn btn-action modal-close positive">{_'Delete'}</a>
+		<a href="#" data-naja-history="off" class="waves-effect blue lighten-1 btn btn-action modal-close positive ajax">{_'Delete'}</a>
 		<a href="#" class="waves-effect blue lighten-1 btn btn-action modal-close negative">{_'Cancel'}</a>
 	</div>
 </div>

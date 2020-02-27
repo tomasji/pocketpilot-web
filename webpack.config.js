@@ -4,10 +4,10 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 module.exports = {
 	entry: {
-		main: './app/assets/js/Main.js',
-		map: './app/assets/js/Map.js',
-		qr: './app/assets/js/QR.js',
-		navlog: './app/assets/js/Navlog.js'
+		common: './app/assets/Common.js',
+		map: './app/assets/Map.js',
+		qr: './app/assets/QR.js',
+		navlog: './app/assets/Navlog.js'
 	},
 	output: {
 		path: path.join(path.resolve(), 'www/dist'),
@@ -70,6 +70,11 @@ module.exports = {
 				}]
 			}
 		]
+	},
+	resolve: {
+		alias: {
+			'DOMLoaded': path.resolve(__dirname, 'app/assets/js/DOMLoaded.js')
+		}
 	},
 	plugins: [
 		new WebpackAssetsManifest({

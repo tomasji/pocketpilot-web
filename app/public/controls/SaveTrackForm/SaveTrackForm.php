@@ -75,7 +75,6 @@ class SaveTrackForm extends BaseControl {
 		$form->addHidden('waypoints');
 		$form->addHidden('trackId');
 		$form->addSubmit('save', 'Save');
-		$form->getElementPrototype()->addClass('ajax');
 		$form->setDefaults($this->getDefaults());
 		$form->onSuccess[] = [$this, 'processForm'];
 		return $form;

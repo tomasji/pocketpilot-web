@@ -113,7 +113,6 @@ class TracksPresenter extends AppPresenter {
 		$id = $this->getParameter('id');
 		$form = $this->saveTrackFormFactory->create($id ? $this->getTracks()[$id] : null);
 		$form->onSuccess[] = function(string $trackName) {
-			$this->payload->forceRedirect = true;
 			$this->flashMessage($this->translator->translate("Track '%s' has been saved.", $trackName));
 			$this->redirect('Tracks:');
 		};

@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width">
 	<title>{ifset title}{include title|stripHtml} | {/ifset}Pocket Pilot</title>
 	{if $control->getComponent('webpack', false) !== null}
-		{control webpack 'main'}
+		{control webpack common}
 	{/if}
 </head>
 
