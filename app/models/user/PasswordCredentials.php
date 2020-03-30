@@ -10,32 +10,35 @@ use Nette\Utils\Validators;
 /**
  * @author Andrej Souček
  */
-class PasswordCredentials implements Credentials {
+class PasswordCredentials implements Credentials
+{
+    use SmartObject;
 
-	use SmartObject;
+    /**
+     * @var string
+     */
+    private $email;
 
-	/**
-	 * @var string
-	 */
-	private $email;
+    /**
+     * @var string
+     */
+    private $password;
 
-	/**
-	 * @var string
-	 */
-	private $password;
+    public function __construct(string $email, string $password)
+    {
+        Validators::assert($email, 'email');
+        Validators::assert($password, 'string:1..');
+        $this->email = strtolower($email);
+        $this->password = $password;
+    }
 
-	public function __construct(string $email, string $password) {
-		Validators::assert($email, 'email');
-		Validators::assert($password, 'string:1..');
-		$this->email = strtolower($email);
-		$this->password = $password;
-	}
+    public function getEmail()
+    {
+        return $this->email;
+    }
 
-	public function getEmail() {
-		return $this->email;
-	}
-
-	public function getAuthString() {
-		return $this->password;
-	}
+    public function getAuthString()
+    {
+        return $this->password;
+    }
 }

@@ -7,6 +7,7 @@ namespace PP;
 /**
  * @author Andrej Souček
  */
-class IncorrectCredentialsException extends \RuntimeException {
+class IncorrectCredentialsException extends \RuntimeException
+{
 
 }

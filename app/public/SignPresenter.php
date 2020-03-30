@@ -19,81 +19,94 @@ use PP\User\PasswordCredentials;
 /**
  * @author Andrej Souček
  */
-class SignPresenter extends AppPresenter {
+class SignPresenter extends AppPresenter
+{
 
-	/**
-	 * @var SignModel
-	 */
-	private $model;
+    /**
+     * @var SignModel
+     */
+    private $model;
 
-	/**
-	 * @var LoginFormFactory
-	 */
-	private $loginFormFactory;
+    /**
+     * @var LoginFormFactory
+     */
+    private $loginFormFactory;
 
-	/**
-	 * @var RegisterFormFactory
-	 */
-	private $registerFormFactory;
+    /**
+     * @var RegisterFormFactory
+     */
+    private $registerFormFactory;
 
-	public function __construct(SignModel $model, LoginFormFactory $loginFormFactory, RegisterFormFactory $registerFormFactory) {
-		parent::__construct();
-		$this->model = $model;
-		$this->loginFormFactory = $loginFormFactory;
-		$this->registerFormFactory = $registerFormFactory;
-	}
+    public function __construct(
+        SignModel $model,
+        LoginFormFactory $loginFormFactory,
+        RegisterFormFactory $registerFormFactory
+    ) {
+        parent::__construct();
+        $this->model = $model;
+        $this->loginFormFactory = $loginFormFactory;
+        $this->registerFormFactory = $registerFormFactory;
+    }
 
-	/**
-	 * @throws \Nette\Application\AbortException
-	 */
-	public function actionFbLogin(): void {
-		try {
-			$this->getUser()->login($this->model->getFacebookCredentials());
-		} catch (AuthenticationException $e) {
-			$this->flashMessage($this->translator->translate("Error while connecting to Facebook"));
-		}
-		$this->redirect('Sign:');
-	}
+    /**
+     * @throws \Nette\Application\AbortException
+     */
+    public function actionFbLogin(): void
+    {
+        try {
+            $this->getUser()->login($this->model->getFacebookCredentials());
+        } catch (AuthenticationException $e) {
+            $this->flashMessage($this->translator->translate("Error while connecting to Facebook"));
+        }
+        $this->redirect('Sign:');
+    }
 
-	/**
-	 * @throws \Nette\Application\AbortException
-	 */
-	public function actionLogOut(): void {
-		$this->getUser()->logout();
-		$this->redirect('Sign:');
-	}
+    /**
+     * @throws \Nette\Application\AbortException
+     */
+    public function actionLogOut(): void
+    {
+        $this->getUser()->logout();
+        $this->redirect('Sign:');
+    }
 
-	public function renderDefault(): void {
-		$this->template->currentUserName = $this->getCurrentUserName();
-		$this->template->lang = $this->getLang();
-	}
+    public function renderDefault(): void
+    {
+        $this->template->currentUserName = $this->getCurrentUserName();
+        $this->template->lang = $this->getLang();
+    }
 
-	public function renderRegister(): void {
-		$this->template->lang = $this->getLang();
-	}
+    public function renderRegister(): void
+    {
+        $this->template->lang = $this->getLang();
+    }
 
-	public function getCurrentUserName(): string {
-		return $this->getUser()->getIdentity() ? $this->getUser()->getIdentity()->username : "unknown";
-	}
+    public function getCurrentUserName(): string
+    {
+        return $this->getUser()->getIdentity() ? $this->getUser()->getIdentity()->username : "unknown";
+    }
 
-	public function getLang(): string {
-		return $this->translator->getLang();
-	}
+    public function getLang(): string
+    {
+        return $this->translator->getLang();
+    }
 
-	protected function createComponentLoginForm(): LoginForm {
-		$form = $this->loginFormFactory->create($this->model->generateLoginUrl($this->link('//fbLogin')));
-		$form->onSuccess[] = function () {
-			$this->redirect('Dashboard:');
-		};
-		return $form;
-	}
+    protected function createComponentLoginForm(): LoginForm
+    {
+        $form = $this->loginFormFactory->create($this->model->generateLoginUrl($this->link('//fbLogin')));
+        $form->onSuccess[] = function () {
+            $this->redirect('Dashboard:');
+        };
+        return $form;
+    }
 
-	protected function createComponentRegisterForm(): RegisterForm {
-		$form = $this->registerFormFactory->create();
-		$form->onSuccess[] = function() {
-			$this->flashMessage($this->translator->translate('Sign up successful, now you can log in.'));
-			$this->redirect('Homepage:');
-		};
-		return $form;
-	}
+    protected function createComponentRegisterForm(): RegisterForm
+    {
+        $form = $this->registerFormFactory->create();
+        $form->onSuccess[] = function () {
+            $this->flashMessage($this->translator->translate('Sign up successful, now you can log in.'));
+            $this->redirect('Homepage:');
+        };
+        return $form;
+    }
 }

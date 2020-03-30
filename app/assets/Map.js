@@ -3,5 +3,5 @@ import './css/map.scss'
 import $ from 'DOMLoaded'
 
 $(() => {
-	map.requireMap()
+  map.requireMap()
 })

@@ -10,43 +10,47 @@ use Nette\Utils\Validators;
 /**
  * @author Andrej Souček
  */
-class FacebookCredentials implements Credentials {
+class FacebookCredentials implements Credentials
+{
+    use SmartObject;
 
-	use SmartObject;
+    /**
+     * @var string
+     */
+    private $email;
 
-	/**
-	 * @var string
-	 */
-	private $email;
+    /**
+     * @var string
+     */
+    private $uid;
 
-	/**
-	 * @var string
-	 */
-	private $uid;
+    /**
+     * @var string
+     */
+    private $firstName;
 
-	/**
-	 * @var string
-	 */
-	private $firstName;
+    public function __construct(string $email, string $uid, string $firstName)
+    {
+        Validators::assert($email, 'email');
+        Validators::assert($uid, 'string:1..');
+        Validators::assert($firstName, 'string:1..');
+        $this->email = strtolower($email);
+        $this->uid = $uid;
+        $this->firstName = $firstName;
+    }
 
-	public function __construct(string $email, string $uid, string $firstName) {
-		Validators::assert($email, 'email');
-		Validators::assert($uid, 'string:1..');
-		Validators::assert($firstName, 'string:1..');
-		$this->email = strtolower($email);
-		$this->uid = $uid;
-		$this->firstName = $firstName;
-	}
+    public function getEmail()
+    {
+        return $this->email;
+    }
 
-	public function getEmail() {
-		return $this->email;
-	}
+    public function getAuthString()
+    {
+        return $this->uid;
+    }
 
-	public function getAuthString() {
-		return $this->uid;
-	}
-
-	public function getFirstName() {
-		return $this->firstName;
-	}
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
 }

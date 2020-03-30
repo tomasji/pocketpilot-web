@@ -12,48 +12,52 @@ use Nette\Utils\DateTime;
 /**
  * @author Andrej Souček
  */
-class UserUpdate {
+class UserUpdate
+{
+    use SmartObject;
 
-	use SmartObject;
+    /** @var Context */
+    private $database;
 
-	/** @var Context */
-	private $database;
+    public function __construct(Context $database)
+    {
+        $this->database = $database;
+    }
 
-	public function __construct(Context $database) {
-		$this->database = $database;
-	}
+    /**
+     * @param UserChanges $changes
+     */
+    public function process(UserChanges $changes): void
+    {
+        $this->database->table(UserDatabaseDef::TABLE_NAME)
+            ->where(UserDatabaseDef::COLUMN_ID, $changes->getId())
+            ->update($this->toArray($changes));
+    }
 
-	/**
-	 * @param UserChanges $changes
-	 */
-	public function process(UserChanges $changes): void {
-		$this->database->table(UserDatabaseDef::TABLE_NAME)
-			->where(UserDatabaseDef::COLUMN_ID, $changes->getId())
-			->update($this->toArray($changes));
-	}
+    /**
+     * @param IIdentity $user
+     * @return string
+     */
+    public function regenerateTokenFor(IIdentity $user): string
+    {
+        $newToken = md5($user->username . new DateTime());
+        $this->database->table(UserDatabaseDef::TABLE_NAME)
+            ->where(UserDatabaseDef::COLUMN_ID, $user->getId())
+            ->update([UserDatabaseDef::COLUMN_TOKEN => md5($user->username . new DateTime())]);
+        return $newToken;
+    }
 
-	/**
-	 * @param IIdentity $user
-	 * @return string
-	 */
-	public function regenerateTokenFor(IIdentity $user): string {
-		$newToken = md5($user->username . new DateTime());
-		$this->database->table(UserDatabaseDef::TABLE_NAME)
-			->where(UserDatabaseDef::COLUMN_ID, $user->getId())
-			->update([UserDatabaseDef::COLUMN_TOKEN => md5($user->username . new DateTime())]);
-		return $newToken;
-	}
-
-	/**
-	 * @param UserChanges $changes
-	 * @return array
-	 */
-	private function toArray(UserChanges $changes): array {
-		$xs = [
-			UserDatabaseDef::COLUMN_NAME => $changes->getName(),
-			UserDatabaseDef::COLUMN_EMAIL => $changes->getEmail(),
-			UserDatabaseDef::COLUMN_ROLE => $changes->getRole()
-		];
-		return array_filter($xs);
-	}
+    /**
+     * @param UserChanges $changes
+     * @return array
+     */
+    private function toArray(UserChanges $changes): array
+    {
+        $xs = [
+            UserDatabaseDef::COLUMN_NAME => $changes->getName(),
+            UserDatabaseDef::COLUMN_EMAIL => $changes->getEmail(),
+            UserDatabaseDef::COLUMN_ROLE => $changes->getRole()
+        ];
+        return array_filter($xs);
+    }
 }

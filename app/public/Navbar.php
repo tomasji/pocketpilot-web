@@ -10,15 +10,17 @@ use PP\Controls\NavbarControlFactory;
 /**
  * @author Andrej Souček
  */
-trait Navbar {
+trait Navbar
+{
 
-	/**
-	 * @var NavbarControlFactory
-	 * @inject
-	 */
-	public $navbarControlFactory;
+    /**
+     * @var NavbarControlFactory
+     * @inject
+     */
+    public $navbarControlFactory;
 
-	protected function createComponentNavbar(): NavbarControl {
-		return $this->navbarControlFactory->create();
-	}
+    protected function createComponentNavbar(): NavbarControl
+    {
+        return $this->navbarControlFactory->create();
+    }
 }

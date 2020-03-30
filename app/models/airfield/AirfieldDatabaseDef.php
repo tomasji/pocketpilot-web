@@ -7,11 +7,12 @@ namespace PP\Airfield;
 /**
  * @author Andrej Souček
  */
-class AirfieldDatabaseDef {
+class AirfieldDatabaseDef
+{
 
-	const
-		TABLE_NAME = 'airfields',
-		COLUMN_NAME = 'name',
-		COLUMN_DESCRIPTION = 'description',
-		COLUMN_LOCATION = 'location';
+    public const
+        TABLE_NAME = 'airfields',
+        COLUMN_NAME = 'name',
+        COLUMN_DESCRIPTION = 'description',
+        COLUMN_LOCATION = 'location';
 }

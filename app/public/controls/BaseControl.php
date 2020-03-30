@@ -12,5 +12,6 @@ use PP\Latte\TemplateProperty;
  *
  * @property-read TemplateProperty $template
  */
-abstract class BaseControl extends Control {
+abstract class BaseControl extends Control
+{
 }

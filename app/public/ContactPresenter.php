@@ -15,27 +15,29 @@ use PP\DirResolver;
 /**
  * @author Andrej Souček
  */
-class ContactPresenter extends AppPresenter {
+class ContactPresenter extends AppPresenter
+{
+    use Authentication;
+    use Navbar;
 
-	use Authentication;
-	use Navbar;
+    /**
+     * @var ContactFormFactory
+     */
+    private $contactFormFactory;
 
-	/**
-	 * @var ContactFormFactory
-	 */
-	private $contactFormFactory;
+    public function __construct(ContactFormFactory $contactFormFactory)
+    {
+        parent::__construct();
+        $this->contactFormFactory = $contactFormFactory;
+    }
 
-	public function __construct(ContactFormFactory $contactFormFactory) {
-		parent::__construct();
-		$this->contactFormFactory = $contactFormFactory;
-	}
-
-	public function createComponentForm(): ContactForm {
-		$form = $this->contactFormFactory->create();
-		$form->onSuccess[] = function() {
-			$this->flashMessage($this->translator->translate('Message has been sent.'));
-			$this->redirect('this');
-		};
-		return $form;
-	}
+    public function createComponentForm(): ContactForm
+    {
+        $form = $this->contactFormFactory->create();
+        $form->onSuccess[] = function () {
+            $this->flashMessage($this->translator->translate('Message has been sent.'));
+            $this->redirect('this');
+        };
+        return $form;
+    }
 }

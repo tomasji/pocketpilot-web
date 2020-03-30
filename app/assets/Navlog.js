@@ -3,5 +3,5 @@ import './css/navlog.scss'
 import $ from 'DOMLoaded'
 
 $(() => {
-	navlog.requireTable()
+  navlog.requireTable()
 })

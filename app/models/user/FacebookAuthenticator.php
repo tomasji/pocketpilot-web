@@ -12,58 +12,70 @@ use PP\IncorrectCredentialsException;
 /**
  * @author Andrej Souček
  */
-class FacebookAuthenticator {
+class FacebookAuthenticator
+{
+    use SmartObject;
 
-	use SmartObject;
+    /**
+     * @var Context
+     */
+    private $database;
 
-	/**
-	 * @var Context
-	 */
-	private $database;
+    /**
+     * @var UserRead
+     */
+    private $read;
 
-	/**
-	 * @var UserRead
-	 */
-	private $read;
+    /**
+     * @var UserRegister
+     */
+    private $register;
 
-	/**
-	 * @var UserRegister
-	 */
-	private $register;
+    public function __construct(Context $database, UserRead $read, UserRegister $register)
+    {
+        $this->database = $database;
+        $this->read = $read;
+        $this->register = $register;
+    }
 
-	public function __construct(Context $database, UserRead $read, UserRegister $register) {
-		$this->database = $database;
-		$this->read = $read;
-		$this->register = $register;
-	}
+    /**
+     * @param FacebookCredentials $credentials
+     * @return UserEntry
+     * @throws AssertionException
+     * @throws IncorrectCredentialsException
+     */
+    public function authenticate(FacebookCredentials $credentials): UserEntry
+    {
+        $row = $this->database->table(UserDatabaseDef::TABLE_NAME)
+            ->where(UserDatabaseDef::COLUMN_EMAIL, $credentials->getEmail())->fetch();
+        if (!$row) {
+            $row = $this->register->process(
+                $credentials->getFirstName(),
+                $credentials->getEmail(),
+                $credentials->getAuthString()
+            );
+        }
+        if ($row && !isset($row[UserDatabaseDef::COLUMN_FB_UID])) {
+            $this->updateMissingUid($credentials);
+        }
+        if (
+            $row &&
+            isset($row[UserDatabaseDef::COLUMN_FB_UID]) &&
+            $row[UserDatabaseDef::COLUMN_FB_UID] === $credentials->getAuthString()
+        ) {
+            return $this->read->fetchBy($credentials->getEmail());
+        } else {
+            throw new IncorrectCredentialsException("FB user ID does not match with local FB uID.");
+        }
+    }
 
-	/**
-	 * @param FacebookCredentials $credentials
-	 * @return UserEntry
-	 * @throws AssertionException
-	 * @throws IncorrectCredentialsException
-	 */
-	public function authenticate(FacebookCredentials $credentials): UserEntry {
-		$row = $this->database->table(UserDatabaseDef::TABLE_NAME)->where(UserDatabaseDef::COLUMN_EMAIL, $credentials->getEmail())->fetch();
-		if (!$row) {
-			$row = $this->register->process($credentials->getFirstName(), $credentials->getEmail(), $credentials->getAuthString());
-		}
-		if ($row && !isset($row[UserDatabaseDef::COLUMN_FB_UID])) {
-			$this->updateMissingUid($credentials);
-		}
-		if ($row && isset($row[UserDatabaseDef::COLUMN_FB_UID]) && $row[UserDatabaseDef::COLUMN_FB_UID] === $credentials->getAuthString()) {
-			return $this->read->fetchBy($credentials->getEmail());
-		} else {
-			throw new IncorrectCredentialsException("FB user ID does not match with local FB uID.");
-		}
-	}
-
-	/**
-	 * @param FacebookCredentials $credentials
-	 */
-	private function updateMissingUid(FacebookCredentials $credentials): void {
-		$this->database->table(UserDatabaseDef::TABLE_NAME)
-			->where(UserDatabaseDef::COLUMN_EMAIL, $credentials->getEmail())
-			->update([UserDatabaseDef::COLUMN_FB_UID => $credentials->getAuthString()]);
-	}
+    /**
+     * @param FacebookCredentials $credentials
+     */
+    private function updateMissingUid(FacebookCredentials $credentials): void
+    {
+        $this->database->table(UserDatabaseDef::TABLE_NAME)
+            ->where(UserDatabaseDef::COLUMN_EMAIL, $credentials->getEmail())
+            ->update([UserDatabaseDef::COLUMN_FB_UID => $credentials->getAuthString()]);
+    }
 }

@@ -16,36 +16,40 @@ use PP\Latte\TemplateProperty;
  *
  * @property-read TemplateProperty $template
  */
-abstract class AppPresenter extends Presenter {
+abstract class AppPresenter extends Presenter
+{
 
-	/**
-	 * @var string
-	 * @persistent
-	 */
-	public $lang;
+    /**
+     * @var string
+     * @persistent
+     */
+    public $lang;
 
-	/**
-	 * @inject
-	 * @var Gettext
-	 */
-	public $translator;
+    /**
+     * @inject
+     * @var Gettext
+     */
+    public $translator;
 
-	/**
-	 * @inject
-	 * @var WebpackControlFactory
-	 */
-	public $webpackControlFactory;
+    /**
+     * @inject
+     * @var WebpackControlFactory
+     */
+    public $webpackControlFactory;
 
-	public function startup() {
-		parent::startup();
-		$this->translator->setLang($this->lang); // too late in beforeRender
-	}
+    public function startup()
+    {
+        parent::startup();
+        $this->translator->setLang($this->lang); // too late in beforeRender
+    }
 
-	public function beforeRender() {
-		$this->template->setTranslator($this->translator);
-	}
+    public function beforeRender()
+    {
+        $this->template->setTranslator($this->translator);
+    }
 
-	protected function createComponentWebpack(): WebpackControl {
-		return $this->webpackControlFactory->create();
-	}
+    protected function createComponentWebpack(): WebpackControl
+    {
+        return $this->webpackControlFactory->create();
+    }
 }

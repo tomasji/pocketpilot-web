@@ -7,13 +7,16 @@ namespace PP\Presenters;
 /**
  * @author Andrej Souček
  */
-class HomepagePresenter extends AppPresenter {
+class HomepagePresenter extends AppPresenter
+{
 
-	public function renderDefault(): void {
-		$this->template->lang = $this->getLang();
-	}
+    public function renderDefault(): void
+    {
+        $this->template->lang = $this->getLang();
+    }
 
-	public function getLang(): string {
-		return $this->translator->getLang();
-	}
+    public function getLang(): string
+    {
+        return $this->translator->getLang();
+    }
 }

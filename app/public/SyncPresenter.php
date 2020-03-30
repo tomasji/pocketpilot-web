@@ -15,26 +15,28 @@ use PP\User\UserUpdate;
 /**
  * @author Andrej Souček
  */
-class SyncPresenter extends AppPresenter {
+class SyncPresenter extends AppPresenter
+{
+    use Authentication;
+    use Navbar;
 
-	use Authentication;
-	use Navbar;
+    /**
+     * @var ApiKeyFormFactory
+     */
+    private $apiKeyFormFactory;
 
-	/**
-	 * @var ApiKeyFormFactory
-	 */
-	private $apiKeyFormFactory;
+    public function __construct(ApiKeyFormFactory $apiKeyFormFactory)
+    {
+        parent::__construct();
+        $this->apiKeyFormFactory = $apiKeyFormFactory;
+    }
 
-	public function __construct(ApiKeyFormFactory $apiKeyFormFactory) {
-		parent::__construct();
-		$this->apiKeyFormFactory = $apiKeyFormFactory;
-	}
-
-	protected function createComponentForm(): ApiKeyForm {
-		$form = $this->apiKeyFormFactory->create();
-		$form->onSuccess[] = function() {
-			$this->redirect('this');
-		};
-		return $form;
-	}
+    protected function createComponentForm(): ApiKeyForm
+    {
+        $form = $this->apiKeyFormFactory->create();
+        $form->onSuccess[] = function () {
+            $this->redirect('this');
+        };
+        return $form;
+    }
 }

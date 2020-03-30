@@ -12,49 +12,52 @@ use PP\Controls\AirfieldsImportFormFactory;
 /**
  * @author Andrej Souček
  */
-class AirfieldsPresenter extends AppPresenter {
+class AirfieldsPresenter extends AppPresenter
+{
+    use Authentication {
+        Authentication::checkRequirements as commonAuthentication;
+    }
+    use Navbar;
 
-	use Authentication {
-		Authentication::checkRequirements as commonAuthentication;
-	}
-	use Navbar;
+    /**
+     * @var AirfieldsImportFormFactory
+     */
+    private $formFactory;
 
-	/**
-	 * @var AirfieldsImportFormFactory
-	 */
-	private $formFactory;
+    /**
+     * @var AirfieldsControlFactory
+     */
+    private $airfieldsControlFactory;
 
-	/**
-	 * @var AirfieldsControlFactory
-	 */
-	private $airfieldsControlFactory;
+    public function __construct(
+        AirfieldsImportFormFactory $formFactory,
+        AirfieldsControlFactory $airfieldsControlFactory
+    ) {
+        parent::__construct();
+        $this->formFactory = $formFactory;
+        $this->airfieldsControlFactory = $airfieldsControlFactory;
+    }
 
-	public function __construct(
-		AirfieldsImportFormFactory $formFactory,
-		AirfieldsControlFactory $airfieldsControlFactory
-	) {
-		parent::__construct();
-		$this->formFactory = $formFactory;
-		$this->airfieldsControlFactory = $airfieldsControlFactory;
-	}
+    public function checkRequirements($element): void
+    {
+        $this->commonAuthentication($element);
+        if (!$this->user->isInRole('admin')) {
+            $this->flashMessage($this->translator->translate('Access denied.'));
+            $this->redirect('Dashboard:default');
+        }
+    }
 
-	public function checkRequirements($element): void {
-		$this->commonAuthentication($element);
-		if (!$this->user->isInRole('admin')) {
-			$this->flashMessage($this->translator->translate('Access denied.'));
-			$this->redirect('Dashboard:default');
-		}
-	}
+    protected function createComponentForm(): AirfieldsImportForm
+    {
+        $c = $this->formFactory->create();
+        $c->onError[] = function ($m) {
+            $this->flashMessage($m);
+        };
+        return $c;
+    }
 
-	protected function createComponentForm(): AirfieldsImportForm {
-		$c = $this->formFactory->create();
-		$c->onError[] = function($m) {
-			$this->flashMessage($m);
-		};
-		return $c;
-	}
-
-	protected function createComponentAirfields(): AirfieldsControl {
-		return $this->airfieldsControlFactory->create();
-	}
+    protected function createComponentAirfields(): AirfieldsControl
+    {
+        return $this->airfieldsControlFactory->create();
+    }
 }

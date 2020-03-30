@@ -2,9 +2,10 @@
 
 namespace PP\User;
 
-interface Credentials {
+interface Credentials
+{
 
-	public function getEmail();
+    public function getEmail();
 
-	public function getAuthString();
+    public function getAuthString();
 }
