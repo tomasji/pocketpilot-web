@@ -3,7 +3,7 @@ import { Track } from './Track'
 import { StaticTrack } from './StaticTrack'
 
 const MAP_BASE = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-const MAP_OFM = 'https://snapshots.openflightmaps.org/live/1904/tiles/world/noninteractive/epsg3857/aero/512/latest/{z}/{x}/{y}.png'
+const MAP_OFM = 'https://snapshots.openflightmaps.org/live/2004/tiles/world/epsg3857/aero/512/latest/{z}/{x}/{y}.png'
 
 const configureMap = function() {
 	const map = new Map(
