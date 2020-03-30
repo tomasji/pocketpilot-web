@@ -645,3 +645,51 @@ msgstr "Zlepšení stability a výkonu"
 #: Added from Tracy bar
 msgid "New maps"
 msgstr "Nové mapy"
+
+#: Added from Tracy bar
+msgid "Airfields"
+msgstr "Letiště"
+
+#: Added from Tracy bar
+msgid "File"
+msgstr "Soubor"
+
+#: Added from Tracy bar
+msgid "Upload"
+msgstr "Nahrát"
+
+#: Added from Tracy bar
+msgid "The size of the uploaded file can be up to %d bytes."
+msgstr "Maximální velikost souborů je %d bajtů"
+
+#: Added from Tracy bar
+msgid "Unsupported file type."
+msgstr "Nepodporovaný typ souboru."
+
+#: Added from Tracy bar
+msgid "This field is required."
+msgstr "Toto pole je povinné."
+
+#: Added from Tracy bar
+msgid "Name"
+msgstr "Název"
+
+#: Added from Tracy bar
+msgid "Description"
+msgstr "Popis"
+
+#: Added from Tracy bar
+msgid "Number of points in DB"
+msgstr "Počet bodů v DB"
+
+#: Added from Tracy bar
+msgid "CSV import with points for reverse geocoding."
+msgstr "Import CSV souboru s body pro reverse geocoding."
+
+#: Added from Tracy bar
+msgid "File header"
+msgstr "Hlavička souboru"
+
+#: Added from Tracy bar
+msgid "Access denied"
+msgstr "Přístup zamítnut"
