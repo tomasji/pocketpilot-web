@@ -59,12 +59,19 @@ class TrackTable {
 
   _setValues(wp1, wp2, place, hdg, dist, time) {
     if (wp2) {
-      wp2.fetchPlace()
-        .then((results) => {
-          place.innerText = results[0].properties.address.city || results[0].properties.address.town
-        })
-        .catch(() => {
-          place.innerText = 'Waypoint'
+      wp2.fetchAirfield()
+        .then(result => {
+          if (result.hasOwnProperty('name')) {
+            place.innerText = result.name
+          } else {
+            wp2.fetchPlace()
+              .then((results) => {
+                place.innerText = place.innerText = results[0].properties.address.city || results[0].properties.address.town || 'Waypoint'
+              })
+              .catch(() => {
+                place.innerText = 'Waypoint'
+              })
+          }
         })
     }
     if (wp1 && wp2) {

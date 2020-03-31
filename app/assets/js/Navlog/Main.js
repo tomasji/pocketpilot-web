@@ -24,13 +24,21 @@ function start(win) {
           town.colSpan = '2'
           const place = DomUtil.create('input', '', town)
           place.value = '...'
-          wpt.fetchPlace()
-            .then((results) => {
-              place.value = results[0].properties.address.city || results[0].properties.address.town || 'Waypoint'
+          wpt.fetchAirfield()
+            .then(result => {
+              if (result.hasOwnProperty('name')) {
+                place.value = result.name
+              } else {
+                wpt.fetchPlace()
+                  .then((results) => {
+                    place.value = results[0].properties.address.city || results[0].properties.address.town || 'Waypoint'
+                  })
+                  .catch(() => {
+                    place.value = 'Waypoint'
+                  })
+              }
             })
-            .catch(() => {
-              place.value = 'Waypoint'
-            })
+
           if (i > 0) {
             const prevLatLng = latlngs[i - 1]
             const distance = Math.floor(prevLatLng.distanceTo(wpt.getLatLng()) / 1000)

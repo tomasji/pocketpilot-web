@@ -44,6 +44,28 @@ class AirfieldRead
         return $ret;
     }
 
+    public function fetchClosestTo(string $lng, string $lat): ?AirfieldEntry
+    {
+        $row = $this->database
+            ->query(
+                "SELECT " .
+                    AirfieldDatabaseDef::COLUMN_NAME  . ',' .
+                    AirfieldDatabaseDef::COLUMN_DESCRIPTION . ',' .
+                    'ST_X(' . AirfieldDatabaseDef::COLUMN_LOCATION . '::geometry) AS longitude' . ',' .
+                    'ST_Y(' . AirfieldDatabaseDef::COLUMN_LOCATION . '::geometry) AS latitude' . ' ' .
+                "FROM (
+                    SELECT 
+                        *, 
+                        ST_Distance(location, ?::geography) AS distance 
+                    FROM airfields
+                    ) a 
+                WHERE distance < 500
+                ORDER BY distance LIMIT 1",
+                "SRID=4326;POINT($lng $lat)"
+            )->fetch();
+        return $row ? $this->toEntity($row) : null;
+    }
+
     private function toEntity(IRow $data): AirfieldEntry
     {
         return new AirfieldEntry(
