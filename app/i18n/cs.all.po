@@ -693,3 +693,19 @@ msgstr "Hlavička souboru"
 #: Added from Tracy bar
 msgid "Access denied"
 msgstr "Přístup zamítnut"
+
+#: Added from Tracy bar
+msgid "Tracks planning improvements"
+msgstr "Vylepšení plánování tras"
+
+#: Added from Tracy bar
+msgid "Map tiles update."
+msgstr "Aktualizace mapy vzdušných prostorů."
+
+#: Added from Tracy bar
+msgid ""
+"Displaying correct name when placing marker over an airfield or other VFR points"
+"."
+msgstr ""
+"Zobrazení správného názvu při vložení otočného bodu nad letiště nebo jiný VFR bo"
+"d."
