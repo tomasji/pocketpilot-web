@@ -8,18 +8,18 @@ const MAP_OFM = 'https://snapshots.openflightmaps.org/live/2004/tiles/world/epsg
 const configureMap = function() {
   const map = new Map(
     'map',
-    { minZoom: 8, maxZoom: 11 }
+    { minZoom: 8, maxZoom: 12 }
   )
   const osmLink = '<a href="http://openstreetmap.org" target="_blank">OpenStreetMap</a>'
   const ground = new TileLayer(
     MAP_BASE, {
       attribution: '&copy; ' + osmLink + ' Contributors',
-      maxZoom: 11
+      maxZoom: 12
     })
   const ofmLink = '<a href="https://www.openflightmaps.org/" target="_blank">OpenFlightMaps</a>'
   const ofm = new TileLayer(MAP_OFM, {
     attribution: ofmLink,
-    maxZoom: 11
+    maxZoom: 12
   })
   map.setView([50.075, 14.437], 8)
   map.zoomControl.setPosition('topright')
