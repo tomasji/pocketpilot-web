@@ -77,7 +77,7 @@ class TracksPresenter extends AppPresenter
 
     public function getTracks(): array
     {
-        if (empty($tracks)) {
+        if (empty($this->tracks)) {
             $this->tracks = $this->read->fetchForUser($this->user->getId());
         }
         return $this->tracks;
@@ -102,7 +102,7 @@ class TracksPresenter extends AppPresenter
     public function handleDelete($id, $name): void
     {
         try {
-            $this->delete->process((int)$id);
+            $this->delete->process((int)$id, $this->user->getId());
             $this->flashMessage($this->translator->translate("Track '%s' has been deleted.", $name));
         } catch (\RuntimeException $e) {
             $this->flashMessage($this->translator->translate("An error occurred while deleting the track."));
