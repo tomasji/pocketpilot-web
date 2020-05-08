@@ -1,5 +1,10 @@
 {block content}
 <div id="app">
+	<div id="controls" class="info card-panel hoverable">
+		<div class="controls-speed left">
+			<input title="{_'Speed'}" name="speed" type="text" value="150"><span>km/h</span>
+		</div>
+	</div>
 	<div id="map"{if $trackJson} data-track="{$trackJson}"{/if} data-editable="false"></div>
 </div>
 {control webpack 'map'}

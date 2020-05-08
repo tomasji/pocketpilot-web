@@ -1,13 +1,18 @@
 import { createStaticWaypoint } from './WaypointFactory'
 import { LatLngBounds, Polyline } from 'leaflet'
+import { TrackTable } from './TrackTable'
 
 class StaticTrack {
   constructor(map, latlngs) {
     this.map = map
+    this.table = new TrackTable()
     if (latlngs) {
       const wpts = []
       latlngs.forEach(latlng => {
-        wpts.push(this.addWaypoint(latlng))
+        const wpt = this.addWaypoint(latlng)
+        wpts.push(wpt)
+        const index = wpts.length - 1
+        this.table.addWaypoint(index, wpts[index - 1], wpt)
       })
       this._createConnection(wpts).addTo(this.map)
       map.fitBounds(new LatLngBounds(latlngs))

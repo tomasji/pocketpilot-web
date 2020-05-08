@@ -1,9 +1,11 @@
 import { DomUtil } from 'leaflet'
 import { getHeading } from './Utils'
+import $ from 'DOMLoaded'
 
 class TrackTable {
   constructor() {
     this.table = this.renderEmpty()
+    this._bind()
   }
   renderEmpty() {
     const wrapper = document.getElementById('controls')
@@ -57,6 +59,14 @@ class TrackTable {
     })
   }
 
+  _bind() {
+    $(() => {
+      const speed = document.querySelector('.controls-speed input[type="text"][name="speed"]')
+      speed.addEventListener('input', (e) => {
+        this.recalculateTimes(e.target.value)
+      })
+    })
+  }
   _setValues(wp1, wp2, place, hdg, dist, time) {
     if (wp2) {
       wp2.fetchAirfield()

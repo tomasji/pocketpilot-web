@@ -1,9 +1,8 @@
 import $ from 'DOMLoaded'
 
 class Controls {
-  constructor(track, table) {
+  constructor(track) {
     this.track = track
-    this.table = table
     this._bind()
   }
 
@@ -14,13 +13,6 @@ class Controls {
       const hidden = form.querySelector('input[name="waypoints"]')
       control.addEventListener('click', () => {
         hidden.value = JSON.stringify(this.track.getWaypoints().map((wp) => wp.getLatLng()))
-      })
-    })
-
-    $(() => {
-      const speed = document.querySelector('.controls-speed input[type="text"][name="speed"]')
-      speed.addEventListener('input', (e) => {
-        this.table.recalculateTimes(e.target.value)
       })
     })
   }
