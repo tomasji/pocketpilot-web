@@ -25,9 +25,9 @@ class SharePresenter extends AppPresenter
         $this->read = $read;
     }
 
-    public function renderDefault(string $t): void
+    public function renderDefault(string $id): void
     {
-        $this->template->trackJson = $this->getTrackJson($t);
+        $this->template->trackJson = $this->getTrackJson($id);
     }
 
     public function getTrackJson(string $hash): string

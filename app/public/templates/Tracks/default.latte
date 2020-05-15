@@ -7,7 +7,7 @@
 				<a href="{link map, $track->getId()}">
 					<div class="col s10 m10 l10 push-s1 push-m1 push-l1 center-align flow-text">{$track->getName()}</div>
 				</a>
-				<a href="{link Share: $track->getHash()}" target="_blank">
+				<a href="{link Share: id => $track->getHash()}" target="_blank">
 					<div class="col s2 m2 l2 right-align tooltipped" data-position="right" data-tooltip="{_'Share'}">
 						<i class="fas fa-share-square"></i>
 					</div>
