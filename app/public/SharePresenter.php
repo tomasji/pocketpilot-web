@@ -33,6 +33,10 @@ class SharePresenter extends AppPresenter
     public function getTrackJson(string $hash): string
     {
         $track = $this->read->fetchByHash($hash);
-        return $track ? $track->getTrack() : '';
+        if ($track === null) {
+            $this->flashMessage($this->translator->translate('Track does not exist.'));
+            $this->redirect('Homepage:');
+        }
+        return $track->getTrack();
     }
 }

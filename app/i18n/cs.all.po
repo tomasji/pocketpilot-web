@@ -709,3 +709,7 @@ msgid ""
 msgstr ""
 "Zobrazení správného názvu při vložení otočného bodu nad letiště nebo jiný VFR bo"
 "d."
+
+#: Added from Tracy bar
+msgid "Track does not exist."
+msgstr "Trať neexistuje."
