@@ -27,15 +27,6 @@ class AirfieldsPresenter extends Presenter
         $this->read = $read;
     }
 
-    public function checkRequirements($element): void
-    {
-        parent::checkRequirements($this->getReflection());
-        if (!$this->getUser()->isLoggedIn()) {
-            $this->getHttpResponse()->setCode(403);
-            $this->sendResponse(new JsonResponse(['error' => 'User not authenticated']));
-        }
-    }
-
     /**
      * @param string $lng
      * @param string $lat
