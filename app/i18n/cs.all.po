@@ -713,3 +713,11 @@ msgstr ""
 #: Added from Tracy bar
 msgid "Track does not exist."
 msgstr "Trať neexistuje."
+
+#: Added from Tracy bar
+msgid "Changed icons on the map"
+msgstr "Změna ikon ve zobrazení letěné trasy"
+
+#: Added from Tracy bar
+msgid "Logs displayed in descending order"
+msgstr "Sestupné seřazení logů v seznamu"
