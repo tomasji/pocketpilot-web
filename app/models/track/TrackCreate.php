@@ -34,7 +34,7 @@ class TrackCreate
      */
     public function process(string $trackName, int $userId, array $waypoints): ?ActiveRow
     {
-        Validators::assert($trackName, 'string:1..50');
+        Validators::assert($trackName, 'string:1..');
         Validators::assert($userId, 'numericint:1..');
         try {
             return $this->database->table(TrackDatabaseDef::TABLE_NAME)->insert([

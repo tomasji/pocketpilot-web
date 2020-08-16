@@ -34,7 +34,7 @@ class TrackUpdate
     public function process(int $trackId, string $trackName, array $waypoints): int
     {
         Validators::assert($trackId, 'numericint:1..');
-        Validators::assert($trackName, 'string:1..50');
+        Validators::assert($trackName, 'string:1..');
         try {
             return $this->database->table(TrackDatabaseDef::TABLE_NAME)
                 ->where(TrackDatabaseDef::COLUMN_ID, $trackId)
