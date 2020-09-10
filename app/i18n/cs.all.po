@@ -721,3 +721,11 @@ msgstr "Změna ikon ve zobrazení letěné trasy"
 #: Added from Tracy bar
 msgid "Logs displayed in descending order"
 msgstr "Sestupné seřazení logů v seznamu"
+
+#: Added from Tracy bar
+msgid "Waypoints"
+msgstr "Otočné body"
+
+#: Added from Tracy bar
+msgid "Airspace"
+msgstr "Prostory"

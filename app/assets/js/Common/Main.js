@@ -59,6 +59,13 @@ function start(win) {
       }
       main.attach(selector, apply)
     },
+    requireTabs: () => {
+      const selector = '.tabs'
+      const apply = (el) => {
+        M.Tabs.init(el)
+      }
+      main.attach(selector, apply)
+    },
     requirePulse: () => {
       const selector = '.pulse'
       const apply = (el) => {

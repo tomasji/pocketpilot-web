@@ -8,8 +8,8 @@ class TrackTable {
     this._bind()
   }
   renderEmpty() {
-    const wrapper = document.getElementById('controls')
-    const table = DomUtil.create('table', 'info-table')
+    const wrapper = document.getElementById('waypoints').querySelector('.info-table-wrapper')
+    const table = DomUtil.create('table', 'info-table waypoints')
     wrapper.insertBefore(table, wrapper.children[0])
     const header = DomUtil.create('tr', 'info-table-header', table)
     DomUtil.create('th', '', header).innerText = 'WPT'
@@ -24,12 +24,12 @@ class TrackTable {
     return table
   }
   addWaypoint(index, current, created, next) {
-    const row = DomUtil.create('tr', '')
-    const place = DomUtil.create('td', '', row)
+    const row = DomUtil.create('tr', null)
+    const place = DomUtil.create('td', null, row)
     place.innerText = 'Loading...'
-    const hdg = DomUtil.create('td', '', row)
-    const dist = DomUtil.create('td', '', row)
-    const time = DomUtil.create('td', '', row)
+    const hdg = DomUtil.create('td', null, row)
+    const dist = DomUtil.create('td', null, row)
+    const time = DomUtil.create('td', null, row)
     this.table.insertBefore(row, this.table.children[index + 1])
     this._setValues(current, created, place, hdg, dist, time)
     if (next) {
@@ -85,7 +85,7 @@ class TrackTable {
         })
     }
     if (wp1 && wp2) {
-      const speed = this.table.parentElement.querySelector('.controls-speed input[type="text"][name="speed"]').value
+      const speed = this.table.parentElement.parentElement.querySelector('.controls-speed input[type="text"][name="speed"]').value
       const km = Math.floor(wp1.getLatLng().distanceTo(wp2.getLatLng()) / 1000)
       hdg.innerText = getHeading(wp1.getLatLng(), wp2.getLatLng())
       dist.innerText = km

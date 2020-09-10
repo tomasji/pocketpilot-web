@@ -23,35 +23,70 @@ div.info {
   width: 400px;
   max-height: 400px;
   overflow: auto;
+  padding: 18px;
   @media #{$small-and-down} {
     min-width: auto;
     width: 100%;
     margin: 0;
   }
-  & > table tr {
-    td, th {
-      padding: 0;
-      font-size: 12px;
-      &:first-child {
-        width: 55%;
+  .info-table-wrapper {
+    max-height: 250px;
+    overflow: auto;
+    padding: 6px 6px 0 6px;
+  }
+  table {
+    font-size: 12px;
+    &.waypoints {
+      tr, td, th {
+        padding: 0;
+        &:first-child {
+          width: 55%;
+        }
+        &:nth-child(2),
+        &:nth-child(3),
+        &:nth-child(4)
+        {
+          text-align: right;
+          width: 15%;
+        }
       }
-      &:nth-child(2),
-      &:nth-child(3),
-      &:nth-child(4)
-      {
-        text-align: right;
-        width: 15%;
+    }
+    &.airspace {
+      tr, td, th {
+        padding: 0;
+        &:first-child {
+          width: 20%;
+        }
+        &:nth-child(2) {
+          width: 30%;
+        }
+        &:nth-child(3),
+        &:nth-child(4) {
+          text-align: right;
+          width: 25%;
+        }
       }
     }
   }
-  & > .controls-speed {
+  & .controls-speed {
     padding-top: 10px;
     & > input {
       width: 2.2rem;
       height: 2rem;
     }
   }
-  & > .controls-buttons {
+  & .controls-buttons {
     padding-top: 10px;
+  }
+  & .row {
+    margin-bottom: 10px;
+  }
+  & ul.tabs {
+    height: 26px;
+
+    .tab {
+      line-height: 26px;
+      height: 26px;
+    }
   }
 }

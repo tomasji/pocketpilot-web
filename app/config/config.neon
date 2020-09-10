@@ -24,6 +24,7 @@ services:
 	router: PP\RouterFactory::createRouter
 	- PP\Airfield\AirfieldRead
 	- PP\Airfield\AirfieldsImporter
+	- PP\Airspace\AirspaceRead
 	- PP\Controls\AirfieldsControlFactory
 	- PP\Controls\AirfieldsImportFormFactory
 	- PP\Controls\ApiKeyFormFactory

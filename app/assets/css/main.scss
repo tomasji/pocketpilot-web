@@ -1,5 +1,6 @@
 @import 'forms';
 @import 'buttons';
+@import 'scrollbar';
 @import '../../../node_modules/materialize-css/sass/materialize.scss';
 @import '../../../node_modules/leaflet/dist/leaflet';
 
@@ -113,5 +114,30 @@ textarea.message {
 .card-panel {
   @media #{$small-and-down} {
     padding: 10px;
+  }
+}
+
+.tabs {
+  .tab {
+    a {
+      color: #64B5F6;
+    }
+
+    a:hover {
+      color:#42A5F5;
+    }
+
+    a:focus.active {
+      color:#42A5F5;
+      background-color: transparent;
+    }
+
+    a.active {
+      color:#42A5F5;
+      background-color: transparent;
+    }
+  }
+  .indicator {
+    background-color:#42A5F5;
   }
 }
