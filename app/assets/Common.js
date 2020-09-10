@@ -12,4 +12,5 @@ $(() => {
   common.requireTooltip()
   common.requireFlashMessage()
   common.requireConfirmation()
+  common.requireTabs()
 })

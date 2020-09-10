@@ -3,24 +3,26 @@ import { createEntryPoint, createTurningPoint } from './WaypointFactory'
 import { calculateDestination, getHeading, middle } from './Utils'
 import { Controls } from './Controls'
 import { TrackTable } from './TrackTable'
+import { AirspaceTable } from './AirspaceTable'
 
 class Track {
   constructor(map, latlngs) {
     this.map = map
     this.waypoints = []
     this.line = null
-    this.table = new TrackTable()
+    this.trackTable = new TrackTable()
+    this.airspaceTable = new AirspaceTable(this)
     this.controls = new Controls(this)
     if (latlngs) {
-      latlngs.forEach(latlng => {
-        const wp = this.addWaypoint(latlng, this.waypoints.length)
+      latlngs.forEach((latlng, i) => {
+        const wp = this.addWaypoint(latlng, this.waypoints.length, i === latlngs.length - 1)
         DomUtil.removeClass(wp._icon, 'map-marker-pulse')
       })
       map.fitBounds(new LatLngBounds(latlngs))
     }
   }
-  addWaypoint(latlng, index) {
-    const wp = this._createWaypoint(latlng, index)
+  addWaypoint(latlng, index, invalidateAirspace = true) {
+    const wp = this._createWaypoint(latlng, index, invalidateAirspace)
     wp.addTo(this.map)
     return wp
   }
@@ -37,12 +39,12 @@ class Track {
     return connection
   }
 
-  _createWaypoint(latlng, index) {
+  _createWaypoint(latlng, index, invalidateAirspaceOnAdd) {
     let wp
     if (this.waypoints.length < 1) {
       wp = createEntryPoint(
         latlng,
-        (o) => this._onWaypointAdd(o),
+        (o) => this._onWaypointAdd(o, invalidateAirspaceOnAdd),
         (o) => this._onWaypointDrag(o),
         (o) => this._onWaypointDragEnd(o),
         (o) => this._onAddClick(o)
@@ -50,7 +52,7 @@ class Track {
     } else {
       wp = createTurningPoint(
         latlng,
-        (o) => this._onWaypointAdd(o),
+        (o) => this._onWaypointAdd(o, invalidateAirspaceOnAdd),
         (o) => this._onWaypointRemove(o),
         (o) => this._onWaypointDrag(o),
         (o) => this._onWaypointDragEnd(o),
@@ -87,15 +89,18 @@ class Track {
     }
   }
 
-  _onWaypointAdd(wp) {
+  _onWaypointAdd(wp, invalidateAirspace) {
     if (this.waypoints.length > 1) {
       this._recreateConnection()
     }
     const index = this.waypoints.indexOf(wp)
     if (this.waypoints[index]) {
-      this.table.addWaypoint(index, this.waypoints[index - 1], wp, this.waypoints[index + 1])
+      this.trackTable.addWaypoint(index, this.waypoints[index - 1], wp, this.waypoints[index + 1])
     } else {
-      this.table.addWaypoint(index, this.waypoints[index - 1], wp)
+      this.trackTable.addWaypoint(index, this.waypoints[index - 1], wp)
+    }
+    if (invalidateAirspace) {
+      this.airspaceTable.invalidate()
     }
   }
 
@@ -105,15 +110,17 @@ class Track {
 
   _onWaypointDragEnd(wp) {
     const index = this.waypoints.indexOf(wp)
-    this.table.editWaypoint(index, this.waypoints[index - 1], wp, this.waypoints[index + 1])
+    this.trackTable.editWaypoint(index, this.waypoints[index - 1], wp, this.waypoints[index + 1])
     wp.openPopup()
+    this.airspaceTable.invalidate()
   }
 
   _onWaypointRemove(wp) {
     const index = this.waypoints.indexOf(wp)
     this.waypoints.splice(index, 1)
     this._recreateConnection()
-    this.table.removeWaypoint(index, this.waypoints[index - 1], this.waypoints[index])
+    this.trackTable.removeWaypoint(index, this.waypoints[index - 1], this.waypoints[index])
+    this.airspaceTable.invalidate()
   }
 
   _predictPositionAfter(wp) {

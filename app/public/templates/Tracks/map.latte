@@ -2,9 +2,24 @@
 <div id="app">
 	<div id="map"{if $trackJson} data-track="{$trackJson}"{/if} data-editable="true"></div>
 	<div id="controls" class="info card-panel hoverable">
-		<div class="controls-speed left">
-			<input title="{_'Speed'}" name="speed" type="text" value="150"><span>km/h</span>
+		<div class="row">
+			<div class="col s12">
+				<ul class="tabs">
+					<li class="tab col s6">
+						<a href="#waypoints" class="active">{_'Waypoints'}</a>
+					</li>
+					<li class="tab col s6">
+						<a href="#airspace">{_'Airspace'}</a>
+					</li>
+				</ul>
+			</div>
 		</div>
+		<div id="waypoints" class="col s12">
+			<div class="controls-speed left">
+				<input title="{_'Speed'}" name="speed" type="text" value="150"><span>km/h</span>
+			</div>
+		</div>
+		<div id="airspace"></div>
 		<div class="controls-buttons right">
 			<button data-target="save" class="save waves-effect blue lighten-1 btn btn-action modal-trigger">
 				<i class="fas fa-save"></i>
