@@ -1,0 +1,22 @@
+<div>
+    {_'Number of points in DB'}: {count($poi)}
+</div>
+<table class="highlight responsive-table">
+    <thead>
+    <tr>
+        <th>{_'Name'}</th>
+        <th>{_'Description'}</th>
+        <th>Longitude</th>
+        <th>Latitude</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr n:foreach="$poi as $point">
+        <td>{$point->getName()}</td>
+        <td>{$point->getDescription()}</td>
+        <td>{$point->getLongitude()}</td>
+        <td>{$point->getLatitude()}</td>
+    </tr>
+    </tbody>
+</table>

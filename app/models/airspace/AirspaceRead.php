@@ -41,9 +41,10 @@ class AirspaceRead
                     AirspaceDatabaseDef::COLUMN_UPPER_BOUND  . ', ' .
                     AirspaceDatabaseDef::COLUMN_UPPER_BOUND_DATUM  . ' ' .
                 "FROM " . AirspaceDatabaseDef::TABLE_NAME . ' ' .
-                "WHERE ST_Intersects(airspace.location, ST_GeomFromText('{$this->getLinestringBy($latlngs)}', 4326)) " .
+                "WHERE ST_Intersects(" . AirspaceDatabaseDef::COLUMN_LOCATION . ", ST_GeomFromText(?, 4326)) " .
                 "AND " . AirspaceDatabaseDef::COLUMN_TYPE . " NOT IN ('SECTOR', 'FIR') " .
-                "ORDER BY " . AirspaceDatabaseDef::COLUMN_TYPE . " ASC, " . AirspaceDatabaseDef::COLUMN_NAME . " ASC"
+                "ORDER BY " . AirspaceDatabaseDef::COLUMN_TYPE . " ASC, " . AirspaceDatabaseDef::COLUMN_NAME . " ASC",
+                $this->getLinestringBy($latlngs)
             )->fetchAll();
         foreach ($rows as $row) {
             $ret[] = $this->toEntity($row);

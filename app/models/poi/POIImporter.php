@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PP\Airfield;
+namespace PP\POI;
 
 use Nette\Database\Context;
 use Nette\Http\FileUpload;
@@ -14,7 +14,7 @@ use UnexpectedValueException;
 /**
  * @author Andrej Souček
  */
-class AirfieldsImporter
+class POIImporter
 {
     use SmartObject;
 
@@ -45,25 +45,25 @@ class AirfieldsImporter
     }
 
     /**
-     * @param array<AirfieldEntry> $airfields
+     * @param array<POIEntry> $POI
      * @throws RuntimeException
      */
-    private function insert(array $airfields): void
+    private function insert(array $POI): void
     {
         try {
             $this->database->beginTransaction();
-            if (count($airfields) <= 0) {
+            if (count($POI) <= 0) {
                 throw new RuntimeException('Empty file.');
             }
-            $this->database->table(AirfieldDatabaseDef::TABLE_NAME)->delete();
-            /** @var AirfieldEntry $airfield */
-            foreach ($airfields as $airfield) {
-                $this->database->table(AirfieldDatabaseDef::TABLE_NAME)->insert([
-                    AirfieldDatabaseDef::COLUMN_NAME => $airfield->getName(),
-                    AirfieldDatabaseDef::COLUMN_DESCRIPTION => $airfield->getDescription(),
-                    AirfieldDatabaseDef::COLUMN_LOCATION => $this->database::literal(
+            $this->database->table(POIDatabaseDef::TABLE_NAME)->delete();
+            /** @var POIEntry $point */
+            foreach ($POI as $point) {
+                $this->database->table(POIDatabaseDef::TABLE_NAME)->insert([
+                    POIDatabaseDef::COLUMN_NAME => $point->getName(),
+                    POIDatabaseDef::COLUMN_DESCRIPTION => $point->getDescription(),
+                    POIDatabaseDef::COLUMN_LOCATION => $this->database::literal(
                         "ST_GeogFromText(" .
-                        "'POINT(' || {$airfield->getLongitude()} || ' ' || {$airfield->getLatitude()} || ')')"
+                        "'POINT(' || {$point->getLongitude()} || ' ' || {$point->getLatitude()} || ')')"
                     )
                 ]);
             }
@@ -81,7 +81,7 @@ class AirfieldsImporter
         unset($rows[0]);
         foreach ($rows as $row) {
             $values = str_getcsv($row, ";");
-            $ret[] = new AirfieldEntry($values[0], $values[1], $values[2], $values[3]);
+            $ret[] = new POIEntry($values[0], $values[1], $values[2], $values[3]);
         }
         return $ret;
     }

@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace PP\Presenters;
 
-use PP\Controls\AirfieldsControl;
-use PP\Controls\AirfieldsControlFactory;
-use PP\Controls\AirfieldsImportForm;
-use PP\Controls\AirfieldsImportFormFactory;
+use PP\Controls\POIControl;
+use PP\Controls\POIControlFactory;
+use PP\Controls\POIImportForm;
+use PP\Controls\POIImportFormFactory;
 
 /**
  * @author Andrej Souček
  */
-class AirfieldsPresenter extends AppPresenter
+class POIPresenter extends AppPresenter
 {
     use Authentication {
         Authentication::checkRequirements as commonAuthentication;
@@ -20,22 +20,22 @@ class AirfieldsPresenter extends AppPresenter
     use Navbar;
 
     /**
-     * @var AirfieldsImportFormFactory
+     * @var POIImportFormFactory
      */
     private $formFactory;
 
     /**
-     * @var AirfieldsControlFactory
+     * @var POIControlFactory
      */
-    private $airfieldsControlFactory;
+    private $POIControlFactory;
 
     public function __construct(
-        AirfieldsImportFormFactory $formFactory,
-        AirfieldsControlFactory $airfieldsControlFactory
+        POIImportFormFactory $formFactory,
+        POIControlFactory $POIControlFactory
     ) {
         parent::__construct();
         $this->formFactory = $formFactory;
-        $this->airfieldsControlFactory = $airfieldsControlFactory;
+        $this->POIControlFactory = $POIControlFactory;
     }
 
     public function checkRequirements($element): void
@@ -47,7 +47,7 @@ class AirfieldsPresenter extends AppPresenter
         }
     }
 
-    protected function createComponentForm(): AirfieldsImportForm
+    protected function createComponentForm(): POIImportForm
     {
         $c = $this->formFactory->create();
         $c->onError[] = function ($m) {
@@ -56,8 +56,8 @@ class AirfieldsPresenter extends AppPresenter
         return $c;
     }
 
-    protected function createComponentAirfields(): AirfieldsControl
+    protected function createComponentPoi(): POIControl
     {
-        return $this->airfieldsControlFactory->create();
+        return $this->POIControlFactory->create();
     }
 }

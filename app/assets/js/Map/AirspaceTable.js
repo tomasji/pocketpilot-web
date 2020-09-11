@@ -18,10 +18,16 @@ class AirspaceTable {
     return table
   }
   invalidate() {
-    const path = this._formatCoordinates(this.track.getWaypoints())
-    naja.makeRequest('GET', `/api/v1/airspace?path=${path}`, null, {
-      history: false
-    })
+    naja.makeRequest(
+      'GET',
+      '/api/v1/airspace',
+      {
+        path: this._formatCoordinates(this.track.getWaypoints())
+      },
+      {
+        history: false
+      }
+    )
       .then((v) => {
         this.table.parentElement.removeChild(this.table)
         this.table = this.renderEmpty()

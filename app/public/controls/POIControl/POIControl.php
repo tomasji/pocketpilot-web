@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace PP\Controls;
 
 use GettextTranslator\Gettext;
-use PP\Airfield\AirfieldRead;
+use PP\POI\POIRead;
 
 /**
  * @author Andrej Souček
  */
-class AirfieldsControl extends BaseControl
+class POIControl extends BaseControl
 {
 
     /**
-     * @var AirfieldRead
+     * @var POIRead
      */
     private $read;
 
@@ -23,7 +23,7 @@ class AirfieldsControl extends BaseControl
      */
     private $translator;
 
-    public function __construct(AirfieldRead $read, Gettext $translator)
+    public function __construct(POIRead $read, Gettext $translator)
     {
         $this->read = $read;
         $this->translator = $translator;
@@ -31,19 +31,19 @@ class AirfieldsControl extends BaseControl
 
     public function render(): void
     {
-        $this->template->setFile(__DIR__ . '/airfieldsControl.latte');
+        $this->template->setFile(__DIR__ . '/poiControl.latte');
         $this->template->setTranslator($this->translator);
-        $this->template->airfields = $this->getAirfields();
+        $this->template->poi = $this->getPOI();
         $this->template->render();
     }
 
-    public function getAirfields(): array
+    public function getPOI(): array
     {
         return $this->read->fetchAll();
     }
 }
 
-interface AirfieldsControlFactory
+interface POIControlFactory
 {
-    public function create(): AirfieldsControl;
+    public function create(): POIControl;
 }

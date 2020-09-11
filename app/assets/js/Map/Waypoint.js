@@ -8,7 +8,7 @@ class Waypoint extends Marker {
     this.geocoder = L.Control.Geocoder.nominatim()
   }
   fetchAirfield() {
-    return naja.makeRequest('GET', '/api/v1/airfields', { lat: this.getLatLng().lat, lng: this.getLatLng().lng }, { history: false })
+    return naja.makeRequest('GET', '/api/v1/poi', { lat: this.getLatLng().lat, lng: this.getLatLng().lng }, { history: false })
   }
   fetchPlace() {
     return new Promise((resolve) => {

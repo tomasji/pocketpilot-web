@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace PP\Airfield;
+namespace PP\POI;
 
 use Nette\SmartObject;
 
 /**
  * @author Andrej Souček
  */
-class AirfieldEntry
+class POIEntry
 {
     use SmartObject;
 

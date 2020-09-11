@@ -22,21 +22,21 @@ services:
 	dirResolver: PP\DirResolver(%appDir%, %scriptsDir%, %manifestDir%)
 	facebook: Facebook\Facebook( {app_id: %facebook.app_id%, app_secret: %facebook.app_secret%, default_graph_version: %facebook.dgv%} )
 	router: PP\RouterFactory::createRouter
-	- PP\Airfield\AirfieldRead
-	- PP\Airfield\AirfieldsImporter
 	- PP\Airspace\AirspaceRead
-	- PP\Controls\AirfieldsControlFactory
-	- PP\Controls\AirfieldsImportFormFactory
 	- PP\Controls\ApiKeyFormFactory
 	- PP\Controls\ContactFormFactory
 	- PP\Controls\LoginFormFactory
 	- PP\Controls\NavbarControlFactory
 	- PP\Controls\NewPasswordFormFactory
+	- PP\Controls\POIControlFactory
+	- PP\Controls\POIImportFormFactory
 	- PP\Controls\PasswordRecoveryFormFactory
 	- PP\Controls\RegisterFormFactory
 	- PP\Controls\SaveTrackFormFactory
 	- PP\Controls\WebpackControlFactory
 	- PP\FacebookService
+	- PP\POI\POIRead
+	- PP\POI\POIImporter
 	- PP\SignModel
 	- PP\Track\TrackCreate
 	- PP\Track\TrackDelete

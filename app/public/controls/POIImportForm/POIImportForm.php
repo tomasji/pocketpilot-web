@@ -6,14 +6,14 @@ namespace PP\Controls;
 
 use GettextTranslator\Gettext;
 use Nette\Application\UI\Form;
-use PP\Airfield\AirfieldsImporter;
+use PP\POI\POIImporter;
 use RuntimeException;
 use UnexpectedValueException;
 
 /**
  * @author Andrej Souček
  */
-class AirfieldsImportForm extends BaseControl
+class POIImportForm extends BaseControl
 {
 
     /**
@@ -22,24 +22,24 @@ class AirfieldsImportForm extends BaseControl
     public $onError = [];
 
     /**
-     * @var AirfieldsImporter
+     * @var POIImporter
      */
-    private $airfieldsImporter;
+    private $POIImporter;
 
     /**
      * @var Gettext
      */
     private $translator;
 
-    public function __construct(AirfieldsImporter $airfieldsImporter, Gettext $translator)
+    public function __construct(POIImporter $POIImporter, Gettext $translator)
     {
-        $this->airfieldsImporter = $airfieldsImporter;
+        $this->POIImporter = $POIImporter;
         $this->translator = $translator;
     }
 
     public function render(): void
     {
-        $this->template->setFile(__DIR__ . '/airfieldsImportForm.latte');
+        $this->template->setFile(__DIR__ . '/poiImportForm.latte');
         $this->template->setTranslator($this->translator);
         $this->template->render();
     }
@@ -57,7 +57,7 @@ class AirfieldsImportForm extends BaseControl
     public function processForm(Form $form): void
     {
         try {
-            $this->airfieldsImporter->process($form->values->file);
+            $this->POIImporter->process($form->values->file);
         } catch (UnexpectedValueException $e) {
             $this->onError($this->translator->translate('Unsupported file type.'));
         } catch (RuntimeException $e) {
@@ -66,7 +66,7 @@ class AirfieldsImportForm extends BaseControl
     }
 }
 
-interface AirfieldsImportFormFactory
+interface POIImportFormFactory
 {
-    public function create(): AirfieldsImportForm;
+    public function create(): POIImportForm;
 }
