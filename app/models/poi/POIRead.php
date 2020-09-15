@@ -76,9 +76,9 @@ class POIRead
             return '';
         }
         if ($runway === false) {
-            return ' AND ' . POIDatabaseDef::COLUMN_NAME . " NOT SIMILAR TO '^(LK|LZ)[A-Z].+$'";
+            return ' AND ' . POIDatabaseDef::COLUMN_NAME . " !~ '^(LK|LZ)[A-Z].+$'";
         }
-        return ' AND ' . POIDatabaseDef::COLUMN_NAME . " SIMILAR TO '^(LK|LZ)[A-Z].+$'";
+        return ' AND ' . POIDatabaseDef::COLUMN_NAME . " ~ '^(LK|LZ)[A-Z].+$'";
     }
 
     private function toEntity(IRow $data): POIEntry
