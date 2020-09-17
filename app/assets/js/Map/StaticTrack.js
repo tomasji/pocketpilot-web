@@ -1,8 +1,8 @@
-import { createStaticWaypoint } from './WaypointFactory'
 import { LatLngBounds, Polyline } from 'leaflet'
-import { TrackTable } from './TrackTable'
+import TrackTable from './TrackTable'
+import WaypointFactory from './WaypointFactory'
 
-class StaticTrack {
+export default class StaticTrack {
   constructor(map, latlngs) {
     this.map = map
     this.table = new TrackTable()
@@ -19,7 +19,7 @@ class StaticTrack {
     }
   }
   addWaypoint(latlng) {
-    const wp = createStaticWaypoint(latlng)
+    const wp = WaypointFactory.createStaticWaypoint(latlng)
     wp.addTo(this.map)
     return wp
   }
@@ -27,4 +27,3 @@ class StaticTrack {
     return new Polyline(wpts.map(wp => wp.getLatLng()), { color: '#FF00FF', weight: 4 })
   }
 }
-export { StaticTrack }

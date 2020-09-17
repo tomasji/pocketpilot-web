@@ -1,8 +1,8 @@
-import { GeoJSON, DomUtil } from 'leaflet'
-import { Waypoint } from '../Map/Waypoint'
-import { getHeading } from '../Map/Utils'
-import { Main } from '../Main'
+import { DomUtil, GeoJSON } from 'leaflet'
 import $ from 'DOMLoaded'
+import Main from '../Main'
+import Waypoint from '../Map/Waypoint'
+import { getHeading } from '../Map/Utils'
 
 function start(win) {
   const main = new Main(win)
@@ -59,7 +59,7 @@ function start(win) {
         })
 
         $(() => {
-          speed.addEventListener('input', function() {
+          speed.addEventListener('input', () => {
             if (speed.value && speed.value > 0) {
               totalTime = 0
               Array.from(tableBody.children).slice(2).forEach(row => {

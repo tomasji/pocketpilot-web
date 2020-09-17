@@ -1,9 +1,9 @@
 import { dom, library } from '@fortawesome/fontawesome-svg-core'
-import { faFacebookF } from '@fortawesome/free-brands-svg-icons'
 import {
-  faTable, faMapMarkedAlt, faBookOpen, faSyncAlt, faEnvelopeOpen, faSignOutAlt, faCalendar, faArrowsAltH,
-  faTrash, faPlus, faSave, faBars, faPencilAlt, faBriefcase, faGlobeEurope, faShareSquare, faDatabase
+  faArrowsAltH, faBars, faBookOpen, faBriefcase, faCalendar, faDatabase, faEnvelopeOpen, faGlobeEurope,
+  faMapMarkedAlt, faPencilAlt, faPlus, faSave, faShareSquare, faSignOutAlt, faSyncAlt, faTable, faTrash
 } from '@fortawesome/free-solid-svg-icons'
+import { faFacebookF } from '@fortawesome/free-brands-svg-icons'
 
 export default function(el) {
   library.add(

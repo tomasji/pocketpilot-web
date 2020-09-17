@@ -1,4 +1,4 @@
-class Main {
+export default class Main {
   constructor(win, snippetPostProcessor = null) {
     this.win = win
     this.snippetPostProcessor = snippetPostProcessor
@@ -15,5 +15,3 @@ class Main {
     apply(this.win.document)
   }
 }
-
-export { Main }

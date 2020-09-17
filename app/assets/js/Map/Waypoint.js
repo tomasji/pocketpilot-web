@@ -1,8 +1,8 @@
-import { Marker, CRS } from 'leaflet'
 import 'leaflet-control-geocoder'
+import { CRS, Marker } from 'leaflet'
 import naja from 'naja'
 
-class Waypoint extends Marker {
+export default class Waypoint extends Marker {
   constructor(latlng, options) {
     super(latlng, options)
     this.geocoder = L.Control.Geocoder.nominatim()
@@ -16,5 +16,3 @@ class Waypoint extends Marker {
     })
   }
 }
-
-export { Waypoint }

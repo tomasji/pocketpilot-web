@@ -154,6 +154,7 @@ module.exports = {
             'before': false,
             'after': true
         }],
+        'sort-imports': 'error',
         'space-before-blocks': [2, 'always'],
         'space-before-function-paren': [2, 'never'],
         'space-in-parens': [2, 'never'],

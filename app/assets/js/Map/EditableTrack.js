@@ -1,11 +1,11 @@
-import { DomUtil, Polyline, LatLngBounds } from 'leaflet'
-import { createEntryPoint, createTurningPoint } from './WaypointFactory'
+import { DomUtil, LatLngBounds, Polyline } from 'leaflet'
 import { calculateDestination, getHeading, middle } from './Utils'
-import { Controls } from './Controls'
-import { TrackTable } from './TrackTable'
-import { AirspaceTable } from './AirspaceTable'
+import AirspaceTable from './AirspaceTable'
+import Controls from './Controls'
+import TrackTable from './TrackTable'
+import WaypointFactory from './WaypointFactory'
 
-class Track {
+export default class EditableTrack {
   constructor(map, latlngs) {
     this.map = map
     this.waypoints = []
@@ -42,7 +42,7 @@ class Track {
   _createWaypoint(latlng, index, invalidateAirspaceOnAdd) {
     let wp
     if (this.waypoints.length < 1) {
-      wp = createEntryPoint(
+      wp = WaypointFactory.createEntryPoint(
         latlng,
         (o) => this._onWaypointAdd(o, invalidateAirspaceOnAdd),
         (o) => this._onWaypointDrag(o),
@@ -50,7 +50,7 @@ class Track {
         (o) => this._onAddClick(o)
       )
     } else {
-      wp = createTurningPoint(
+      wp = WaypointFactory.createTurningPoint(
         latlng,
         (o) => this._onWaypointAdd(o, invalidateAirspaceOnAdd),
         (o) => this._onWaypointRemove(o),
@@ -143,4 +143,3 @@ class Track {
     conn.addTo(this.map)
   }
 }
-export { Track }

@@ -1,6 +1,6 @@
 import $ from 'DOMLoaded'
 
-class Controls {
+export default class Controls {
   constructor(track) {
     this.track = track
     this._bind()
@@ -17,5 +17,3 @@ class Controls {
     })
   }
 }
-
-export { Controls }

@@ -1,7 +1,7 @@
 import { DomUtil } from 'leaflet'
 import naja from 'naja'
 
-class AirspaceTable {
+export default class AirspaceTable {
   constructor(track) {
     this.track = track
     this.table = this.renderEmpty()
@@ -60,5 +60,3 @@ class AirspaceTable {
     return coordinates.join('|')
   }
 }
-
-export { AirspaceTable }

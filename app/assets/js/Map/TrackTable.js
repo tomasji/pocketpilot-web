@@ -1,8 +1,8 @@
+import $ from 'DOMLoaded'
 import { DomUtil } from 'leaflet'
 import { getHeading } from './Utils'
-import $ from 'DOMLoaded'
 
-class TrackTable {
+export default class TrackTable {
   constructor() {
     this.table = this.renderEmpty()
     this._bind()
@@ -108,4 +108,3 @@ class TrackTable {
     summary[3].innerText = totalTime + ' min'
   }
 }
-export { TrackTable }

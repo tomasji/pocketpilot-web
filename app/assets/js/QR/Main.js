@@ -1,5 +1,5 @@
+import Main from '../Main'
 import qrcode from 'qrcode-generator-es6'
-import { Main } from '../Main'
 
 function start(win) {
   const main = new Main(win)
@@ -8,7 +8,7 @@ function start(win) {
     requireQR: () => {
       const selector = '.qr-code'
       const apply = (el) => {
-				const qr = new qrcode(0, 'M') // eslint-disable-line
+        const qr = new qrcode(0, 'M') // eslint-disable-line
         const selectors = el.dataset.qrValues
         const data = []
         selectors.split(',').forEach(selector => {

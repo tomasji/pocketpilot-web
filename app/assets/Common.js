@@ -1,6 +1,6 @@
 import './css/main.scss'
-import { common } from './js/Common/Main'
 import $ from 'DOMLoaded'
+import { common } from './js/Common/Main'
 
 $(() => {
   common.requireIcons()

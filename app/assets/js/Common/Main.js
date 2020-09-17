@@ -1,8 +1,8 @@
-import naja from 'naja'
 import M from 'materialize-css'
+import Main from '../Main'
+import SnippetPostProcessor from '../SnippetPostProcessor'
 import initIcons from './icons'
-import { Main } from '../Main'
-import { SnippetPostProcessor } from '../SnippetPostProcessor'
+import naja from 'naja'
 
 function start(win) {
   const snippetPostProcessor = new SnippetPostProcessor()
@@ -15,12 +15,12 @@ function start(win) {
     requireNetteForms: () => {
       window.Nette = require('nette-forms')
       window.Nette.initOnLoad()
-      window.Nette.showFormErrors = function(form, errors) {
-        var messages = []
-        var focusElem
-        for (var i = 0; i < errors.length; i++) {
-          var elem = errors[i].element
-          var message = errors[i].message
+      window.Nette.showFormErrors = (form, errors) => {
+        const messages = []
+        let focusElem
+        for (let i = 0; i < errors.length; i++) {
+          const elem = errors[i].element
+          const message = errors[i].message
           if (messages.indexOf(message) < 0) {
             messages.push(message)
             if (!focusElem && elem.focus) {
@@ -100,11 +100,11 @@ function start(win) {
         if (!cb || !selector) return
         const ele = document.querySelector(modalSel)
         M.Modal.init(ele)
-        el.addEventListener('click', function() {
+        el.addEventListener('click', () => {
           const positiveBtn = ele.querySelector('.modal-content > a.positive')
+          const modal = M.Modal.getInstance(ele)
           positiveBtn.setAttribute('href', cb)
-          const inst = M.Modal.getInstance(ele)
-          inst.open()
+          modal.open()
         })
       }
       main.attach(selector, apply)

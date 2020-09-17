@@ -1,6 +1,6 @@
 import initIcons from './Common/icons'
 
-class SnippetPostProcessor {
+export default class SnippetPostProcessor {
   constructor() {
     this.decorators = []
   }
@@ -19,5 +19,3 @@ class SnippetPostProcessor {
     })
   }
 }
-
-export { SnippetPostProcessor }
