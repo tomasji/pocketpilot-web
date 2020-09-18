@@ -102,7 +102,7 @@ export default class TrackTable {
           wpt.fetchPlace()
             .then((results) => {
               const address = results[0].properties.address
-              place.innerText = address.suburb || address.village || address.town || address.city || 'Waypoint'
+              place.innerText = address.village || address.suburb || address.village || address.town || address.city || 'Waypoint'
             })
             .catch(() => {
               place.innerText = 'Waypoint'
