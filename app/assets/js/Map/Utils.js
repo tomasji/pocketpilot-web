@@ -11,6 +11,9 @@ export function getHeading(latlngA, latlngB) {
   let hdg = Math.atan2(y, x)
   hdg = parseInt(hdg * r2d)
   hdg = (hdg + 360) % 360
+  if (hdg === 0) {
+    return 360
+  }
   return hdg
 }
 

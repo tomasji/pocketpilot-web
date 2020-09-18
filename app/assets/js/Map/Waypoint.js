@@ -12,7 +12,7 @@ export default class Waypoint extends Marker {
   }
   fetchPlace() {
     return new Promise((resolve) => {
-      this.geocoder.reverse(this.getLatLng(), CRS.scale(12), resolve)
+      this.geocoder.reverse(this.getLatLng(), CRS.scale(14), resolve)
     })
   }
 }

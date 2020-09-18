@@ -31,25 +31,27 @@ export default class TrackTable {
     const dist = DomUtil.create('td', null, row)
     const time = DomUtil.create('td', null, row)
     this.table.insertBefore(row, this.table.children[index + 1])
-    this._setValues(current, created, place, hdg, dist, time)
+    this._setValues(current, created, hdg, dist, time)
+    this._setPlace(created, place)
     if (next) {
       const nextCells = this.table.children[index + 2].children
-      this._setValues(created, next, nextCells[0], nextCells[1], nextCells[2], nextCells[3])
+      this._setValues(created, next, nextCells[1], nextCells[2], nextCells[3])
     }
   }
   editWaypoint(index, previous, current, next) {
     const currCells = this.table.children[index + 1].children
-    this._setValues(previous, current, currCells[0], currCells[1], currCells[2], currCells[3])
+    this._setValues(previous, current, currCells[1], currCells[2], currCells[3])
+    this._setPlace(current, currCells[0])
     if (this.table.children[index + 2]) {
       const nextCells = this.table.children[index + 2].children
-      this._setValues(current, next, nextCells[0], nextCells[1], nextCells[2], nextCells[3])
+      this._setValues(current, next, nextCells[1], nextCells[2], nextCells[3])
     }
   }
   removeWaypoint(index, previous, next) {
     DomUtil.remove(this.table.children[index + 1])
     if (this.table.children[index + 1]) {
       const cells = this.table.children[index + 1].children
-      this._setValues(previous, next, cells[0], cells[1], cells[2], cells[3])
+      this._setValues(previous, next, cells[1], cells[2], cells[3])
     }
   }
   recalculateTimes(speed) {
@@ -67,23 +69,7 @@ export default class TrackTable {
       })
     })
   }
-  _setValues(wp1, wp2, place, hdg, dist, time) {
-    if (wp2) {
-      wp2.fetchAirfield()
-        .then(result => {
-          if (result.hasOwnProperty('name')) {
-            place.innerText = result.name
-          } else {
-            wp2.fetchPlace()
-              .then((results) => {
-                place.innerText = place.innerText = results[0].properties.address.city || results[0].properties.address.town || 'Waypoint'
-              })
-              .catch(() => {
-                place.innerText = 'Waypoint'
-              })
-          }
-        })
-    }
+  _setValues(wp1, wp2, hdg, dist, time) {
     if (wp1 && wp2) {
       const speed = this.table.parentElement.parentElement.querySelector('.controls-speed input[type="text"][name="speed"]').value
       const km = Math.floor(wp1.getLatLng().distanceTo(wp2.getLatLng()) / 1000)
@@ -106,5 +92,22 @@ export default class TrackTable {
     })
     summary[2].innerText = totalDist + ' km'
     summary[3].innerText = totalTime + ' min'
+  }
+  _setPlace(wpt, place) {
+    wpt.fetchAirfield()
+      .then(result => {
+        if (result.hasOwnProperty('name')) {
+          place.innerText = result.name
+        } else {
+          wpt.fetchPlace()
+            .then((results) => {
+              const address = results[0].properties.address
+              place.innerText = address.suburb || address.village || address.town || address.city || 'Waypoint'
+            })
+            .catch(() => {
+              place.innerText = 'Waypoint'
+            })
+        }
+      })
   }
 }

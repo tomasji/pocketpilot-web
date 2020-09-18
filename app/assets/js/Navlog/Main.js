@@ -31,7 +31,8 @@ function start(win) {
               } else {
                 wpt.fetchPlace()
                   .then((results) => {
-                    place.value = results[0].properties.address.city || results[0].properties.address.town || 'Waypoint'
+                    const address = results[0].properties.address
+                    place.innerText = address.suburb || address.village || address.town || address.city || 'Waypoint'
                   })
                   .catch(() => {
                     place.value = 'Waypoint'
