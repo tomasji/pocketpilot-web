@@ -28,11 +28,21 @@ class AirspaceEntry
      */
     private $verticalBounds;
 
-    public function __construct(string $name, string $type, VerticalBounds $verticalBounds)
-    {
+    /**
+     * @var HorizontalBounds
+     */
+    private $horizontalBounds;
+
+    public function __construct(
+        string $name,
+        string $type,
+        VerticalBounds $verticalBounds,
+        HorizontalBounds $horizontalBounds
+    ) {
         $this->name = $name;
         $this->type = $type;
         $this->verticalBounds = $verticalBounds;
+        $this->horizontalBounds = $horizontalBounds;
     }
 
     public function getName(): string
@@ -48,5 +58,10 @@ class AirspaceEntry
     public function getVerticalBounds(): VerticalBounds
     {
         return $this->verticalBounds;
+    }
+
+    public function getHorizontalBounds(): HorizontalBounds
+    {
+        return $this->horizontalBounds;
     }
 }

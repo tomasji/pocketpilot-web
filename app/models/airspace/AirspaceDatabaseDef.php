@@ -18,5 +18,7 @@ class AirspaceDatabaseDef
         COLUMN_LOWER_BOUND_DATUM = 'bound_lower_datum',
         COLUMN_UPPER_BOUND = 'bound_upper',
         COLUMN_UPPER_BOUND_DATUM = 'bound_upper_datum',
-        COLUMN_LOCATION = 'location';
+        COLUMN_LOCATION = 'location',
+        ALIAS_START = 'start',
+        ALIAS_END  = 'end';
 }

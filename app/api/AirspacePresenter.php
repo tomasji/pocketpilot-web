@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace PP\API;
 
 use Nette\Application\Responses\JsonResponse;
-use Nette\Application\Responses\VoidResponse;
 use Nette\Application\UI\Presenter;
 use PP\Airspace\AirspaceEntry;
 use PP\Airspace\AirspaceRead;
+use PP\Airspace\RelativePosition;
 
 /**
  * @author Andrej Souček
@@ -47,12 +47,21 @@ class AirspacePresenter extends Presenter
             $x = new \stdClass();
             $x->name = $intersection->getName();
             $x->type = $intersection->getType();
-            $bounds = new \stdClass();
-            $bounds->lower = $intersection->getVerticalBounds()->getLowerBound();
-            $bounds->lowerDatum = $intersection->getVerticalBounds()->getLowerBoundDatum();
-            $bounds->upper = $intersection->getVerticalBounds()->getUpperBound();
-            $bounds->upperDatum = $intersection->getVerticalBounds()->getUpperBoundDatum();
-            $x->bounds = $bounds;
+            $verticalBounds = new \stdClass();
+            $verticalBounds->lower = $intersection->getVerticalBounds()->getLowerBound();
+            $verticalBounds->lowerDatum = $intersection->getVerticalBounds()->getLowerBoundDatum();
+            $verticalBounds->upper = $intersection->getVerticalBounds()->getUpperBound();
+            $verticalBounds->upperDatum = $intersection->getVerticalBounds()->getUpperBoundDatum();
+            $x->verticalBounds = $verticalBounds;
+            $horizontalBounds = [];
+            /** @var RelativePosition $relativePosition */
+            foreach ($intersection->getHorizontalBounds() as $relativePosition) {
+                $pos = new \stdClass();
+                $pos->in = $relativePosition->getIn();
+                $pos->out = $relativePosition->getOut();
+                $horizontalBounds[] = $pos;
+            }
+            $x->horizontalBounds = $horizontalBounds;
             $xs[] = $x;
         }
         $this->sendResponse(new JsonResponse($xs));

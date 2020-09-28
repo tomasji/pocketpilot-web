@@ -1,6 +1,6 @@
 import { DomUtil, LatLngBounds, Polyline } from 'leaflet'
 import { calculateDestination, getHeading, middle } from './Utils'
-import AirspaceTable from './AirspaceTable'
+import Airspace from './Airspace/Airspace'
 import Controls from './Controls'
 import TrackTable from './TrackTable'
 import WaypointFactory from './WaypointFactory'
@@ -11,7 +11,7 @@ export default class EditableTrack {
     this.waypoints = []
     this.line = null
     this.trackTable = new TrackTable()
-    this.airspaceTable = new AirspaceTable(this)
+    this.airspace = new Airspace(this)
     this.controls = new Controls(this)
     if (latlngs) {
       latlngs.forEach((latlng, i) => {
@@ -100,7 +100,7 @@ export default class EditableTrack {
       this.trackTable.addWaypoint(index, this.waypoints[index - 1], wp)
     }
     if (invalidateAirspace) {
-      this.airspaceTable.invalidate()
+      this.airspace.invalidate()
     }
   }
 
@@ -112,7 +112,7 @@ export default class EditableTrack {
     const index = this.waypoints.indexOf(wp)
     this.trackTable.editWaypoint(index, this.waypoints[index - 1], wp, this.waypoints[index + 1])
     wp.openPopup()
-    this.airspaceTable.invalidate()
+    this.airspace.invalidate()
   }
 
   _onWaypointRemove(wp) {
@@ -120,7 +120,7 @@ export default class EditableTrack {
     this.waypoints.splice(index, 1)
     this._recreateConnection()
     this.trackTable.removeWaypoint(index, this.waypoints[index - 1], this.waypoints[index])
-    this.airspaceTable.invalidate()
+    this.airspace.invalidate()
   }
 
   _predictPositionAfter(wp) {

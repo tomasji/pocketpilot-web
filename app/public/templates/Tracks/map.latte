@@ -22,6 +22,12 @@
 		</div>
 		<div id="airspace">
 			<div class="info-table-wrapper"></div>
+			<div class="controls-buttons left">
+				<button data-target="chart" class="waves-effect blue lighten-1 btn btn-action modal-trigger">
+					<i class="fas fa-industry"></i>
+					<span class="hide-on-small-only">{_'V. profile'}</span>
+				</button>
+			</div>
 		</div>
 		<div class="controls-buttons right">
 			<button data-target="save" class="save waves-effect blue lighten-1 btn btn-action modal-trigger">
@@ -49,6 +55,12 @@
 			<p>{_'Do you really want to leave without saving?'}</p>
 			<a href="#" class="waves-effect blue lighten-1 btn modal-close positive">{_'Exit'}</a>
 			<a href="#" class="waves-effect blue lighten-1 btn modal-close negative">{_'Cancel'}</a>
+		</div>
+	</div>
+	<div id="chart" class="modal">
+		<canvas id="airspace-canvas" height="260px"></canvas>
+		<div class="container center">
+			<p class="red-text darken-4-text">{_'WARNING: This part is still in development and can display wrong data!'}</p>
 		</div>
 	</div>
 </div>

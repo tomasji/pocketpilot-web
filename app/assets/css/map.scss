@@ -15,6 +15,21 @@
   height: 100%;
 }
 
+#airspaceProfile.modal {
+  width: 80%;
+  @media #{$medium-and-down} {
+    width: 100%;
+  }
+  @media #{$small-and-down} {
+    min-width: auto;
+    width: 100%;
+  }
+  canvas {
+    display: block;
+    background: transparent;
+  }
+}
+
 div.info {
   position: absolute;
   bottom: 0;
