@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f854404ad36642fe285b18cd2ff9669b",
+    "content-hash": "33a95d69dbf3874a5f49e20d9166cb48",
     "packages": [
         {
             "name": "andrejsoucek/gettext-translator",
@@ -71,30 +71,32 @@
         },
         {
             "name": "doctrine/annotations",
-            "version": "v1.8.0",
+            "version": "1.10.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/annotations.git",
-                "reference": "904dca4eb10715b92569fbcd79e201d5c349b6bc"
+                "reference": "bfe91e31984e2ba76df1c1339681770401ec262f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/annotations/zipball/904dca4eb10715b92569fbcd79e201d5c349b6bc",
-                "reference": "904dca4eb10715b92569fbcd79e201d5c349b6bc",
+                "url": "https://api.github.com/repos/doctrine/annotations/zipball/bfe91e31984e2ba76df1c1339681770401ec262f",
+                "reference": "bfe91e31984e2ba76df1c1339681770401ec262f",
                 "shasum": ""
             },
             "require": {
                 "doctrine/lexer": "1.*",
-                "php": "^7.1"
+                "ext-tokenizer": "*",
+                "php": "^7.1 || ^8.0"
             },
             "require-dev": {
                 "doctrine/cache": "1.*",
-                "phpunit/phpunit": "^7.5"
+                "phpstan/phpstan": "^0.12.20",
+                "phpunit/phpunit": "^7.5 || ^9.1.5"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.7.x-dev"
+                    "dev-master": "1.9.x-dev"
                 }
             },
             "autoload": {
@@ -135,24 +137,24 @@
                 "docblock",
                 "parser"
             ],
-            "time": "2019-10-01T18:55:10+00:00"
+            "time": "2020-08-10T19:35:50+00:00"
         },
         {
             "name": "doctrine/cache",
-            "version": "1.10.0",
+            "version": "1.10.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/cache.git",
-                "reference": "382e7f4db9a12dc6c19431743a2b096041bcdd62"
+                "reference": "13e3381b25847283a91948d04640543941309727"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/cache/zipball/382e7f4db9a12dc6c19431743a2b096041bcdd62",
-                "reference": "382e7f4db9a12dc6c19431743a2b096041bcdd62",
+                "url": "https://api.github.com/repos/doctrine/cache/zipball/13e3381b25847283a91948d04640543941309727",
+                "reference": "13e3381b25847283a91948d04640543941309727",
                 "shasum": ""
             },
             "require": {
-                "php": "~7.1"
+                "php": "~7.1 || ^8.0"
             },
             "conflict": {
                 "doctrine/common": ">2.2,<2.4"
@@ -217,24 +219,24 @@
                 "redis",
                 "xcache"
             ],
-            "time": "2019-11-29T15:36:20+00:00"
+            "time": "2020-07-07T18:54:01+00:00"
         },
         {
             "name": "doctrine/lexer",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/lexer.git",
-                "reference": "5242d66dbeb21a30dd8a3e66bf7a73b66e05e1f6"
+                "reference": "e864bbf5904cb8f5bb334f99209b48018522f042"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/lexer/zipball/5242d66dbeb21a30dd8a3e66bf7a73b66e05e1f6",
-                "reference": "5242d66dbeb21a30dd8a3e66bf7a73b66e05e1f6",
+                "url": "https://api.github.com/repos/doctrine/lexer/zipball/e864bbf5904cb8f5bb334f99209b48018522f042",
+                "reference": "e864bbf5904cb8f5bb334f99209b48018522f042",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2"
+                "php": "^7.2 || ^8.0"
             },
             "require-dev": {
                 "doctrine/coding-standard": "^6.0",
@@ -279,7 +281,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2019-10-30T14:39:59+00:00"
+            "time": "2020-05-25T17:44:05+00:00"
         },
         {
             "name": "facebook/graph-sdk",
@@ -1938,16 +1940,16 @@
         },
         {
             "name": "ublaboo/api-router",
-            "version": "dev-nette-3.0",
+            "version": "v4.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/andrejsoucek/api-router.git",
-                "reference": "e0771d6195b9123bc2e17a9b4316422d2a75bb4b"
+                "url": "https://github.com/contributte/api-router.git",
+                "reference": "7fd29d4531f781631ddadc2d8360835b2891c937"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/andrejsoucek/api-router/zipball/e0771d6195b9123bc2e17a9b4316422d2a75bb4b",
-                "reference": "e0771d6195b9123bc2e17a9b4316422d2a75bb4b",
+                "url": "https://api.github.com/repos/contributte/api-router/zipball/7fd29d4531f781631ddadc2d8360835b2891c937",
+                "reference": "7fd29d4531f781631ddadc2d8360835b2891c937",
                 "shasum": ""
             },
             "require": {
@@ -1973,14 +1975,10 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Ublaboo\\ApiRouter\\": "src/"
+                    "Contributte\\ApiRouter\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Ublaboo\\ApiRouter\\Tests\\": "tests"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -1991,7 +1989,7 @@
                 }
             ],
             "description": "RESTful Router for your Apis in Nette Framework - created either directly or via annotation",
-            "homepage": "https://ublaboo.org/api-router",
+            "homepage": "https://github.com/contributte/api-router",
             "keywords": [
                 "api",
                 "nette",
@@ -2003,11 +2001,8 @@
                 "routes",
                 "routing"
             ],
-            "support": {
-                "issues": "https://github.com/ublaboo/api-router/issues",
-                "source": "https://github.com/andrejsoucek/api-router/tree/nette-3.0"
-            },
-            "time": "2019-08-11T17:25:09+00:00"
+            "abandoned": "contributte/api-router",
+            "time": "2020-05-03T21:16:17+00:00"
         }
     ],
     "packages-dev": [
@@ -2236,9 +2231,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "ublaboo/api-router": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

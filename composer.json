@@ -28,8 +28,8 @@
         "tracy/tracy": "^2.6",
         "facebook/graph-sdk": "^5.6",
         "andrejsoucek/gettext-translator": "1.0.10",
-        "ublaboo/api-router": "dev-nette-3.0",
-        "nextras/mail-panel": "^2.5"
+        "nextras/mail-panel": "^2.5",
+        "ublaboo/api-router": "^4.0"
     },
     "require-dev": {
         "nette/tester": "^2.0",

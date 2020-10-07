@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace PP;
 
+use Contributte\ApiRouter\ApiRoute;
 use Nette;
 use Nette\Application\Routers\RouteList;
-use Ublaboo\ApiRouter\ApiRoute;
 
 final class RouterFactory
 {
