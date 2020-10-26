@@ -737,3 +737,7 @@ msgstr "V. profil"
 #: Added from Tracy bar
 msgid "WARNING: This part is still in development and can display wrong data!"
 msgstr "VAROVÁNÍ: Tato část je stále ve vývoji a zobrazovaná data nemusí být správná!"
+
+#: Added from Tracy bar
+msgid "Donate"
+msgstr "Podpořit"
