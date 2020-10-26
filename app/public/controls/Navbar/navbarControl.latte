@@ -21,5 +21,7 @@
 	<li><a href="{plink Guide:}">{_'Guide'}</a></li>
 	<li><a href="{plink Sync:}">{_'Pair device'}</a></li>
 	<li><a href="{plink Contact:}">{_'Contact form'}</a></li>
+	<li n:if="$user->isInRole('admin')"><a href="{plink POI:}"><i class="fas fa-database"></i>POI</a></li>
+	<li><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=andrejsoucek%40gmail.com&item_name=Pocket+Pilot+support&currency_code=CZK" target="_blank">{_'Donate'}</a></li>
 	<li><a href="{plink Sign:logout}">{_'Sign out'}</a></li>
 </ul>
