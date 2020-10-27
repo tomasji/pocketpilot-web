@@ -20,7 +20,7 @@ class RelativePosition
     public function __construct(float $in, float $out)
     {
         $this->in = $in;
-        $this->out = $out < $in ? 1 : $out;
+        $this->out = $out <= $in ? 1 : $out;
     }
 
     /**
