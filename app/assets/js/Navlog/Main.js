@@ -32,7 +32,7 @@ function start(win) {
                 wpt.fetchPlace()
                   .then((results) => {
                     const address = results[0].properties.address
-                    place.innerText = address.village || address.suburb || address.village || address.town || address.city || 'Waypoint'
+                    place.value = address.village || address.suburb || address.village || address.town || address.city || 'Waypoint'
                   })
                   .catch(() => {
                     place.value = 'Waypoint'
