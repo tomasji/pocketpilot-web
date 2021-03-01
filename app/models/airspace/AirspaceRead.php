@@ -8,7 +8,6 @@ use ArrayObject;
 use Nette\Database\Context;
 use Nette\Database\IRow;
 use Nette\SmartObject;
-use PP\Track\TrackDatabaseDef;
 
 /**
  * @author Andrej Souček
@@ -46,7 +45,7 @@ class AirspaceRead
                 "AND " . AirspaceDatabaseDef::COLUMN_LOWER_BOUND_DATUM . " NOT LIKE 'FL' " .
                 "AND " . AirspaceDatabaseDef::COLUMN_TYPE . " NOT IN ('SECTOR', 'FIR') " .
                 "ORDER BY " . AirspaceDatabaseDef::COLUMN_TYPE . " ASC, " . AirspaceDatabaseDef::COLUMN_NAME . " ASC",
-                $this->getLinestringBy($latlngs)
+                self::getLinestringBy($latlngs)
             )->fetchAll();
         foreach ($rows as $row) {
             $horizontalIntersections = $this->fetchHorizontalIntersections(
@@ -90,7 +89,7 @@ class AirspaceRead
             ) as b;",
             $type,
             $name,
-            $this->getLinestringBy($latlngs)
+            self::getLinestringBy($latlngs)
         )->fetchAll();
     }
 
@@ -109,7 +108,7 @@ class AirspaceRead
         );
     }
 
-    private function getLinestringBy(array $latlngs): string
+    private static function getLinestringBy(array $latlngs): string
     {
         $out = 'LINESTRING(';
         $out .= implode(', ', array_map(static function ($latlng) {
