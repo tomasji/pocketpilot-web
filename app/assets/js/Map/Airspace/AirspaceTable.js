@@ -18,7 +18,7 @@ export default class AirspaceTable {
   update(data) {
     this.table.parentElement.removeChild(this.table)
     this.table = this.renderEmpty()
-    data.forEach((as) => {
+    data.airspace.forEach((as) => {
       const row = DomUtil.create('tr', null)
       const type = DomUtil.create('td', null, row)
       const name = DomUtil.create('td', null, row)
@@ -30,5 +30,13 @@ export default class AirspaceTable {
       to.innerText = `${as.verticalBounds.upperDatum} ${as.verticalBounds.upper}`
       this.table.appendChild(row)
     })
+  }
+  loading(loading) {
+    const loader = this.table.parentElement.parentElement.querySelector('.progress')
+    if (loading) {
+      loader.style.display = 'table'
+    } else {
+      loader.style.display = 'none'
+    }
   }
 }

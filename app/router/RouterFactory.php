@@ -19,6 +19,7 @@ final class RouterFactory
         $router->add(new ApiRoute('/api/v1/tracks', 'APIv1:Tracks'));
         $router->add(new ApiRoute('/api/v1/poi', 'APIv1:POI'));
         $router->add(new ApiRoute('/api/v1/airspace', 'APIv1:Airspace'));
+        $router->add(new ApiRoute('/api/v1/terrain', 'APIv1:Terrain'));
         $router->addRoute('[<lang=cs cs|en>/]share/?t=<id>', 'Share:default', $router::ONE_WAY);
         $router->addRoute('[<lang=cs cs|en>/]share/<id>', 'Share:default');
         $router->addRoute('[<lang=cs cs|en>/]<presenter>/<action>[/<id>]', 'Homepage:default');

@@ -38,6 +38,7 @@ services:
 	- PP\POI\POIRead
 	- PP\POI\POIImporter
 	- PP\SignModel
+	- PP\Terrain\TerrainRead
 	- PP\Track\TrackCreate
 	- PP\Track\TrackDelete
 	- PP\Track\TrackRead
