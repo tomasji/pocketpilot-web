@@ -9,6 +9,7 @@ use Nette\Application\UI\Presenter;
 use PP\Airspace\AirspaceEntry;
 use PP\Airspace\AirspaceRead;
 use PP\Airspace\RelativePosition;
+use PP\Airspace\TerrainEntry;
 
 /**
  * @author Andrej Souček
@@ -41,7 +42,7 @@ class AirspacePresenter extends Presenter
             $this->sendResponse(new JsonResponse(['error' => 'Path must contain at least two points.']));
         }
         $intersections = $this->read->fetchIntersections($latlngs);
-        $xs = [];
+        $airspaces = [];
         /** @var AirspaceEntry $intersection */
         foreach ($intersections as $intersection) {
             $x = new \stdClass();
@@ -62,9 +63,22 @@ class AirspacePresenter extends Presenter
                 $horizontalBounds[] = $pos;
             }
             $x->horizontalBounds = $horizontalBounds;
-            $xs[] = $x;
+            $airspaces[] = $x;
         }
-        $this->sendResponse(new JsonResponse($xs));
+        $terrain = $this->read->fetchTerrain($latlngs);
+        $terrainPoints = [];
+        /** @var TerrainEntry $point */
+        foreach ($terrain as $point) {
+            $x = new \stdClass();
+            $x->relativeDistance = $point->getRelativeDistance();
+            $x->elevation = $point->getElevation();
+            $terrainPoints[] = $x;
+        }
+
+        $response = new \stdClass();
+        $response->airspace = $airspaces;
+        $response->terrain = $terrainPoints;
+        $this->sendResponse(new JsonResponse($response));
     }
 
     public function sendTemplate(): void

@@ -10,12 +10,12 @@ class RelativePosition
     /**
      * @var float
      */
-    private $in;
+    public $in;
 
     /**
      * @var float
      */
-    private $out;
+    public $out;
 
     public function __construct(float $in, float $out)
     {

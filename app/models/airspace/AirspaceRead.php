@@ -7,8 +7,8 @@ namespace PP\Airspace;
 use ArrayObject;
 use Nette\Database\Context;
 use Nette\Database\IRow;
+use Nette\Database\Row;
 use Nette\SmartObject;
-use PP\Track\TrackDatabaseDef;
 
 /**
  * @author Andrej Souček
@@ -23,6 +23,38 @@ class AirspaceRead
     public function __construct(Context $database)
     {
         $this->database = $database;
+    }
+
+    /**
+     * @param array<array<float, float>> $latlngs
+     * @return array<TerrainEntry>
+     */
+    public function fetchTerrain(array $latlngs): array
+    {
+        $xs = [];
+        $linestring = $this->getLinestringBy($latlngs);
+        $points = $this->database->query(
+            "SELECT " .
+            "(point).geom " .
+            "FROM (SELECT ST_DumpPoints(ST_Segmentize(?::geography, 250)::geometry) AS point) AS points",
+            $linestring
+        )->fetchAll();
+        /** @var Row $point */
+        foreach ($points as $point) {
+            $geom = $point->geom;
+            $x = $this->database->query(
+                "SELECT " .
+                "ST_LineLocatePoint(ST_GeomFromText(?, 4326), ST_SetSRID('$geom'::geometry, 4326)) AS distance, " .
+                "ST_Value(rast, ST_Transform(ST_SetSRID('$geom'::geometry, 4326), 5514)) AS elev " .
+                "FROM elevation WHERE ST_Intersects(rast, ST_Transform(ST_SetSRID('$geom'::geometry, 4326), 5514))",
+                $linestring
+            );
+            $row = $x->fetch();
+            if ($row) {
+                $xs[] = new TerrainEntry((float) $row['distance'], (float) $row['elev']);
+            }
+        }
+        return $xs;
     }
 
     /**

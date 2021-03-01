@@ -23,6 +23,7 @@ export default class AirspaceChart {
   _draw() {
     const ctx = this.canvas.getContext('2d')
     ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+    this._drawTerrain(ctx, this.padding)
     this._drawAirspace(ctx, this.padding)
     this._drawAxes(ctx, this.padding)
     this._drawAirspaceLabels(ctx, this.padding)
@@ -33,7 +34,7 @@ export default class AirspaceChart {
     const usableHeight = this.canvas.height - padding.vertical
     const airspaceLabels = []
 
-    this.data.forEach((as) => {
+    this.data.airspace.forEach((as) => {
       as['horizontalBounds'].forEach((bounds) => {
         const lowerBound = as.verticalBounds.lower
         const upperBound = as.verticalBounds.upperDatum.startsWith('FL') ? 6000 : as.verticalBounds.upper
@@ -61,11 +62,29 @@ export default class AirspaceChart {
     })
   }
 
+  _drawTerrain(ctx, padding) {
+    const usableWidth = this.canvas.width - padding.horizontal
+    const usableHeight = this.canvas.height - padding.vertical
+
+    ctx.moveTo(padding.horizontal + usableHeight, padding.vertical)
+    ctx.beginPath()
+    ctx.lineWidth = 1
+    ctx.strokeStyle = '#000000'
+
+    this.data.terrain.forEach((t) => {
+      const elevation = t.elevation
+      const x = usableWidth * t.relativeDistance + padding.left
+      const y = usableHeight - (usableHeight / 6000 * elevation) + padding.top
+      ctx.lineTo(x, y)
+    })
+    ctx.stroke()
+  }
+
   _drawAirspace(ctx, padding) {
     const usableWidth = this.canvas.width - padding.horizontal
     const usableHeight = this.canvas.height - padding.vertical
 
-    this.data.forEach((as) => {
+    this.data.airspace.forEach((as) => {
       as['horizontalBounds'].forEach((bounds) => {
         const lowerBound = as.verticalBounds.lower
         const upperBound = as.verticalBounds.upperDatum.startsWith('FL') ? 6000 : as.verticalBounds.upper
@@ -73,16 +92,38 @@ export default class AirspaceChart {
 
         const x = usableWidth * bounds.in + padding.left
         const y = usableHeight - (usableHeight / 6000 * lowerBound) - (usableHeight / 6000 * height) + padding.top
-
-        const w = usableWidth * (bounds.out - bounds.in)
         const h = usableHeight / 6000 * height
 
         const color = AirspaceChartSettings.getColorFor(as.type)
         ctx.fillStyle = color
         ctx.strokeStyle = color.replace(/[^,]+(?=\))/, '1')
         ctx.lineWidth = 2
-        ctx.fillRect(x, y, w, h)
-        ctx.strokeRect(x, y, w, h)
+
+        if (as.verticalBounds.lowerDatum === 'GND') {
+          const terrain = this.data.terrain.filter((t) =>
+            t.relativeDistance >= bounds.in || t.relativeDistance <= bounds.out
+          )
+          ctx.moveTo(x, usableHeight - (usableHeight / 6000 * terrain[0].elevation) + padding.top)
+          ctx.beginPath()
+          // spodek
+          terrain.forEach((t) => {
+
+          })
+          // vrch
+          terrain.forEach((t) => {
+            if (as.verticalBounds.lowerDatum === 'GND') {
+            } else {
+
+            }
+          })
+          ctx.closePath()
+          ctx.fill()
+          ctx.stroke()
+        } else {
+          const w = usableWidth * (bounds.out - bounds.in)
+          ctx.fillRect(x, y, w, h)
+          ctx.strokeRect(x, y, w, h)
+        }
       })
     })
   }
