@@ -38,11 +38,11 @@ class TerrainEntry
 
     public function getElevationFeet(): float
     {
-        return $this->elevation;
+        return self::mToFt($this->elevation);
     }
 
-    private function mToFt(): float
+    private static function mToFt(float $elev): float
     {
-        return round($this->elevation * 3.2808399);
+        return round($elev * 3.2808399);
     }
 }
