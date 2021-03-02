@@ -35,7 +35,7 @@ class TerrainRead
         $points = $this->database->query(
             "SELECT " .
             "(point).geom " .
-            "FROM (SELECT ST_DumpPoints(ST_Segmentize(?::geography, 250)::geometry) AS point) AS points",
+            "FROM (SELECT ST_DumpPoints(ST_Segmentize(?::geography, 500)::geometry) AS point) AS points",
             $linestring
         )->fetchAll();
         if (count($points) === 2 && $points[0]['geom'] === $points[1]['geom']) {
