@@ -1,7 +1,7 @@
 import { DomUtil, Map, TileLayer } from 'leaflet'
 
 const MAP_BASE = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-const MAP_OFM = 'https://snapshots.openflightmaps.org/live/2004/tiles/world/epsg3857/aero/512/latest/{z}/{x}/{y}.png'
+const MAP_OFM = 'https://nwy-tiles-api.prod.newaydata.com/tiles/{z}/{x}/{y}.png?path=2102/aero/latest'
 
 export default class MapFactory {
   static createMap() {
