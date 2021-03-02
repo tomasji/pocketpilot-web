@@ -123,7 +123,7 @@ export default class AirspaceChart {
     ctx.font = AirspaceChartSettings.CANVAS_FONT
     ctx.textBaseline = 'middle'
     ctx.textAlign = 'right'
-    ctx.fillText('GND/AMSL', padding.left + 15, padding.top - 20)
+    ctx.fillText('AMSL', padding.left + 15, padding.top - 20)
     for (let i = 0; i <= 6; i++) {
       // Axis labels
       ctx.fillText(AirspaceChartSettings.Y_AXIS_LABELS[i], padding.left - 12, usableHeight + padding.top - (step * i))
