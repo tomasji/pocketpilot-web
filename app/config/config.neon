@@ -58,6 +58,7 @@ http:
 		img-src:
 			- self
 			- play.google.com
+			- nwy-tiles-api.prod.newaydata.com
 			- *.openstreetmap.org
 			- *.openflightmaps.org
 			- 'data:'
