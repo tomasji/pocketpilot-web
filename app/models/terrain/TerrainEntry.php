@@ -31,9 +31,18 @@ class TerrainEntry
         return $this->relativeDistance;
     }
 
-    public function getElevation(): float
+    public function getElevationMetres(): float
     {
         return $this->elevation;
     }
 
+    public function getElevationFeet(): float
+    {
+        return $this->elevation;
+    }
+
+    private function mToFt(): float
+    {
+        return round($this->elevation * 3.2808399);
+    }
 }

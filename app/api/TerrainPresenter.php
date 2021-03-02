@@ -45,7 +45,7 @@ class TerrainPresenter extends Presenter
         foreach ($terrain as $point) {
             $x = new \stdClass();
             $x->relativeDistance = $point->getRelativeDistance();
-            $x->elevation = $point->getElevation();
+            $x->elevation = $point->getElevationFeet();
             $xs[] = $x;
         }
 
