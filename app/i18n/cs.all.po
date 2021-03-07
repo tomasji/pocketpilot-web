@@ -741,3 +741,15 @@ msgstr "VAROVÁNÍ: Tato část je stále ve vývoji a zobrazovaná data nemusí
 #: Added from Tracy bar
 msgid "Donate"
 msgstr "Podpořit"
+
+#: Added from Tracy bar
+msgid "Android 10+ support."
+msgstr "Podpora Android 10+."
+
+#: Added from Tracy bar
+msgid "Fixed planned and logged tracks view."
+msgstr "Oprava zobrazení naplánovaných a zalogovaných tras."
+
+#: Added from Tracy bar
+msgid "Dynamic map sources loading."
+msgstr "Dynamické načítání aktuálních mapových podkladů."
