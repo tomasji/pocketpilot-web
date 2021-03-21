@@ -1,0 +1,20 @@
+version: '3.4'
+services:
+  web:
+    build: .
+    links:
+      - postgis
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/pocketpilot
+  postgis:
+    image: postgis/postgis:13-3.1
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: toor
+      POSTGRES_DB: pocketpilot
+    volumes:
+      - ./fixtures/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./fixtures/airspace.sql:/docker-entrypoint-initdb.d/airspace.sql
+      - ./fixtures/elevation.sql:/docker-entrypoint-initdb.d/elevation.sql
