@@ -1,0 +1,37 @@
+version: '3.4'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: .docker/app/Dockerfile
+    links:
+      - postgis
+      - webpack
+    ports:
+      - "8888:80"
+    volumes:
+      - ./app:/pocketpilot/app
+      - ./www:/pocketpilot/www
+      - ./log:/pocketpilot/log
+      - ./temp:/pocketpilot/temp
+    depends_on:
+      - 'postgis'
+  webpack:
+    build:
+      context: .
+      dockerfile: .docker/webpack/Dockerfile
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./assets:/pocketpilot/assets
+      - ./www:/pocketpilot/www
+  postgis:
+    image: postgis/postgis:13-3.1
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: toor
+      POSTGRES_DB: pocketpilot
+    volumes:
+      - ./.docker/fixtures/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./.docker/fixtures/airspace.sql:/docker-entrypoint-initdb.d/airspace.sql
+      - ./.docker/fixtures/elevation.sql:/docker-entrypoint-initdb.d/elevation.sql

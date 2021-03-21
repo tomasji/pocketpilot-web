@@ -1,5 +1,5 @@
 {
-    "name": "pocketpilot-web",
+    "name": "pocketpilot/web",
     "description": "Web application for Pocket Pilot",
     "keywords": ["pocketpilot", "pilot", "nette"],
     "type": "project",
@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "php": ">= 7.2",
+        "php": ">= 7.4",
         "nette/application": "^3.0",
         "nette/bootstrap": "^3.0",
         "nette/caching": "^3.0",
@@ -46,7 +46,7 @@
     },
     "config": {
         "platform": {
-            "php": "7.2"
+            "php": "7.4"
         }
     }
 }
