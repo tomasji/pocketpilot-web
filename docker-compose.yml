@@ -3,7 +3,11 @@ services:
   web:
     build:
       context: .
+      target: develop
       dockerfile: .docker/app/Dockerfile
+      args:
+        USER_ID: ${USER_ID}
+        GROUP_ID: ${GROUP_ID}
     links:
       - postgis
       - webpack
@@ -18,13 +22,21 @@ services:
       - 'postgis'
   webpack:
     build:
-      context: .
-      dockerfile: .docker/webpack/Dockerfile
+      context: .docker/webpack
+      dockerfile: Dockerfile
+      args:
+        USER_ID: ${USER_ID}
+        GROUP_ID: ${GROUP_ID}
     ports:
       - '3000:3000'
     volumes:
       - ./assets:/pocketpilot/assets
       - ./www:/pocketpilot/www
+      - ./.eslintrc.js:/pocketpilot/.eslintrc.js
+      - ./webpack.config.js:/pocketpilot/webpack.config.js
+      - ./package.json:/pocketpilot/package.json
+      - ./package-lock.json:/pocketpilot/package-lock.json
+      - ./node_modules:/pocketpilot/node_modules
   postgis:
     image: postgis/postgis:13-3.1
     environment:
