@@ -1,4 +1,6 @@
 FROM dockette/debian:buster
+ARG USER_ID
+ARG GROUP_ID
 
 # PHP
 ENV PHP_MODS_DIR=/etc/php/7.4/mods-available
@@ -89,5 +91,10 @@ RUN composer install
 
 # PORTS
 EXPOSE 80
+
+RUN if [ -n "$USER_ID" ] && [ "${USER_ID}" != 0 ]; then \
+    sed -i "s/^www-data:x:33:33:/www-data:x:$USER_ID:$GROUP_ID:/" /etc/passwd; \
+    fi
+
 
 CMD ["supervisord", "--nodaemon", "--configuration", "/etc/supervisor/supervisord.conf"]

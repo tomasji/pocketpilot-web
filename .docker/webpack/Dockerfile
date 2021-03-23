@@ -1,17 +1,14 @@
 FROM node:8.12.0-alpine
+ARG USER_ID
+ARG GROUP_ID
 
 WORKDIR /pocketpilot
 
-COPY package*.json ./
+RUN if [ -n "$USER_ID" ] && [ "${USER_ID}" != 0 ]; then \
+    addgroup -g "${GROUP_ID}" developer && adduser -u "${USER_ID}" -G developer -D developer && \
+    chown developer:developer /pocketpilot; \
+    fi
 
-RUN npm install
+USER developer
 
-COPY ./assets /pocketpilot/assets
-COPY ./package.json /pocketpilot/package.json
-COPY ./package-lock.json /pocketpilot/package-lock.json
-COPY ./webpack.config.js /pocketpilot/webpack.config.js
-COPY ./.eslintrc.js /pocketpilot/eslintrc.js
-
-EXPOSE 3000
-
-CMD ["npm", "run", "dev"]
+CMD ["/bin/sh", "-c", "npm i && npm run dev"]
