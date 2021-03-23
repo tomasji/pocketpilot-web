@@ -1,4 +1,4 @@
-import $ from 'DOMLoaded'
+import $ from '../DOMLoaded'
 import { DomUtil } from 'leaflet'
 import { getHeading } from './Utils'
 

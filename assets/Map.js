@@ -1,5 +1,5 @@
 import './css/map.scss'
-import $ from 'DOMLoaded'
+import $ from './js/DOMLoaded'
 import { map } from './js/Map/Main'
 
 $(() => {

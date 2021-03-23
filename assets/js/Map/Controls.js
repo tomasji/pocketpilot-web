@@ -1,4 +1,4 @@
-import $ from 'DOMLoaded'
+import $ from '../DOMLoaded'
 
 export default class Controls {
   constructor(track) {

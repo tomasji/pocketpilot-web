@@ -1,5 +1,5 @@
 import './css/main.scss'
-import $ from 'DOMLoaded'
+import $ from './js/DOMLoaded'
 import { common } from './js/Common/Main'
 
 $(() => {

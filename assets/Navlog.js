@@ -1,5 +1,5 @@
 import './css/navlog.scss'
-import $ from 'DOMLoaded'
+import $ from './js/DOMLoaded'
 import { navlog } from './js/Navlog/Main'
 
 $(() => {

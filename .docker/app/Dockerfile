@@ -63,31 +63,31 @@ RUN apt update && apt dist-upgrade -y && \
     rm -rf /var/lib/apt/lists/* /var/lib/log/* /tmp/* /var/tmp/*
 
 # PHP
-ADD ./php/php-fpm.conf /etc/php/7.4/
+ADD ./.docker/app/php/php-fpm.conf /etc/php/7.4/
 
 # NGINX
-ADD ./nginx/nginx.conf /etc/nginx/
-ADD ./nginx/mime.types /etc/nginx/
-ADD ./nginx/sites.d /etc/nginx/sites.d
-
-# APPLICATION
-ADD . /pocketpilot
-WORKDIR /pocketpilot
+ADD ./.docker/app/nginx/nginx.conf /etc/nginx/
+ADD ./.docker/app/nginx/mime.types /etc/nginx/
+ADD ./.docker/app/nginx/sites.d /etc/nginx/sites.d
 
 # SUPERVISOR
-ADD ./supervisor/supervisord.conf /etc/supervisor/
-ADD ./supervisor/services /etc/supervisor/conf.d/
+ADD ./.docker/app/supervisor/supervisord.conf /etc/supervisor/
+ADD ./.docker/app/supervisor/services /etc/supervisor/conf.d/
 
-RUN chmod 777 log temp -R && \
-    chown www-data:www-data log temp -R && \
-    composer install
-#    rm -rf composer* Dockerfile .git
+WORKDIR /pocketpilot
+
+# APPLICATION
+ADD ./app /pocketpilot/app
+ADD ./www /pocketpilot/www
+ADD ./phpstan.neon /pocketpilot/phpstan.neon
+
+# COMPOSER
+ADD ./composer.json /pocketpilot/composer.json
+ADD ./composer.lock /pocketpilot/composer.lock
+
+RUN composer install
 
 # PORTS
 EXPOSE 80
-
-RUN echo "==========================================="
-RUN echo "Dev login: dev@pocketpilot.cz password: dev"
-RUN echo "==========================================="
 
 CMD ["supervisord", "--nodaemon", "--configuration", "/etc/supervisor/supervisord.conf"]

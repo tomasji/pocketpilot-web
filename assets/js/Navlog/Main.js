@@ -1,5 +1,5 @@
 import { DomUtil, GeoJSON } from 'leaflet'
-import $ from 'DOMLoaded'
+import $ from '../DOMLoaded'
 import Main from '../Main'
 import Waypoint from '../Map/Waypoint'
 import { getHeading } from '../Map/Utils'
