@@ -4,6 +4,8 @@ ARG GROUP_ID
 
 WORKDIR /pocketpilot
 
+COPY /init /
+
 RUN if [ -n "$USER_ID" ] && [ "${USER_ID}" != 0 ]; then \
     addgroup -g "${GROUP_ID}" developer && adduser -u "${USER_ID}" -G developer -D developer && \
     chown developer:developer /pocketpilot; \
@@ -11,4 +13,4 @@ RUN if [ -n "$USER_ID" ] && [ "${USER_ID}" != 0 ]; then \
 
 USER developer
 
-CMD ["/bin/sh", "-c", "npm i && npm run dev"]
+CMD ["/init"]

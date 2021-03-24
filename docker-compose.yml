@@ -22,8 +22,8 @@ services:
       - 'postgis'
   webpack:
     build:
-      context: .
-      dockerfile: .docker/webpack/Dockerfile
+      context: .docker/webpack
+      dockerfile: Dockerfile
       args:
         USER_ID: ${USER_ID}
         GROUP_ID: ${GROUP_ID}
