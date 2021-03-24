@@ -1,6 +1,5 @@
-FROM dockette/debian:buster
-ARG USER_ID
-ARG GROUP_ID
+####################### Build image ##################################################################
+FROM dockette/debian:buster as build
 
 # PHP
 ENV PHP_MODS_DIR=/etc/php/7.4/mods-available
@@ -65,29 +64,37 @@ RUN apt update && apt dist-upgrade -y && \
     rm -rf /var/lib/apt/lists/* /var/lib/log/* /tmp/* /var/tmp/*
 
 # PHP
-ADD ./.docker/app/php/php-fpm.conf /etc/php/7.4/
+COPY ./.docker/app/php/php-fpm.conf /etc/php/7.4/
 
 # NGINX
-ADD ./.docker/app/nginx/nginx.conf /etc/nginx/
-ADD ./.docker/app/nginx/mime.types /etc/nginx/
-ADD ./.docker/app/nginx/sites.d /etc/nginx/sites.d
+COPY ./.docker/app/nginx/nginx.conf /etc/nginx/
+COPY ./.docker/app/nginx/mime.types /etc/nginx/
+COPY ./.docker/app/nginx/sites.d /etc/nginx/sites.d
 
 # SUPERVISOR
-ADD ./.docker/app/supervisor/supervisord.conf /etc/supervisor/
-ADD ./.docker/app/supervisor/services /etc/supervisor/conf.d/
+COPY ./.docker/app/supervisor/supervisord.conf /etc/supervisor/
+COPY ./.docker/app/supervisor/services /etc/supervisor/conf.d/
 
 WORKDIR /pocketpilot
 
 # APPLICATION
-ADD ./app /pocketpilot/app
-ADD ./www /pocketpilot/www
-ADD ./phpstan.neon /pocketpilot/phpstan.neon
+COPY ./app /pocketpilot/app
+COPY ./www /pocketpilot/www
+COPY ./phpstan.neon /pocketpilot/phpstan.neon
 
 # COMPOSER
-ADD ./composer.json /pocketpilot/composer.json
-ADD ./composer.lock /pocketpilot/composer.lock
+COPY ./composer.json /pocketpilot/composer.json
+COPY ./composer.lock /pocketpilot/composer.lock
 
 RUN composer install
+
+
+
+####################### Development image ##########################################################
+FROM build as develop
+ARG USER_ID
+ARG GROUP_ID
+WORKDIR /pocketpilot
 
 # PORTS
 EXPOSE 80
@@ -96,5 +103,32 @@ RUN if [ -n "$USER_ID" ] && [ "${USER_ID}" != 0 ]; then \
     sed -i "s/^www-data:x:33:33:/www-data:x:$USER_ID:$GROUP_ID:/" /etc/passwd; \
     fi
 
+CMD ["supervisord", "--nodaemon", "--configuration", "/etc/supervisor/supervisord.conf"]
 
+
+
+####################### Webpack build image ##########################################################
+FROM node:8.12.0-alpine as webpack
+WORKDIR /pocketpilot
+
+COPY ./assets /pocketpilot/assets
+COPY ./www /pocketpilot/www
+COPY ./.eslintrc.js /pocketpilot/.eslintrc.js
+COPY ./webpack.config.js /pocketpilot/webpack.config.js
+COPY ./package.json /pocketpilot/package.json
+COPY ./package-lock.json /pocketpilot/package-lock.json
+
+RUN npm ci
+RUN npm run build
+
+
+####################### Production image #############################################################
+FROM build as production
+WORKDIR /pocketpilot
+
+RUN mkdir -p temp log && chown www-data:www-data temp log
+
+COPY --from=webpack /pocketpilot/www/dist /pocketpilot/www/dist
+
+EXPOSE 80
 CMD ["supervisord", "--nodaemon", "--configuration", "/etc/supervisor/supervisord.conf"]

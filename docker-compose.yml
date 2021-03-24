@@ -3,6 +3,7 @@ services:
   web:
     build:
       context: .
+      target: develop
       dockerfile: .docker/app/Dockerfile
       args:
         USER_ID: ${USER_ID}
