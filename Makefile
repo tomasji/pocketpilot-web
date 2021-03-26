@@ -6,10 +6,13 @@ help:
 
 prep:
 	@mkdir -p log temp node_modules
-	@[ -f app/config/config.local.neon ] || cp app/config/config.local.neon-example app/config/config.local.neon
+	@[ -f app/config/config.local.neon ] || cp app/config/config.local.example.neon app/config/config.local.neon
 
 up: prep ## Start dockers
 	@USER_ID=`id -u` GROUP_ID=`id -g` DOCKER_BUILDKIT=1 docker-compose up
+
+up-build: prep ## Rebuild and start dockers
+	@USER_ID=`id -u` GROUP_ID=`id -g` DOCKER_BUILDKIT=1 docker-compose up --build
 
 down: ## Stop dockers
 	docker-compose down
@@ -35,6 +38,6 @@ run-db: ## Start production database
 run-app: ## Start production app
 	[ -n "$$(docker network ls --filter name=pocketpilot -q)" ] || docker network create pocketpilot
 	[ -n "$$POCKETPILOT_CONFIG_DIR" ] || POCKETPILOT_CONFIG_DIR=/etc/pocketpilot && \
-	docker run --network="pocketpilot" -p 80:80 --name pocketpilot-web -d --restart unless-stopped \
-		-v "$$POCKETPILOT_CONFIG_DIR/config.local.neon:/pocketpilot/app/config/config.local.neon" \
+	docker run --network="pocketpilot" -p 80:80 -p 443:443 --name pocketpilot-web -d --restart unless-stopped \
+		-v "$$(pwd)/app/config/config.local.neon:/pocketpilot/app/config/config.local.neon" \
 		pocketpilot-web
