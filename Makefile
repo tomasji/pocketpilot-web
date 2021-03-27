@@ -22,8 +22,8 @@ build: ## Make production build
 
 run-db: ## Start production database
 	[ -n "$$(docker network ls --filter name=pocketpilot -q)" ] || docker network create pocketpilot
-	[ -n "$$POCKETPILOT_CONFIG_DIR" ] || POCKETPILOT_CONFIG_DIR=/etc/pocketpilot && \
-	[ -n "$$POCKETPILOT_DATA_DIR" ] || POCKETPILOT_DATA_DIR=/var/lib/pocketpilot/data && \
+	[ -n "$$POCKETPILOT_CONFIG_DIR" ] || POCKETPILOT_CONFIG_DIR=$$(pwd)/app/config && \
+	[ -n "$$POCKETPILOT_DATA_DIR" ] || POCKETPILOT_DATA_DIR=$$(pwd)/dbdata && \
 	password=`awk '/\s+password:/ {print $$2}' "$$POCKETPILOT_CONFIG_DIR/config.local.neon"` && \
 	docker run --network="pocketpilot" --name postgis -d --restart unless-stopped \
 		-e POSTGRES_USER=postgres \
@@ -37,7 +37,7 @@ run-db: ## Start production database
 
 run-app: ## Start production app
 	[ -n "$$(docker network ls --filter name=pocketpilot -q)" ] || docker network create pocketpilot
-	[ -n "$$POCKETPILOT_CONFIG_DIR" ] || POCKETPILOT_CONFIG_DIR=/etc/pocketpilot && \
+	[ -n "$$POCKETPILOT_CONFIG_DIR" ] || POCKETPILOT_CONFIG_DIR=$$(pwd)/app/config && \
 	docker run --network="pocketpilot" -p 80:80 -p 443:443 --name pocketpilot-web -d --restart unless-stopped \
-		-v "$$(pwd)/app/config/config.local.neon:/pocketpilot/app/config/config.local.neon" \
+		-v "$$POCKETPILOT_CONFIG_DIR/config.local.neon:/pocketpilot/app/config/config.local.neon" \
 		pocketpilot-web
