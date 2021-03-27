@@ -78,16 +78,16 @@ COPY ./.docker/app/supervisor/services /etc/supervisor/conf.d/
 
 WORKDIR /pocketpilot
 
+# APPLICATION
+COPY ./app /pocketpilot/app
+COPY ./www /pocketpilot/www
+COPY ./phpstan.neon /pocketpilot/phpstan.neon
+
 # COMPOSER
 COPY ./composer.json /pocketpilot/composer.json
 COPY ./composer.lock /pocketpilot/composer.lock
 
 RUN composer install
-
-# APPLICATION
-COPY ./app /pocketpilot/app
-COPY ./www /pocketpilot/www
-COPY ./phpstan.neon /pocketpilot/phpstan.neon
 
 
 
