@@ -5,7 +5,7 @@ help:
 .PHONY: prep up down
 
 prep:
-	@mkdir -p log temp node_modules
+	@mkdir -p log temp node_modules vendor
 	@[ -f app/config/config.local.neon ] || cp app/config/config.local.example.neon app/config/config.local.neon
 
 up: prep ## Start dockers
@@ -13,6 +13,12 @@ up: prep ## Start dockers
 
 up-build: prep ## Rebuild and start dockers
 	@USER_ID=`id -u` GROUP_ID=`id -g` DOCKER_BUILDKIT=1 docker-compose up --build
+
+into-app: ## Go into the app container
+	docker exec -ti pocketpilot_web_dev bash
+
+into-db: ## Go into the db container
+	docker exec -ti pocketpilot_postgis_dev bash
 
 down: ## Stop dockers
 	docker-compose down

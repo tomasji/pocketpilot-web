@@ -87,8 +87,6 @@ COPY ./phpstan.neon /pocketpilot/phpstan.neon
 COPY ./composer.json /pocketpilot/composer.json
 COPY ./composer.lock /pocketpilot/composer.lock
 
-RUN composer install
-
 
 
 ####################### Development image ##########################################################
@@ -97,9 +95,10 @@ ARG USER_ID
 ARG GROUP_ID
 WORKDIR /pocketpilot
 
+COPY ./.docker/app/init.sh /
+
 COPY ./.docker/app/nginx/sites.d/sites.dev.conf /etc/nginx/sites.d/
 RUN mv /etc/nginx/sites.d/sites.dev.conf /etc/nginx/sites.d/sites.conf
-
 
 # PORTS
 EXPOSE 80
@@ -108,7 +107,7 @@ RUN if [ -n "$USER_ID" ] && [ "${USER_ID}" != 0 ]; then \
     sed -i "s/^www-data:x:33:33:/www-data:x:$USER_ID:$GROUP_ID:/" /etc/passwd; \
     fi
 
-CMD ["supervisord", "--nodaemon", "--configuration", "/etc/supervisor/supervisord.conf"]
+CMD ["/init.sh"]
 
 
 
@@ -139,6 +138,8 @@ COPY ./.docker/app/nginx/sites.d/sites.conf /etc/nginx/sites.d/
 RUN mkdir -p temp log && chown www-data:www-data temp log
 
 COPY --from=webpack /pocketpilot/www/dist /pocketpilot/www/dist
+
+RUN composer install --no-dev
 
 EXPOSE 80 443
 CMD ["supervisord", "--nodaemon", "--configuration", "/etc/supervisor/supervisord.conf"]

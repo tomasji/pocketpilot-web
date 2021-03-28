@@ -4,7 +4,7 @@ ARG GROUP_ID
 
 WORKDIR /pocketpilot
 
-COPY /init /
+COPY /init.sh /
 
 RUN if [ -n "$USER_ID" ] && [ "${USER_ID}" != 0 ]; then \
         if getent group "$GROUP_ID"; then \
@@ -22,4 +22,4 @@ RUN if [ -n "$USER_ID" ] && [ "${USER_ID}" != 0 ]; then \
 
 USER developer
 
-CMD ["/init"]
+CMD ["/init.sh"]
