@@ -69,7 +69,7 @@ class TerrainRead
         return $xs;
     }
 
-    private function fetch(string $geom, string $linestring): IRow
+    private function fetch(string $geom, string $linestring): ?IRow
     {
         $x = $this->database->query(
             "SELECT " .
