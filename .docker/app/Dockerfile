@@ -81,7 +81,6 @@ WORKDIR /pocketpilot
 # APPLICATION
 COPY ./app /pocketpilot/app
 COPY ./www /pocketpilot/www
-COPY ./phpstan.neon /pocketpilot/phpstan.neon
 
 # COMPOSER
 COPY ./composer.json /pocketpilot/composer.json
@@ -96,6 +95,9 @@ ARG GROUP_ID
 WORKDIR /pocketpilot
 
 COPY ./.docker/app/init.sh /
+
+COPY ./phpstan.neon /pocketpilot/phpstan.neon
+COPY ./coding-standard.xml /pocketpilot/coding-standard.xml
 
 COPY ./.docker/app/nginx/sites.d/sites.dev.conf /etc/nginx/sites.d/
 RUN mv /etc/nginx/sites.d/sites.dev.conf /etc/nginx/sites.d/sites.conf

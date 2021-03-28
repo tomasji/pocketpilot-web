@@ -17,8 +17,14 @@ up-build: prep ## Rebuild and start dockers
 into-app: ## Go into the app container
 	docker exec -ti pocketpilot_web_dev bash
 
-into-db: ## Go into the db container
-	docker exec -ti pocketpilot_postgis_dev bash
+into-db: ## Go into the db
+	docker exec -ti pocketpilot_postgis_dev psql -U postgres -d pocketpilot
+
+phpcs: ## Execute code sniffer check in the dev container
+	docker exec -ti pocketpilot_web_dev composer cs
+
+phpstan: ## Execute phpstan check in the dev container
+	docker exec -ti pocketpilot_web_dev composer phpstan
 
 down: ## Stop dockers
 	docker-compose down
