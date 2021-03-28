@@ -11,7 +11,6 @@ class Booting
 
     public static function boot(): Configurator
     {
-        bdump(getenv());
         $configurator = new Configurator();
         $configurator->setDebugMode(self::isDebugMode()); // enable for your remote IP
         $configurator->enableTracy(__DIR__ . '/../log');
