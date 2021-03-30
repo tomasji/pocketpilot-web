@@ -7,7 +7,7 @@ namespace PP\Presenters;
 /**
  * @author Andrej Souček
  */
-trait Authentication
+trait AdminAuthentication
 {
 
     public function checkRequirements($element): void
@@ -15,6 +15,10 @@ trait Authentication
         parent::checkRequirements(static::getReflection());
         if (!$this->user->isLoggedIn()) {
             $this->redirect('Sign:');
+        }
+        if (!$this->user->isInRole('admin')) {
+            $this->flashMessage($this->translator->translate('Access denied.'));
+            $this->redirect('Dashboard:default');
         }
     }
 }
