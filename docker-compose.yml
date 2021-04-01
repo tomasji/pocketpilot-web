@@ -1,6 +1,9 @@
 version: '3.4'
 services:
   web:
+    container_name: pocketpilot_web_dev
+    environment:
+      DEBUG_MODE: 'true'
     build:
       context: .
       target: develop
@@ -18,9 +21,13 @@ services:
       - ./www:/pocketpilot/www
       - ./log:/pocketpilot/log
       - ./temp:/pocketpilot/temp
+      - ./composer.json:/pocketpilot/composer.json
+      - ./composer.lock:/pocketpilot/composer.lock
+      - ./vendor:/pocketpilot/vendor
     depends_on:
       - 'postgis'
   webpack:
+    container_name: pocketpilot_webpack_dev
     build:
       context: .docker/webpack
       dockerfile: Dockerfile
@@ -38,6 +45,7 @@ services:
       - ./package-lock.json:/pocketpilot/package-lock.json
       - ./node_modules:/pocketpilot/node_modules
   postgis:
+    container_name: pocketpilot_postgis_dev
     image: postgis/postgis:13-3.1
     environment:
       POSTGRES_USER: postgres

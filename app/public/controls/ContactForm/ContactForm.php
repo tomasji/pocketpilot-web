@@ -16,20 +16,13 @@ use Nette\Security\User;
 class ContactForm extends BaseControl
 {
 
-    public $onSuccess = [];
+    public array $onSuccess = [];
 
-    /**
-     * @var IMailer
-     */
-    private $mailer;
-    /**
-     * @var Gettext
-     */
-    private $translator;
-    /**
-     * @var User
-     */
-    private $user;
+    private IMailer $mailer;
+
+    private Gettext $translator;
+
+    private User $user;
 
     public function __construct(IMailer $mailer, Gettext $translator, User $user)
     {

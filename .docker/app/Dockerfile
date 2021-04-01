@@ -24,6 +24,7 @@ RUN apt update && apt dist-upgrade -y && \
     echo "deb-src http://nginx.org/packages/debian/ buster nginx" >> /etc/apt/sources.list.d/nginx.list && \
     apt update && \
     apt install -y --no-install-recommends \
+        nano \
         nginx \
         supervisor \
         php7.4-apc \
@@ -59,7 +60,7 @@ RUN apt update && apt dist-upgrade -y && \
     rm /etc/nginx/conf.d/default.conf && \
     apt-get clean -y && \
     apt-get autoclean -y && \
-    apt-get remove -y wget curl && \
+    apt-get remove -y wget && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/* /var/lib/log/* /tmp/* /var/tmp/*
 
@@ -69,7 +70,6 @@ COPY ./.docker/app/php/php-fpm.conf /etc/php/7.4/
 # NGINX
 COPY ./.docker/app/nginx/nginx.conf /etc/nginx/
 COPY ./.docker/app/nginx/mime.types /etc/nginx/
-COPY ./.docker/app/nginx/sites.d /etc/nginx/sites.d
 
 # SUPERVISOR
 COPY ./.docker/app/supervisor/supervisord.conf /etc/supervisor/
@@ -80,13 +80,10 @@ WORKDIR /pocketpilot
 # APPLICATION
 COPY ./app /pocketpilot/app
 COPY ./www /pocketpilot/www
-COPY ./phpstan.neon /pocketpilot/phpstan.neon
 
 # COMPOSER
 COPY ./composer.json /pocketpilot/composer.json
 COPY ./composer.lock /pocketpilot/composer.lock
-
-RUN composer install
 
 
 
@@ -96,6 +93,14 @@ ARG USER_ID
 ARG GROUP_ID
 WORKDIR /pocketpilot
 
+COPY ./.docker/app/init.sh /
+
+COPY ./phpstan.neon /pocketpilot/phpstan.neon
+COPY ./coding-standard.xml /pocketpilot/coding-standard.xml
+
+COPY ./.docker/app/nginx/sites.d/sites.dev.conf /etc/nginx/sites.d/
+RUN mv /etc/nginx/sites.d/sites.dev.conf /etc/nginx/sites.d/sites.conf
+
 # PORTS
 EXPOSE 80
 
@@ -103,13 +108,16 @@ RUN if [ -n "$USER_ID" ] && [ "${USER_ID}" != 0 ]; then \
     sed -i "s/^www-data:x:33:33:/www-data:x:$USER_ID:$GROUP_ID:/" /etc/passwd; \
     fi
 
-CMD ["supervisord", "--nodaemon", "--configuration", "/etc/supervisor/supervisord.conf"]
+CMD ["/init.sh"]
 
 
 
 ####################### Webpack build image ##########################################################
 FROM node:8.12.0-alpine as webpack
 WORKDIR /pocketpilot
+
+COPY ./.docker/app/nginx/sites.d/sites.dev.conf /etc/nginx/sites.d/
+
 
 COPY ./assets /pocketpilot/assets
 COPY ./www /pocketpilot/www
@@ -126,9 +134,17 @@ RUN npm run build
 FROM build as production
 WORKDIR /pocketpilot
 
+RUN useradd -m -s /bin/bash -G sudo letsencrypt
+COPY ./.docker/app/letsencrypt/init.sh /home/letsencrypt/init.sh
+RUN chmod +x /home/letsencrypt/init.sh && chown letsencrypt:letsencrypt /home/letsencrypt/init.sh
+
+COPY ./.docker/app/nginx/sites.d/sites.conf /etc/nginx/sites.d/
+
 RUN mkdir -p temp log && chown www-data:www-data temp log
 
 COPY --from=webpack /pocketpilot/www/dist /pocketpilot/www/dist
 
-EXPOSE 80
+RUN composer install --no-dev
+
+EXPOSE 80 443
 CMD ["supervisord", "--nodaemon", "--configuration", "/etc/supervisor/supervisord.conf"]

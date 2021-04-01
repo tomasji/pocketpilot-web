@@ -11,7 +11,7 @@ module.exports = {
   },
   output: {
     path: path.join(path.resolve(), 'www/dist'),
-    filename: process.env.production ? '[name].[contenthash:8].js' : '[name].[hash].js',
+    filename: '[name].[contenthash:8].js',
     publicPath: '/dist/'
   },
   optimization: {
@@ -81,11 +81,5 @@ module.exports = {
       entrypoints: true
     }),
     new CleanWebpackPlugin()
-  ],
-  devServer: {
-    contentBase: path.join(__dirname, 'www/dist'),
-    contentBasePublicPath: '/dist/',
-    compress: true,
-    port: 3000
-  }
+  ]
 }
