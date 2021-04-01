@@ -3,7 +3,7 @@ set -e
 
 DOMAIN='pocketpilot.cz'
 
-if [ -d /home/letsencrypt/.acme.sh ]; then
+if [ ! -d /home/letsencrypt/.acme.sh ]; then
 	mkdir -p /home/letsencrypt/cert /home/letsencrypt/wwwroot
 	curl https://get.acme.sh -o /home/letsencrypt/acme.sh && chmod +x acme.sh
 	/home/letsencrypt/acme.sh email=andrejsoucek@seznam.cz --force
